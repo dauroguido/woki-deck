@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Woki · Sistema de gestión de hospitalidad</title>
+<meta name="description" content="El sistema de reservas que convierte tu base de clientes en perfiles accionables para potenciar marketing, servicio y métricas.">
+<meta name="theme-color" content="#132f60">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — Woki B2B
+   ============================================================ */
+:root {
+  --bg:        #ffffff;
+  --bg-soft:   #f8f8f8;
+  --bg-tint:   #e1eaf8;
+  --ink:       #132f60;
+  --ink-2:     #212227;
+  --ink-3:     #575757;
+  --ink-4:     #9aa3ad;
+  --line:      #ebebeb;
+  --line-2:    #e5e5e5;
+  --brand:     #0066cc;
+  --brand-2:   #004e9e;
+  --positive:       #1a7f4f;
+  --positive-bg:    #e8f6ed;
+  --positive-border:#b9e2c8;
+  --warning:        #b45309;
+  --warning-bg:     #fff7ec;
+  --warning-border: #fde0a8;
+
+  --font-display: 'Mona Sans', system-ui, -apple-system, sans-serif;
+  --font-body:    'Figtree', system-ui, -apple-system, sans-serif;
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink-2);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+::selection { background: var(--bg-tint); color: var(--ink); }
+
+/* ============================================================
+   BG GRID
+   ============================================================ */
+.bg-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(1200px 600px at 50% -100px, rgba(0,102,204,0.06), transparent 60%),
+    linear-gradient(to right,  rgba(19,47,96,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(19,47,96,0.04) 1px, transparent 1px);
+  background-size: auto, 80px 80px, 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+main, header, section, footer, nav { position: relative; z-index: 2; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1180px; margin: 0 auto; padding: 16px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.brand { display: flex; align-items: center; }
+.brand svg { height: 22px; width: auto; display: block; }
+.nav-links {
+  display: flex; gap: 24px;
+  font-family: var(--font-body);
+  font-size: 13.5px; color: var(--ink-3);
+}
+.nav-links a { color: inherit; text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  padding: 9px 18px; border-radius: 999px;
+  background: var(--ink); color: #fff; text-decoration: none;
+  font-family: var(--font-body); font-weight: 600; font-size: 13.5px;
+  border: 0; cursor: pointer; display: inline-block;
+  transition: transform .2s, background .2s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--brand); transform: translateY(-1px); }
+@media (max-width: 780px) { .nav-links { display: none; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  max-width: 1100px; margin: 0 auto;
+  padding: 96px 28px 80px; text-align: center;
+}
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--bg-tint); color: var(--brand-2);
+  font-family: var(--font-body);
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em;
+  margin-bottom: 28px;
+  animation: fadeUp .8s ease both;
+}
+.pill-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--brand);
+  animation: blink 2.4s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.4; transform:scale(0.85); }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6.4vw, 80px);
+  line-height: 1.04; letter-spacing: -0.035em;
+  color: var(--ink);
+  margin: 0 0 22px; font-weight: 700;
+  animation: fadeUp 1s ease both .08s;
+}
+.hero h1 em { font-style: normal; color: var(--brand); }
+.hero p.lead {
+  max-width: 700px; margin: 0 auto 36px;
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--ink-3); line-height: 1.65;
+  animation: fadeUp 1s ease both .15s;
+}
+.hero-cta-row {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 1s ease both .25s;
+}
+.btn {
+  padding: 13px 22px; border-radius: 999px;
+  font-family: var(--font-body); font-weight: 600; font-size: 14.5px;
+  border: 0; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-2); transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(0,102,204,.5); }
+.btn-ghost { background: #fff; color: var(--ink); border: 1px solid var(--line-2); }
+.btn-ghost:hover { border-color: var(--ink-4); }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+
+/* ============================================================
+   HERO STATS BAR
+   ============================================================ */
+.hero-stats {
+  max-width: 1000px; margin: 60px auto 0; padding: 0 28px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+}
+.hstat { padding: 28px 22px; background: #fff; transition: background .25s; }
+.hstat:hover { background: var(--bg-soft); }
+.hstat-num {
+  font-family: var(--font-display);
+  font-size: 38px; font-weight: 700; letter-spacing: -0.03em;
+  line-height: 1; margin-bottom: 6px; color: var(--ink);
+}
+.hstat-label { font-size: 12.5px; color: var(--ink-3); }
+@media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section.block { max-width: 1180px; margin: 0 auto; padding: 96px 28px; }
+.eyebrow {
+  display: inline-block; font-size: 12px; font-weight: 600;
+  font-family: var(--font-body);
+  letter-spacing: 0.06em; color: var(--brand); margin-bottom: 16px;
+  text-transform: uppercase;
+}
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.4vw, 52px);
+  letter-spacing: -0.03em; line-height: 1.07;
+  color: var(--ink); margin: 0 0 16px; font-weight: 700;
+}
+h2.section-title em { font-style: normal; color: var(--brand); }
+.section-sub {
+  color: var(--ink-3); font-size: 17px; max-width: 720px;
+  margin: 0 0 48px; line-height: 1.6;
+}
+.section-prose {
+  color: var(--ink-2); font-size: 16px; max-width: 760px;
+  margin: 32px 0 0; line-height: 1.7;
+}
+.section-prose b { color: var(--ink); font-weight: 600; }
+
+.divider { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+.divider hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* ============================================================
+   METRIC CARDS
+   ============================================================ */
+.metric-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 8px;
+}
+@media (max-width: 880px) { .metric-grid { grid-template-columns: 1fr; } }
+.metric {
+  padding: 32px 28px; border-radius: 16px;
+  background: #fff; border: 1px solid var(--line);
+  position: relative; overflow: hidden;
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+.metric:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,102,204,.25);
+  box-shadow: 0 10px 30px -12px rgba(19,47,96,.12);
+}
+.metric-label {
+  font-size: 12.5px; font-weight: 600; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 12px;
+  font-family: var(--font-body);
+}
+.metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 42px); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--ink); margin: 0 0 8px;
+}
+.metric-value.is-brand { color: var(--brand); }
+.metric-sub { font-size: 14px; color: var(--ink-3); margin: 0; line-height: 1.5; }
+.metric.is-featured {
+  background: linear-gradient(180deg, var(--bg-tint) 0%, #fff 100%);
+  border-color: rgba(0,102,204,.18);
+}
+.metric.is-featured::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 6px; height: 100%; background: var(--brand); opacity: .9;
+}
+
+/* ============================================================
+   COMPARE GRID
+   ============================================================ */
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 8px;
+}
+@media (max-width: 780px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare {
+  padding: 28px; border-radius: 16px;
+  background: #fff; border: 1px solid var(--line);
+}
+.compare.is-before { background: #f8f8f8; border-color: var(--line-2); }
+.compare.is-after  { background: var(--bg-tint); border-color: rgba(0,102,204,.18); }
+.compare-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em;
+  text-transform: uppercase; margin: 0 0 14px;
+}
+.compare.is-before .compare-eyebrow { color: var(--ink-4); }
+.compare.is-after  .compare-eyebrow { color: var(--brand); }
+.compare h3 {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); margin: 0 0 18px;
+}
+
+/* EXCEL MOCK */
+.excel-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-body); font-size: 11px; color: #aaa;
+  border: 1px solid #e0e0e0;
+}
+.excel-table th {
+  background: #f0f0f0; padding: 5px 8px; text-align: left;
+  font-weight: 600; color: #999; border: 1px solid #e0e0e0;
+  white-space: nowrap; font-size: 10px; letter-spacing: 0.03em;
+}
+.excel-table td {
+  padding: 4px 8px; border: 1px solid #f0f0f0; max-width: 70px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.excel-table tr:nth-child(even) td { background: #fafafa; }
+
+/* PROFILE CARD MOCK */
+.profile-card { display: flex; flex-direction: column; gap: 14px; }
+.profile-top  { display: flex; gap: 14px; align-items: flex-start; }
+.profile-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(60deg, #202B3F 0%, #0066CC 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: var(--font-display); font-size: 19px; font-weight: 700;
+  flex-shrink: 0;
+}
+.profile-name {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--ink); letter-spacing: -0.01em; margin-bottom: 3px;
+}
+.profile-meta { font-size: 12px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.profile-badge {
+  background: var(--positive-bg); color: var(--positive);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 2px 7px; border-radius: 999px;
+  border: 1px solid var(--positive-border);
+}
+.profile-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.stat-box {
+  background: var(--bg-soft); border-radius: 10px; padding: 10px;
+  text-align: center; border: 1px solid var(--line);
+}
+.stat-num {
+  font-family: var(--font-body); font-size: 20px; font-weight: 800;
+  color: var(--ink); line-height: 1; display: block; margin-bottom: 3px;
+  letter-spacing: -0.02em;
+}
+.stat-label { font-size: 10px; color: var(--ink-4); font-weight: 500; letter-spacing: 0.03em; }
+.profile-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ptag {
+  background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line);
+  font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 999px;
+}
+.ptag.alert {
+  background: var(--warning-bg); color: var(--warning);
+  border-color: var(--warning-border);
+}
+.profile-note {
+  background: var(--bg-soft); border-radius: 8px; padding: 10px 12px;
+  font-size: 12px; color: var(--ink-2); line-height: 1.45;
+  border-left: 2px solid rgba(0,102,204,.35);
+}
+.profile-note strong { color: var(--ink); font-weight: 600; }
+.profile-review { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-3); }
+.stars { color: #FCBF49; letter-spacing: 1px; }
+
+/* ============================================================
+   CAPS GRID (2-col feature cards)
+   ============================================================ */
+.caps {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 780px) { .caps { grid-template-columns: 1fr; } }
+.cap {
+  padding: 26px; border-radius: 14px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  transition: border-color .25s, box-shadow .25s;
+}
+.cap:hover { border-color: rgba(0,102,204,.25); box-shadow: 0 6px 20px -8px rgba(19,47,96,.1); }
+.cap-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--bg-tint); display: flex; align-items: center;
+  justify-content: center; margin-bottom: 14px; color: var(--brand);
+}
+.cap-icon svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.cap-name {
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  color: var(--ink); margin: 0 0 8px;
+}
+.cap-desc { font-size: 14.5px; color: var(--ink-3); line-height: 1.55; margin: 0; }
+.cap-line {
+  display: block; font-family: var(--font-display);
+  font-weight: 700; font-size: 13.5px; color: var(--brand);
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid rgba(0,102,204,.14);
+  letter-spacing: -0.005em;
+}
+
+/* 3-col variant */
+.caps-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 920px) { .caps-3 { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   SPOTLIGHT BLOCK
+   ============================================================ */
+.spotlight {
+  margin-top: 32px; border-radius: 24px;
+  padding: clamp(36px, 5vw, 52px);
+  background: var(--bg-soft); border: 1px solid var(--line);
+  position: relative; overflow: hidden;
+}
+.spotlight::before {
+  content: ''; position: absolute; right: -120px; top: -120px;
+  width: 360px; height: 360px;
+  background: radial-gradient(closest-side, rgba(0,102,204,.12), transparent);
+  border-radius: 50%; pointer-events: none;
+}
+.spotlight-tag {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--warning-bg); color: var(--warning);
+  border: 1px solid var(--warning-border);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 18px;
+  font-family: var(--font-body);
+}
+.spotlight-tag .d { width: 6px; height: 6px; border-radius: 50%; background: var(--warning); }
+.spotlight h3 {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.8vw, 34px);
+  margin: 0 0 12px; letter-spacing: -0.02em; line-height: 1.12;
+  color: var(--ink); font-weight: 700;
+}
+.spotlight h3 em { font-style: normal; color: var(--brand); }
+.spotlight .lead {
+  color: var(--ink-3); font-size: 16px; max-width: 760px;
+  margin: 0 0 28px; line-height: 1.65; position: relative;
+}
+.spotlight .lead b { color: var(--ink); font-weight: 600; }
+
+/* ============================================================
+   CALLOUT
+   ============================================================ */
+.callout {
+  margin-top: 32px; padding: 24px 28px;
+  background: var(--positive-bg); border: 1px solid var(--positive-border);
+  border-left: 4px solid var(--positive); border-radius: 12px;
+}
+.callout.is-info {
+  background: var(--bg-tint); border-color: rgba(0,102,204,.2);
+  border-left-color: var(--brand);
+}
+.callout h4 {
+  font-family: var(--font-display); margin: 0 0 6px;
+  font-size: 14px; font-weight: 700; color: var(--positive);
+}
+.callout.is-info h4 { color: var(--brand); }
+.callout p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+
+/* ============================================================
+   DARK BLOCK (ROI / CTA area)
+   ============================================================ */
+.dark-block {
+  max-width: 1180px; margin: 60px auto;
+  padding: 80px 28px;
+  background: var(--ink); border-radius: 28px;
+  color: #fff;
+}
+.dark-block .eyebrow { color: #6da4e0; }
+.dark-block h2.section-title { color: #fff; }
+.dark-block h2.section-title em { color: #4ab8ff; }
+.dark-block .section-sub { color: rgba(255,255,255,.72); max-width: 720px; }
+
+.kpi-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px; overflow: hidden; margin: 36px 0;
+}
+.kpi { padding: 28px 22px; background: var(--ink); }
+.kpi-num {
+  font-family: var(--font-display); font-size: 40px; font-weight: 700;
+  letter-spacing: -0.03em; color: #4ab8ff; line-height: 1; margin-bottom: 7px;
+}
+.kpi-label { font-size: 13px; color: rgba(255,255,255,.9); margin-bottom: 5px; font-weight: 600; font-family: var(--font-body); }
+.kpi-sub { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
+@media (max-width: 720px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+
+/* ============================================================
+   STEPS / MOMENTS
+   ============================================================ */
+.steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-top: 32px; position: relative;
+}
+.steps::before {
+  content: ''; position: absolute; top: 28px;
+  left: calc(16.67% + 8px); right: calc(16.67% + 8px);
+  height: 1px; background: var(--line); z-index: 0;
+}
+@media (max-width: 780px) {
+  .steps { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
+}
+.step { position: relative; z-index: 1; }
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(60deg, #202B3F 0%, #0066CC 100%);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body); font-size: 20px; font-weight: 800;
+  margin-bottom: 20px; box-shadow: 0 8px 24px -8px rgba(0,102,204,.4);
+}
+.step-title {
+  font-family: var(--font-display); font-size: 16px; font-weight: 700;
+  color: var(--ink); margin-bottom: 8px;
+}
+.step-body { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+/* ============================================================
+   LOGO GRID
+   ============================================================ */
+.logo-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+  margin: 48px 0 32px;
+}
+.logo-slot {
+  background: var(--bg-soft); border: 1px solid var(--line);
+  border-radius: 12px; height: 72px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-4); font-size: 11.5px; font-weight: 500;
+  text-align: center; padding: 8px;
+  font-family: var(--font-body);
+  transition: border-color .2s, box-shadow .2s;
+}
+.logo-slot:hover { border-color: var(--line-2); box-shadow: 0 2px 8px rgba(19,47,96,.06); }
+@media (max-width: 720px) { .logo-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ============================================================
+   CLOSING
+   ============================================================ */
+.closing {
+  text-align: center; padding: 100px 28px 60px;
+  max-width: 860px; margin: 0 auto;
+}
+.closing h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.8vw, 54px);
+  letter-spacing: -0.035em; line-height: 1.1;
+  color: var(--ink); margin: 0 0 20px; font-weight: 700;
+}
+.closing h2 em { font-style: normal; color: var(--brand); }
+.closing p { color: var(--ink-3); font-size: 17px; max-width: 560px; margin: 0 auto 32px; line-height: 1.6; }
+
+/* ============================================================
+   WHYNOW STRIP
+   ============================================================ */
+.whynow {
+  margin-top: 40px; padding: 32px 32px 24px;
+  background: var(--bg-soft); border-radius: 18px;
+  border-left: 4px solid var(--brand);
+}
+.whynow h4 {
+  font-family: var(--font-display); font-size: 12.5px; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--brand); text-transform: uppercase;
+  margin: 0 0 18px;
+}
+.whynow ul { list-style: none; padding: 0; margin: 0; }
+.whynow li {
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  font-size: 15px; color: var(--ink-2); line-height: 1.55;
+}
+.whynow li:last-child { border-bottom: 0; }
+.whynow li b { color: var(--ink); font-weight: 600; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--line); padding: 32px 28px;
+  text-align: center; color: var(--ink-4); font-size: 13px;
+  font-family: var(--font-body);
+}
+
+/* ============================================================
+   ANIMATED DIAGRAM
+   ============================================================ */
+.diagram-wrap {
+  position: relative; width: 100%;
+  margin-top: 8px;
+}
+.diagram-inner {
+  position: relative; height: 440px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Center nucleus */
+.nucleus {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 136px; height: 136px; border-radius: 50%;
+  background: linear-gradient(60deg, #202B3F 0%, #0066CC 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  z-index: 10;
+  box-shadow: 0 0 0 14px rgba(0,102,204,.07), 0 0 0 32px rgba(0,102,204,.04);
+  animation: breathe 4s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: translate(-50%,-50%) scale(1);   box-shadow: 0 0 0 14px rgba(0,102,204,.07), 0 0 0 32px rgba(0,102,204,.04); }
+  50%      { transform: translate(-50%,-50%) scale(1.04); box-shadow: 0 0 0 18px rgba(0,102,204,.10), 0 0 0 40px rgba(0,102,204,.05); }
+}
+.nucleus-label {
+  color: #fff; font-family: var(--font-display);
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em;
+  line-height: 1.3; padding: 0 10px; text-align: center;
+}
+.nucleus-sub {
+  color: rgba(255,255,255,.65); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;
+}
+
+/* Orbit nodes */
+.orbit-node {
+  position: absolute; z-index: 5;
+  animation: nodeIn .5s var(--delay, 0s) both;
+  animation-timing-function: cubic-bezier(0.2,0,0,1.1);
+}
+@keyframes nodeIn {
+  from { opacity:0; transform:scale(0.8); }
+  to   { opacity:1; transform:scale(1); }
+}
+.orbit-card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 12px; padding: 10px 14px;
+  box-shadow: 0 2px 8px rgba(19,47,96,.06);
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+  transition: box-shadow .2s, border-color .2s;
+}
+.orbit-card:hover { box-shadow: 0 6px 20px rgba(19,47,96,.1); border-color: rgba(0,102,204,.25); }
+.orbit-card-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.oc-in  .orbit-card-icon { background: var(--bg-tint); color: var(--brand); }
+.oc-out .orbit-card-icon { background: var(--bg-soft); color: var(--ink-3); }
+.orbit-card-icon svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.orbit-card-text { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+.orbit-card-sub  { font-size: 10px; color: var(--ink-4); margin-top: 1px; font-weight: 400; }
+
+/* Diagram SVG lines */
+.diagram-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; pointer-events: none;
+}
+.conn { stroke: #dde6f4; stroke-width: 1.5; fill: none; stroke-dasharray: 5 6; }
+.pulse { fill: var(--brand); opacity: 0; }
+
+/* Section dividers inside a block */
+.block-divider { border: 0; border-top: 1px solid var(--line); margin: 60px 0; }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ============================================================
+   TABS (Marketing section)
+   ============================================================ */
+.tabs-nav {
+  display: flex; gap: 4px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  padding: 4px; border-radius: 12px; width: fit-content;
+  margin-bottom: 24px;
+}
+.tab-btn {
+  padding: 8px 18px; border-radius: 8px; border: none;
+  background: transparent; cursor: pointer;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--ink-3); transition: all .15s;
+}
+.tab-btn.active { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 4px rgba(19,47,96,.08); }
+.tab-btn:hover:not(.active) { color: var(--ink-2); }
+.tab-panel { display: none; animation: tabIn .2s ease; }
+.tab-panel.active { display: block; }
+@keyframes tabIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  @page { size: A4; margin: 18mm; }
+  html, body { background: #fff; }
+  .bg-grid, .nav { display: none !important; }
+  section.block { padding: 16mm 0; page-break-inside: avoid; max-width: 100%; }
+  .hero { padding: 0 0 12mm; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .pill, .hero h1, .hero p.lead, .hero-cta-row { animation: none !important; opacity: 1; transform: none; }
+  .pill-dot, .nucleus { animation: none !important; }
+  * { transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <!-- Woki B2B logo SVG inlined -->
+      <svg viewBox="0 0 202.48 54.72" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Woki">
+        <defs>
+          <linearGradient id="lg1" x1="91.69" y1="124.98" x2="253.17" y2="-79.27" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#132f60"/><stop offset="1" stop-color="#06c"/>
+          </linearGradient>
+          <linearGradient id="lg2" x1="91.18" y1="124.58" x2="197.62" y2="-10.05" xlink:href="#lg1"/>
+          <linearGradient id="lg3" x1="47.56" y1="90.08" x2="209.03" y2="-114.16" xlink:href="#lg1"/>
+          <linearGradient id="lg4" x1="73.75" y1="110.79" x2="235.23" y2="-93.46" xlink:href="#lg1"/>
+          <linearGradient id="lg5" x1="106.83" y1="136.94" x2="268.3" y2="-67.3" xlink:href="#lg1"/>
+          <linearGradient id="lg6" x1="14.85" y1="64.22" x2="176.32" y2="-140.02" xlink:href="#lg1"/>
+          <linearGradient id="lg7" x1="12.33" y1="62.24" x2="173.81" y2="-142.01" xlink:href="#lg1"/>
+          <linearGradient id="lg8" x1="-4.09" y1="49.25" x2="157.39" y2="-154.99" xlink:href="#lg1"/>
+        </defs>
+        <path fill="url(#lg1)" d="M177.22,47.77c.2.44.31.92.31,1.43,0,1.92-1.54,3.47-3.46,3.49h-9.36c-1.36,0-2.53-.77-3.11-1.9l-5.06-11.98-1.38-3.29c-.16-.42-.32-.86-.45-1.29-.88-2.7-1.32-5.51-1.33-8.31,0-2.94.5-5.89,1.46-8.7.47-1.7,2.6-6.09,4.43-9.72l.82-1.6c.57-1.12,1.07-2.09,1.44-2.79.16-.3.29-.55.38-.74.61-1.01,1.72-1.68,2.99-1.68h9.05c1.91.02,3.46,1.57,3.46,3.49,0,.32-.04.64-.13.93l-8.76,17.68c-.29.62-1.5,3.57-.27,7.06l.17.43.59,1.4,7.96,16.12.11.23z"/>
+        <path fill="url(#lg3)" d="M124.36,25.2c-.1-1.17-.27-2.35-.52-3.49-.25-1.19-.59-2.35-.99-3.49-.29-.81-.61-1.62-.98-2.4-.17-.36-.35-.73-.55-1.09-.63-1.21-1.36-2.39-2.16-3.49-.26-.35-.52-.7-.79-1.04-.29-.35-.57-.69-.87-1.02-.43-.5-.9-.98-1.37-1.43-.4-.39-.83-.78-1.26-1.15-1-.86-2.07-1.64-3.19-2.33-1.12-.69-2.29-1.29-3.51-1.81-1.13-.5-2.31-.9-3.51-1.22-.61-.14-1.23-.26-1.84-.36-1.16-.17-2.33-.25-3.51-.26-1.16,0-2.33.06-3.49.21-.96.12-1.93.29-2.88.51-1.2.31-2.37.69-3.51,1.16-1.13.46-2.24,1-3.31,1.62-.95.6-1.88,1.26-2.75,1.98-.59.47-1.15.98-1.68,1.5-.64.63-1.25,1.26-1.82,1.94-.43.51-.83,1.02-1.23,1.55-.81,1.11-1.54,2.28-2.18,3.49-.43.85-.82,1.72-1.17,2.62-.4,1.15-.74,2.31-.99,3.49-.23,1.15-.42,2.32-.51,3.49-.09,1.16-.1,2.32-.05,3.49.05,1.17.18,2.33.39,3.49.21,1.17.5,2.35.86,3.49.36,1.16.82,2.28,1.34,3.36.5.95,1.04,1.89,1.66,2.78.56.86,1.19,1.67,1.85,2.45.79.86,1.66,1.65,2.57,2.4.47.38.94.74,1.42,1.09.36.23.73.47,1.11.68,1.12.66,2.29,1.24,3.51,1.73.8.29,1.6.52,2.41.73,1.15.3,2.32.52,3.51.66,1.09.13,2.19.2,3.3.2h.2c.87,0,1.76-.05,2.63-.14,1.19-.17,2.36-.4,3.51-.72.66-.18,1.32-.39,1.95-.63.52-.18,1.04-.39,1.55-.6,1.21-.52,2.38-1.12,3.51-1.81.56-.34,1.11-.7,1.64-1.08.64-.46,1.26-.94,1.86-1.46.55-.46,1.07-.94,1.58-1.45.48-.5.94-1.02,1.37-1.55.51-.63.99-1.28,1.43-1.94.74-1.11,1.41-2.27,1.99-3.49.26-.57.51-1.16.74-1.76.2-.52.38-1.04.55-1.56.36-1.15.65-2.32.86-3.49.21-1.16.34-2.32.39-3.49.04-.87.04-1.75,0-2.62-.01-.29-.04-.59-.05-.87zM97.21,39.8c-6.78,0-12.26-5.49-12.26-12.26s5.49-12.26,12.26-12.26,12.26,5.49,12.26,12.26-5.49,12.26-12.26,12.26z"/>
+        <path fill="url(#lg4)" d="M148.29,4.05v45.4c0,1.92-1.54,3.47-3.46,3.49h-9.22c-1.36,0-2.53-.77-3.11-1.9l-.03-.07c-.08-.23-.14-.48-.16-.73-.02-.13-.02-.26-.02-.4V4.05c0-.14,0-.27.02-.4.04-.36.14-.71.28-1.03.06-.13.12-.25.19-.36.61-1.01,1.72-1.68,2.99-1.68h9.22c1.91.02,3.46,1.57,3.46,3.49z"/>
+        <path fill="url(#lg5)" d="M202.48,3.49v45.4c0,1.92-1.54,3.47-3.46,3.49h-9.22c-1.36,0-2.53-.77-3.11-1.9l-.03-.07c-.08-.23-.14-.48-.16-.73-.02-.13-.02-.26-.02-.4V3.49c0-.14,0-.27.02-.4.04-.36.14-.71.28-1.03.06-.13.12-.25.19-.36.61-1.01,1.72-1.68,2.99-1.68h9.22c1.91.02,3.46,1.57,3.46,3.49z"/>
+        <path fill="url(#lg6)" d="M69.97,2.86c-.53-1.25-1.77-2.13-3.21-2.13h-9.89c-1.89,0-3.43,1.54-3.43,3.43,0,.21.02.42.06.63l.06.16,3.53,9.67c.53,1.25,1.77,2.13,3.21,2.13,1.08,0,2.05-.49,2.69-1.27.14-.19.26-.4.36-.61.07-.16.14-.31.21-.47,1.3-2.88,2.96-5.56,4.92-7.99.49-.59.78-1.34.78-2.17,0-.33-.05-.65-.14-.96l-.14-.4z"/>
+        <path fill="url(#lg7)" d="M57.16,42.98c0,.22,0,.43-.02.64-.21,3.77-2.24,7.06-5.23,8.99-1.19.77-2.53,1.32-3.96,1.61-.22.04-.45.07-.69.07-1.11,0-2.03-.4-2.68-1.3l-.6-1.15-6.24-17.11L26.93,5.11l-.06-.16c-.05-.14-.09-.29-.11-.45-.04-.2-.06-.41-.06-.63,0-1.89,1.53-3.43,3.43-3.43h9.88c1.36,0,2.53.79,3.09,1.94l.23.64,13.35,36.65c.32,1.05.49,2.17.49,3.33z"/>
+        <path fill="url(#lg8)" d="M30.47,42.98c0,.22,0,.43-.02.64-.21,3.77-2.24,7.06-5.23,8.99-1.19.77-2.53,1.32-3.96,1.61-.22.04-.45.07-.69.07-1.11,0-2.03-.4-2.68-1.3l-.6-1.15L11.05,34.73.24,5.11l-.06-.16c-.05-.14-.09-.29-.11-.45C0,4.3,0,4.09,0,3.87,0,1.95,1.53.41,3.43.41h9.88c1.36,0,2.53.79,3.09,1.94l.23.64,13.35,36.65c.32,1.05.49,2.17.49,3.33z"/>
+      </svg>
+    </div>
+
+    <div class="nav-links">
+      <a href="#hospitalidad">Hospitalidad</a>
+      <a href="#hospitality-manager">Hospitality Manager</a>
+      <a href="#comunicacion">Comunicación</a>
+      <a href="#servicio">Servicio</a>
+      <a href="#operacion">Operación</a>
+      <a href="#implementacion">Implementación</a>
+      <a href="#restaurantes">Restaurantes</a>
+    </div>
+
+    <a class="nav-cta" href="#restaurantes">Contactanos →</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero">
+  <div class="pill"><span class="pill-dot"></span> Sistema de gestión de reservas y hospitalidad</div>
+  <h1>La hospitalidad que siempre quisiste brindar,<br><em>hecha sistema</em>.</h1>
+  <p class="lead">Woki no es una herramienta para llenar mesas. Es la plataforma que convierte cada interacción con tu cliente en un perfil accionable — para que tu equipo brinde el mejor servicio, todos los días, con cada comensal.</p>
+  <div class="hero-cta-row">
+    <a class="btn btn-primary" href="#hospitality-manager">Ver el Hospitality Manager →</a>
+    <a class="btn btn-ghost" href="#operacion">Ver funcionalidades</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-num">+1.000</div>
+      <div class="hstat-label">restaurantes activos en la red</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">98%</div>
+      <div class="hstat-label">de cobrabilidad con Yuno en LATAM</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">48hs</div>
+      <div class="hstat-label">para estar operativo desde el alta</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-num">0</div>
+      <div class="hstat-label">comisiones por reserva, sin contratos de permanencia</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     01 · HOSPITALIDAD
+     ============================================================ -->
+<section class="block reveal" id="hospitalidad">
+  <div class="eyebrow">01 · Hospitalidad</div>
+  <h2 class="section-title">Cada punto de contacto con tu cliente,<br><em>en una sola plataforma.</em></h2>
+  <p class="section-sub">¿Cuántas personas visitaron tu restaurante, les encantó la experiencia… y nunca más volvieron? Hospitalidad no es solo el servicio en la mesa. Es marketing, identidad digital, reserva, atención y fidelización postventa.</p>
+
+  <div class="caps caps-3">
+    <div class="cap">
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <p class="cap-name">Perfil digital del restaurante</p>
+      <p class="cap-desc">Primera impresión del comensal antes de reservar. Menú, fotos, identidad de marca y flujo de reserva sin fricciones, en un solo lugar.</p>
+      <span class="cap-line">Tu marca, antes de que entren por la puerta.</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <p class="cap-name">Reserva y gestión de servicio</p>
+      <p class="cap-desc">El comensal reserva en segundos. Tu equipo empieza el turno sabiendo a quién esperar. La operación, conectada de punta a punta.</p>
+      <span class="cap-line">De la reserva online al brief de turno, sin gaps.</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <p class="cap-name">Marketing y fidelización</p>
+      <p class="cap-desc">Campañas de email y ads segmentados por historial, preferencias y comportamiento real de cada cliente. No más mailings genéricos.</p>
+      <span class="cap-line">Audiencias construidas desde adentro, no compradas.</span>
+    </div>
+  </div>
+
+  <div class="callout is-info" style="margin-top: 36px;">
+    <h4>El reframe que cambia todo</h4>
+    <p>Los restaurantes que más crecen no son los que tienen más mesas — son los que conocen mejor a sus clientes. Woki convierte cada reserva en datos, y cada dato en una oportunidad de brindar un servicio más personalizado.</p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     02 · HOSPITALITY MANAGER
+     ============================================================ -->
+<section class="block reveal" id="hospitality-manager">
+  <div class="eyebrow">02 · Hospitality Manager</div>
+  <h2 class="section-title">Tu base de clientes, convertida en<br><em>perfiles accionables.</em></h2>
+  <p class="section-sub">El corazón de Woki. Un sistema que toma cada dato de tu operación — reservas, POS, notas del equipo, reseñas — y los convierte en perfiles ricos que potencian el servicio, el marketing y las métricas.</p>
+
+  <!-- PARTE A: ANTES / DESPUÉS -->
+  <div class="compare-grid">
+    <!-- BEFORE -->
+    <div class="compare is-before">
+      <p class="compare-eyebrow">Sin Woki — lo que tienen hoy</p>
+      <h3>Una grilla de datos ilegible</h3>
+      <table class="excel-table">
+        <thead>
+          <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Tel</th><th>Visitas</th><th>Últ. reserva</th><th>Notas</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1042</td><td>García, M.</td><td>maria.g@gm…</td><td>1155443…</td><td>3</td><td>12/04/24</td><td>—</td></tr>
+          <tr><td>1043</td><td>Fernández</td><td>jfernandez…</td><td>1166778…</td><td>1</td><td>02/01/24</td><td>—</td></tr>
+          <tr><td>1044</td><td>Rodríguez</td><td>—</td><td>1177665…</td><td>7</td><td>30/03/24</td><td>—</td></tr>
+          <tr><td>1045</td><td>López, A.</td><td>alopez@ya…</td><td>—</td><td>2</td><td>15/02/24</td><td>sin gluten</td></tr>
+          <tr><td>1046</td><td>Martínez</td><td>cmartine…</td><td>1188990…</td><td>4</td><td>08/04/24</td><td>—</td></tr>
+          <tr><td>1047</td><td>González</td><td>pgonzale…</td><td>1144332…</td><td>1</td><td>01/12/23</td><td>—</td></tr>
+          <tr><td>1048</td><td>Pérez, L.</td><td>lperez@ou…</td><td>1199887…</td><td>12</td><td>10/04/24</td><td>vip, ventana</td></tr>
+          <tr><td>1049</td><td>Sánchez</td><td>rsanche…</td><td>—</td><td>2</td><td>22/03/24</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- AFTER -->
+    <div class="compare is-after">
+      <p class="compare-eyebrow">Con Woki — perfil accionable</p>
+      <h3>Una persona, no un registro</h3>
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="profile-avatar">LP</div>
+          <div>
+            <div class="profile-name">Laura Pérez</div>
+            <div class="profile-meta">
+              <span>Buenos Aires</span>
+              <span>·</span>
+              <span>Última visita: hace 4 días</span>
+              <span class="profile-badge">VIP</span>
+            </div>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-box"><span class="stat-num">12</span><span class="stat-label">Visitas</span></div>
+          <div class="stat-box"><span class="stat-num">$48k</span><span class="stat-label">Consumo POS</span></div>
+          <div class="stat-box"><span class="stat-num">4.8</span><span class="stat-label">Rating</span></div>
+        </div>
+        <div class="profile-tags">
+          <span class="ptag">Mesa junto a la ventana</span>
+          <span class="ptag">Vino blanco</span>
+          <span class="ptag">Sin mariscos</span>
+          <span class="ptag alert">Exp. negativa — mar/24</span>
+        </div>
+        <div class="profile-note">
+          <strong>Nota del equipo:</strong> Prefiere que la atienda Lucas. Vino 3 veces con clientes de trabajo. Le gustó el degustación de temporada.
+        </div>
+        <div class="profile-review">
+          <span class="stars">★★★★★</span>
+          <span style="font-size:12px;color:var(--ink-3)">"Una experiencia increíble, volvemos sin dudas."</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="block-divider">
+
+  <!-- PARTE B: DIAGRAMA -->
+  <div class="eyebrow" style="margin-top:0">El núcleo que nutre todo</div>
+  <h3 style="font-family:var(--font-display);font-size:clamp(22px,2.8vw,34px);font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin:0 0 12px;line-height:1.12;">
+    Un solo sistema que <em style="font-style:normal;color:var(--brand)">alimenta y potencia</em> toda la operación.
+  </h3>
+  <p style="color:var(--ink-3);font-size:16px;max-width:640px;margin:0 0 0;line-height:1.65;">
+    El Hospitality Manager recibe datos de todas las fuentes y los distribuye a cada herramienta de tu operación en tiempo real.
+  </p>
+
+  <div class="diagram-wrap">
+    <div class="diagram-inner" id="diagram-inner">
+      <!-- SVG connector lines, drawn by JS -->
+      <svg class="diagram-svg" id="diag-svg" viewBox="0 0 900 440" preserveAspectRatio="xMidYMid meet">
+        <!-- INPUT lines (left side → center ~450,220) -->
+        <line class="conn" id="cl-pos"     x1="130" y1="72"  x2="386" y2="200"/>
+        <line class="conn" id="cl-res"     x1="130" y1="152" x2="386" y2="212"/>
+        <line class="conn" id="cl-notas"   x1="130" y1="275" x2="386" y2="228"/>
+        <line class="conn" id="cl-rev-in"  x1="130" y1="358" x2="386" y2="242"/>
+        <!-- OUTPUT lines (center ~514,220 → right side) -->
+        <line class="conn" id="cl-app"     x1="514" y1="200" x2="764" y2="68"/>
+        <line class="conn" id="cl-perfil"  x1="514" y1="210" x2="764" y2="155"/>
+        <line class="conn" id="cl-email"   x1="514" y1="220" x2="764" y2="240"/>
+        <line class="conn" id="cl-ads"     x1="514" y1="230" x2="764" y2="320"/>
+        <line class="conn" id="cl-briefs"  x1="514" y1="242" x2="764" y2="390"/>
+        <!-- Pulse dots (animated) -->
+        <circle class="pulse" id="p1" r="4"/>
+        <circle class="pulse" id="p2" r="4"/>
+        <circle class="pulse" id="p3" r="4"/>
+        <circle class="pulse" id="p4" r="4"/>
+        <circle class="pulse" id="p5" r="4"/>
+      </svg>
+
+      <!-- CENTER NUCLEUS -->
+      <div class="nucleus">
+        <div class="nucleus-label">Hospitality<br>Manager</div>
+        <div class="nucleus-sub">Woki</div>
+      </div>
+
+      <!-- ===== INPUT NODES ===== -->
+      <div class="orbit-node oc-in" id="n-pos"   style="left:2%;top:8%;--delay:.1s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">POS</div>
+            <div class="orbit-card-sub">Fudo · MaxiRest</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-in" id="n-res"   style="left:2%;top:27%;--delay:.2s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Reservas</div>
+            <div class="orbit-card-sub">Online + teléfono</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-in" id="n-notas" style="left:2%;top:54%;--delay:.3s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Notas del equipo</div>
+            <div class="orbit-card-sub">Preferencias · alertas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-in" id="n-rvin"  style="left:2%;top:75%;--delay:.4s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Reseñas</div>
+            <div class="orbit-card-sub">Woki · Google</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== OUTPUT NODES ===== -->
+      <div class="orbit-node oc-out" id="n-app"    style="right:2%;top:5%;--delay:.5s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">App Woki</div>
+            <div class="orbit-card-sub">Para restaurantes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-out" id="n-perf"   style="right:2%;top:26%;--delay:.6s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Perfil del restaurante</div>
+            <div class="orbit-card-sub">Reservas públicas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-out" id="n-email"  style="right:2%;top:47%;--delay:.7s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Email marketing</div>
+            <div class="orbit-card-sub">Segmentado por perfil</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-out" id="n-ads"    style="right:2%;top:66%;--delay:.8s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Métricas y reportes</div>
+            <div class="orbit-card-sub">Panel · mail mensual</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-node oc-out" id="n-briefs" style="right:2%;top:83%;--delay:.9s">
+        <div class="orbit-card">
+          <div class="orbit-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div>
+            <div class="orbit-card-text">Briefs pre-servicio</div>
+            <div class="orbit-card-sub">Para el equipo</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /diagram-inner -->
+  </div><!-- /diagram-wrap -->
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     03 · COMUNICACIÓN Y MARKETING
+     ============================================================ -->
+<section class="block reveal" id="comunicacion">
+  <div class="eyebrow">03 · Comunicación y marketing</div>
+  <h2 class="section-title">Campañas, eventos y perfil del restaurante,<br><em>con audiencias precisas.</em></h2>
+  <p class="section-sub">Cada acción de marketing parte de datos reales de tus clientes. No de listas compradas ni de segmentos genéricos — de quiénes vinieron, cuántas veces y qué pidieron.</p>
+
+  <div class="tabs-nav" role="tablist">
+    <button class="tab-btn active" data-tab="perfil" role="tab">Perfil del restaurante</button>
+    <button class="tab-btn" data-tab="campanas" role="tab">Campañas y email</button>
+    <button class="tab-btn" data-tab="eventos" role="tab">Eventos y experiencias</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-perfil">
+    <div class="caps">
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+        </div>
+        <p class="cap-name">Tu primera impresión digital</p>
+        <p class="cap-desc">La página de tu restaurante en Woki muestra menú, fotos, descripción y horarios con el flujo de reserva integrado. El comensal llega informado y reserva en segundos, sin fricción.</p>
+        <span class="cap-line">Identidad de marca antes de la primera copa.</span>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <p class="cap-name">Reserva sin fricciones para el comensal</p>
+        <p class="cap-desc">Fecha, horario y comensales en tres clics. Confirmación instantánea. Sin llamadas, sin formularios largos. La reserva queda en el sistema y tu equipo la ve en tiempo real.</p>
+        <span class="cap-line">Menos abandonos. Más reservas concretadas.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-campanas">
+    <div class="caps">
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <p class="cap-name">Email segmentado por comportamiento real</p>
+        <p class="cap-desc">Audiencias construidas desde el Hospitality Manager: quién vino una vez y no volvió, quiénes son tus fieles, quiénes estuvieron hace 60+ días. Tres casos de uso concretos:</p>
+        <span class="cap-line">Fidelizá nuevos · Recuperá dormidos · Mantenés fieles.</span>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <p class="cap-name">Ads conectados a tu base de clientes</p>
+        <p class="cap-desc">Integraciones con Meta Ads, Google Ads y TikTok Ads. Cargás audiencias construidas desde Woki directamente en tus campañas. Menos desperdicio, más precisión.</p>
+        <span class="cap-line">Meta · Google · TikTok — audiencias de primera parte.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="tab-eventos">
+    <div class="caps">
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <p class="cap-name">Perfil propio por evento o experiencia</p>
+        <p class="cap-desc">Cada experiencia tiene su propia página: fotos, dinámica, precio y link único. Listo para compartir en redes, ads y email. El tráfico va a un solo lugar y la reserva queda en el sistema.</p>
+        <span class="cap-line">Un link. Toda la información. Reserva integrada.</span>
+      </div>
+      <div class="cap">
+        <div class="cap-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        </div>
+        <p class="cap-name">Amplificación multicanal</p>
+        <p class="cap-desc">Compartí el evento en Instagram, WhatsApp, email y ads. Todo el tráfico converge en el perfil de Woki — con la reserva integrada y cada asistente entrando al Hospitality Manager.</p>
+        <span class="cap-line">Cada asistente a un evento, un perfil más en tu base.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     04 · SERVICIO
+     ============================================================ -->
+<section class="block reveal" id="servicio">
+  <div class="eyebrow">04 · Servicio</div>
+  <h2 class="section-title">Atención personalizada,<br><em>sistematizada para todo tu equipo.</em></h2>
+  <p class="section-sub">La atención uno-a-uno que querés brindarle a cada cliente, hecha estándar para todo el equipo — desde el host hasta el mozo. Sin depender de la memoria de cada persona.</p>
+
+  <div class="caps">
+    <div class="cap">
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <p class="cap-name">Briefs pre-servicio</p>
+      <p class="cap-desc">El equipo arranca el turno sabiendo exactamente a quién esperar. VIPs y clientes recurrentes del día, alertas de experiencia negativa previa, preferencias, alergias y pedidos especiales, cumpleaños y fechas importantes.</p>
+      <span class="cap-line">El equipo preparado antes de que abran las puertas.</span>
+    </div>
+    <div class="cap">
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/><path d="M8 6h8M8 10h8M8 14h4"/></svg>
+      </div>
+      <p class="cap-name">App Woki para restaurantes</p>
+      <p class="cap-desc">Durante el servicio, cualquier integrante del equipo accede al perfil completo del cliente en segundos desde su celular: notas y preferencias, historial de visitas y consumo, cambios de reserva en tiempo real, asignación de mesas.</p>
+      <span class="cap-line">La info del cliente al alcance de quien lo está atendiendo.</span>
+    </div>
+  </div>
+
+  <div class="spotlight" style="margin-top:32px;">
+    <div class="spotlight-tag"><span class="d"></span> Impacto directo</div>
+    <h3>El comensal siente que lo conocen. <em>Porque lo conocen.</em></h3>
+    <p class="lead">No es magia — es información sistematizada. Cuando el mozo llega a la mesa sabiendo que a Laura le gusta el vino blanco y prefiere una mesa junto a la ventana, la experiencia pasa a otro nivel. <b>Eso es lo que fideliza de verdad.</b></p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     05 · OPERACIÓN
+     ============================================================ -->
+<section class="block reveal" id="operacion">
+  <div class="eyebrow">05 · Operación</div>
+  <h2 class="section-title">Pagos, reseñas y métricas<br><em>en un solo lugar.</em></h2>
+  <p class="section-sub">Todo lo que necesitás para gestionar la operación de manera profesional, integrado en la misma plataforma que gestiona tus reservas y perfiles de clientes.</p>
+
+  <div class="metric-grid">
+    <div class="metric is-featured">
+      <p class="metric-label">Pagos con Yuno</p>
+      <p class="metric-value">98%</p>
+      <p class="metric-sub">Cobrabilidad en LATAM. Anticipos y tarjetas en garantía, pasarela segura, tarjetas locales e internacionales. Los no-shows, un problema resuelto.</p>
+    </div>
+    <div class="metric">
+      <p class="metric-label">Reseñas con IA</p>
+      <p class="metric-value is-brand">Woki + Google</p>
+      <p class="metric-sub">Panel unificado de reseñas con detección automática de patrones y planes de acción sugeridos. Respondés más rápido, mejorás con datos reales.</p>
+    </div>
+    <div class="metric">
+      <p class="metric-label">Métricas y reportes</p>
+      <p class="metric-value is-brand">1 panel</p>
+      <p class="metric-sub">Marketing, operación y reseñas en un solo lugar. Cada mes recibís un reporte automático al mail con los números que importan: ocupación, no-shows, NPS, campañas.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     06 · IMPLEMENTACIÓN
+     ============================================================ -->
+<section class="block reveal" id="implementacion">
+  <div class="eyebrow">06 · Implementación</div>
+  <h2 class="section-title">Migramos tus datos, configuramos Woki<br><em>y capacitamos a tu equipo.</em></h2>
+  <p class="section-sub">Cambiar de sistema es el miedo de todos. Por eso nos encargamos de todo — desde la migración de datos hasta la capacitación del personal. Tu equipo empieza a usar Woki desde el primer día.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Migración de datos</div>
+      <div class="step-body">Tu base de clientes y reservas existentes se migran en minutos. Sin trabajo manual, sin perder historial. Llegás al día uno con todo tu capital de datos intacto.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Configuración a medida</div>
+      <div class="step-body">El equipo de Woki configura el sistema adaptado a cómo trabajás: estructura de mesas, turnos, políticas de cancelación, integraciones con tu POS. Nosotros nos encargamos, vos aprobás.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Capacitación del personal</div>
+      <div class="step-body">Entrenamos a tu equipo para sacarle el máximo provecho. Desde el host hasta el manager. Rápido, claro, sin tecnicismos. Y con soporte continuo después.</div>
+    </div>
+  </div>
+
+  <div class="whynow" style="max-width:720px;">
+    <h4>Lo que necesitás saber antes de arrancar</h4>
+    <ul>
+      <li><b>Alta en menos de 48 horas.</b> Desde que firmás hasta que tomás tu primera reserva en Woki.</li>
+      <li><b>Sin contratos de permanencia.</b> Si en algún momento no te suma, te vas sin penalidades.</li>
+      <li><b>Sin comisiones por reserva.</b> Cuota fija mensual. El crecimiento de tu negocio es tuyo.</li>
+      <li><b>Soporte humano.</b> Un equipo real que responde — no un chatbot, no un formulario.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================
+     07 · RESTAURANTES QUE CONFÍAN EN WOKI
+     ============================================================ -->
+<section class="block reveal" id="restaurantes">
+  <div class="eyebrow">07 · Restaurantes que confían en Woki</div>
+  <h2 class="section-title">Los mejores restaurantes de Argentina<br><em>ya gestionan con Woki.</em></h2>
+  <p class="section-sub">Desde fine dining con reconocimiento internacional hasta cadenas premium con presencia nacional. La red Woki es la más amplia y la más exigente del país.</p>
+
+  <div class="logo-grid">
+    <div class="logo-slot">Logo 01</div>
+    <div class="logo-slot">Logo 02</div>
+    <div class="logo-slot">Logo 03</div>
+    <div class="logo-slot">Logo 04</div>
+    <div class="logo-slot">Logo 05</div>
+    <div class="logo-slot">Logo 06</div>
+    <div class="logo-slot">Logo 07</div>
+    <div class="logo-slot">Logo 08</div>
+    <div class="logo-slot">Logo 09</div>
+    <div class="logo-slot">Logo 10</div>
+  </div>
+
+  <div class="callout is-info">
+    <h4>+1.000 restaurantes activos en Argentina y Chile</h4>
+    <p>Woki es el sistema de gestión de reservas líder en Argentina. La lista completa de restaurantes flagship está disponible en una conversación. Lo que sí podemos decir: si buscás el estándar más alto de la gastronomía argentina, están acá.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     CLOSING
+     ============================================================ -->
+<section class="closing reveal">
+  <h2>¿Querés verlo<br>en tu restaurante?<br><em>Agendá una demo.</em></h2>
+  <p>Te mostramos cómo Woki se adapta a tu operación, con tu propia base de datos como punto de partida. Sin compromiso, sin tecnicismos.</p>
+  <a class="btn btn-primary" href="#" style="margin: 0 auto; display: inline-flex;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.39a2 2 0 0 1 1.97-2.18H6.6a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.98 5.98l.97-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Contactanos
+  </a>
+</section>
+
+<footer>
+  Woki · Sistema de gestión de reservas y hospitalidad<br>
+  restaurantes.wokiapp.com
+</footer>
+
+<!-- ============================================================
+     JS: SCROLL REVEAL + TABS + PULSE ANIMATION
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── Scroll reveal ── */
+  const io = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ── Tabs ── */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.tab;
+      const container = btn.closest('section, main, div');
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + key).classList.add('active');
+    });
+  });
+
+  /* ── Diagram: position nodes relative to SVG viewBox, then animate pulses ── */
+  function animatePulse(dotId, x1, y1, x2, y2, delay) {
+    setTimeout(function run() {
+      const dot = document.getElementById(dotId);
+      if (!dot) return;
+      dot.setAttribute('cx', x1);
+      dot.setAttribute('cy', y1);
+      dot.style.opacity = '1';
+      const start = performance.now();
+      const dur = 920;
+      function step(now) {
+        const t = Math.min((now - start) / dur, 1);
+        const e = t < .5 ? 2*t*t : -1 + (4 - 2*t)*t;
+        dot.setAttribute('cx', x1 + (x2 - x1) * e);
+        dot.setAttribute('cy', y1 + (y2 - y1) * e);
+        if (t < 1) { requestAnimationFrame(step); }
+        else { dot.style.opacity = '0'; setTimeout(run, 3200 + Math.random() * 800); }
+      }
+      requestAnimationFrame(step);
+    }, delay);
+  }
+
+  /* Only start when diagram section enters viewport */
+  const diagSection = document.getElementById('hospitality-manager');
+  let started = false;
+  const diagObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !started) {
+      started = true;
+      /* pulses: from input nodes to center, then center to output nodes */
+      animatePulse('p1', 130, 72,  386, 200,  200);
+      animatePulse('p2', 130, 152, 386, 212,  600);
+      animatePulse('p3', 514, 200, 764, 68,  1000);
+      animatePulse('p4', 130, 358, 386, 242, 1400);
+      animatePulse('p5', 514, 230, 764, 320, 1800);
+    }
+  }, { threshold: 0.2 });
+  if (diagSection) diagObs.observe(diagSection);
+
+})();
+</script>
+
+</body>
+</html>
