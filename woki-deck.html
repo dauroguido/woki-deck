@@ -1,0 +1,2313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Woki — El sistema de reservas y hospitalidad para los mejores restaurantes</title>
+  <meta property="og:title" content="Woki — El sistema de reservas y hospitalidad para los mejores restaurantes">
+  <meta property="og:description" content="+700 restaurantes · 98% de cobrabilidad · Alta en menos de 72hs">
+  <meta property="og:type" content="website">
+  <meta name="description" content="El sistema de reservas y hospitalidad para los mejores restaurantes.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* =====================================================================
+       TOKENS — Woki B2B
+       ===================================================================== */
+    :root {
+      --font-display: 'Mona Sans','Figtree',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+      --font-body:    'Figtree',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+
+      --fs-12:12px; --lh-12:16px;
+      --fs-14:14px; --lh-14:20px;
+      --fs-16:16px; --lh-16:24px;
+      --fs-18:18px; --lh-18:28px;
+      --fs-20:20px; --lh-20:28px;
+      --fs-24:24px; --lh-24:32px;
+      --fs-32:32px; --lh-32:38px;
+      --fs-40:40px; --lh-40:46px;
+      --fs-56:56px; --lh-56:60px;
+      --fs-72:72px; --lh-72:76px;
+
+      --fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700;
+      --tracking-tight:-0.02em; --tracking-snug:-0.01em;
+
+      --bg:#FFFFFF; --bg-soft:#FAF7F4; --bg-muted:#F3EFEA;
+      --bg-inverse:#0E0F12; --surface:#FFFFFF;
+      --border:#E8E3DD; --border-strong:#D6CFC5;
+      --fg:#212227; --fg-1:#212227; --fg-2:#3E3F45;
+      --fg-3:#6B6C72; --fg-4:#9A9AA1;
+      --fg-inverse:#FFFFFF; --fg-disclaimer:#6B6760;
+
+      --b2b-50:#EEF4FC; --b2b-100:#D6E4F7;
+      --b2b-500:#0066CC; --b2b-800:#132F60; --b2b-900:#202B3F;
+      --b2b-gradient:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);
+      --brand:#0066CC; --brand-dark:#132F60; --brand-hover:#0e2349;
+
+      --r-xs:6px; --r-sm:10px; --r-md:12px; --r-lg:18px;
+      --r-xl:24px; --r-pill:999px;
+
+      --shadow-sm:0 2px 6px rgba(14,15,18,.06),0 1px 2px rgba(14,15,18,.04);
+      --shadow-md:0 8px 24px rgba(14,15,18,.08),0 2px 6px rgba(14,15,18,.04);
+      --shadow-lg:0 24px 48px rgba(14,15,18,.12),0 4px 12px rgba(14,15,18,.06);
+
+      --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+      --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
+      --sp-16:64px; --sp-20:80px; --sp-24:96px;
+
+      --ease:cubic-bezier(.2,0,0,1);
+      --dur-1:120ms; --dur-2:200ms; --dur-3:320ms; --dur-4:520ms;
+      --nav-h:60px; --max-w:1200px;
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after {
+        animation-duration:.01ms!important; animation-iteration-count:1!important;
+        transition-duration:.01ms!important; scroll-behavior:auto!important;
+      }
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:16px;}
+    body{
+      background:var(--bg);color:var(--fg-1);
+      font-family:var(--font-body);font-size:var(--fs-16);line-height:var(--lh-16);
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none;}
+    button{cursor:pointer;font-family:inherit;}
+    img,svg{display:block;}
+
+    /* =====================================================================
+       TOP NAV
+       ===================================================================== */
+    .top-nav{
+      position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:200;
+      backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);
+      background:rgba(255,255,255,.88);border-bottom:1px solid rgba(232,227,221,.55);
+      display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp-8);
+    }
+    .top-nav__logo{display:flex;align-items:center;height:30px;}
+    .top-nav__logo svg{height:30px;width:auto;}
+
+    /* =====================================================================
+       BUTTONS
+       ===================================================================== */
+    .btn{
+      display:inline-flex;align-items:center;gap:var(--sp-2);
+      font-family:var(--font-display);font-size:var(--fs-14);font-weight:var(--fw-semibold);
+      line-height:1;border-radius:var(--r-md);border:none;padding:9px 20px;
+      cursor:pointer;text-decoration:none;white-space:nowrap;
+      transition:background var(--dur-1) var(--ease),transform var(--dur-1) var(--ease);
+    }
+    .btn:active{transform:scale(.98);}
+    .btn--primary{background:var(--brand-dark);color:#fff;}
+    .btn--primary:hover{background:var(--brand-hover);}
+    .btn--secondary{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand-dark);padding:8px 20px;}
+    .btn--secondary:hover{background:#EEF1F8;}
+
+    /* =====================================================================
+       SIDE NAV
+       ===================================================================== */
+    .side-nav{
+      position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:150;
+      display:flex;flex-direction:column;gap:10px;align-items:center;
+    }
+    .side-nav__dot{
+      width:7px;height:7px;border-radius:var(--r-pill);background:var(--border-strong);
+      border:none;padding:0;cursor:pointer;position:relative;
+      transition:background var(--dur-2) var(--ease),transform var(--dur-2) var(--ease),height var(--dur-2) var(--ease);
+    }
+    .side-nav__dot::before{
+      content:attr(data-label);position:absolute;right:calc(100% + 10px);top:50%;
+      transform:translateY(-50%);background:var(--bg-inverse);color:var(--fg-inverse);
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-medium);
+      white-space:nowrap;padding:4px 10px;border-radius:var(--r-xs);
+      opacity:0;pointer-events:none;transition:opacity var(--dur-1) var(--ease);
+    }
+    .side-nav__dot:hover::before{opacity:1;}
+    .side-nav__dot:hover{background:var(--brand);transform:scale(1.4);}
+    .side-nav__dot.is-active{background:var(--brand-dark);height:20px;}
+
+    /* =====================================================================
+       SECTION BASE
+       ===================================================================== */
+    .section{
+      min-height:100vh;padding-top:var(--nav-h);
+      display:flex;flex-direction:column;justify-content:center;
+      position:relative;background:var(--bg);
+    }
+    .section--alt{background:var(--bg-soft);}
+    .section__inner{max-width:var(--max-w);margin:0 auto;padding:var(--sp-16) var(--sp-8);width:100%;}
+
+    .eyebrow{
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);
+    }
+    .disclaimer{
+      font-family:var(--font-body);font-size:10.5px;line-height:15px;
+      color:var(--fg-disclaimer);font-style:italic;
+    }
+
+    /* Fade-in on scroll */
+    .reveal{opacity:0;transform:translateY(18px);
+      transition:opacity var(--dur-3) var(--ease),transform var(--dur-3) var(--ease);}
+    .reveal.is-visible{opacity:1;transform:none;}
+    .reveal--d1{transition-delay:80ms;} .reveal--d2{transition-delay:160ms;}
+    .reveal--d3{transition-delay:240ms;} .reveal--d4{transition-delay:320ms;}
+
+    /* =====================================================================
+       SECCIÓN 1 — APERTURA
+       ===================================================================== */
+    .s-apertura{overflow:hidden;}
+    .s-apertura::after{
+      content:'';position:absolute;bottom:-120px;right:-120px;width:480px;height:480px;
+      border-radius:50%;pointer-events:none;
+      background:radial-gradient(circle,rgba(0,102,204,.07) 0%,transparent 68%);
+    }
+    .apertura__wrap{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;gap:var(--sp-10);
+      min-height:calc(100vh - var(--nav-h));padding:var(--sp-16) var(--sp-8);
+    }
+    .apertura__logo{width:220px;height:auto;}
+    .apertura__tagline{
+      font-family:var(--font-display);
+      font-size:clamp(26px,3.8vw,50px);line-height:1.06;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-semibold);
+      color:var(--fg-1);max-width:640px;
+    }
+    .apertura__proof{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;justify-content:center;}
+    .apertura__proof-item{font-family:var(--font-body);font-size:var(--fs-16);font-weight:var(--fw-medium);color:var(--fg-2);}
+    .apertura__proof-sep{color:var(--border-strong);font-size:var(--fs-16);}
+    .apertura__disclaimer{position:absolute;bottom:var(--sp-6);left:0;right:0;text-align:center;padding:0 var(--sp-8);}
+
+    /* =====================================================================
+       SECCIÓN 2 — EL PROBLEMA
+       (cambio: pregunta retórica + 25% + nuevo cierre + nuevo disclaimer)
+       ===================================================================== */
+    .s-problema{overflow:hidden;}
+    .s-problema::before{
+      content:'';position:absolute;bottom:80px;right:60px;
+      width:80px;height:1px;background:var(--border-strong);opacity:.4;pointer-events:none;
+    }
+    .problema__wrap{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;gap:var(--sp-8);
+      min-height:calc(100vh - var(--nav-h));padding:var(--sp-16) var(--sp-8);
+    }
+    /* Pregunta retórica — Mona Sans display, grande */
+    .problema__question{
+      font-family:var(--font-display);
+      font-size:clamp(22px,3.2vw,42px);line-height:1.1;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-semibold);
+      color:var(--fg-1);max-width:640px;
+    }
+    .problema__stat{display:flex;flex-direction:column;align-items:center;gap:var(--sp-3);}
+    /* 25% — Figtree bold, nunca Mona Sans para números */
+    .problema__number{
+      font-family:var(--font-body);
+      font-size:clamp(88px,14vw,130px);line-height:1;
+      font-weight:var(--fw-bold);color:var(--fg-1);letter-spacing:var(--tracking-tight);
+    }
+    .problema__stat-label{
+      font-family:var(--font-body);font-size:clamp(16px,1.8vw,20px);
+      line-height:1.55;color:var(--fg-2);max-width:480px;
+    }
+    .problema__close{
+      font-family:var(--font-body);font-size:clamp(14px,1.5vw,17px);
+      line-height:1.65;color:var(--fg-3);max-width:520px;
+    }
+    .problema__disclaimer{position:absolute;bottom:var(--sp-6);left:0;right:0;text-align:center;padding:0 var(--sp-8);}
+
+    /* =====================================================================
+       SECCIÓN 3 — HOSPITALITY MANAGER (intro + parte A)
+       ===================================================================== */
+    .s-hm{min-height:100vh;}
+    .s-hm .section__inner{padding-top:var(--sp-16);padding-bottom:var(--sp-16);}
+
+    /* Nombre de producto — protagonismo máximo, gradiente oficial */
+    .hm-product-hero{
+      display:flex;flex-direction:column;align-items:flex-start;
+      margin-bottom:var(--sp-10);
+    }
+    .hm-product-name{
+      font-family:var(--font-display);
+      font-size:clamp(56px,9vw,112px);
+      line-height:.95;letter-spacing:var(--tracking-tight);font-weight:var(--fw-bold);
+      background:var(--b2b-gradient);
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;color:transparent;
+      margin-bottom:var(--sp-6);
+    }
+    .hm-part-a-title{
+      font-family:var(--font-display);
+      font-size:clamp(20px,2.4vw,32px);
+      line-height:1.15;letter-spacing:var(--tracking-snug);font-weight:var(--fw-semibold);
+      color:var(--fg-2);max-width:640px;margin-bottom:var(--sp-8);
+    }
+
+    /* Comparison — asimétrica: Excel levemente menor, card levemente mayor */
+    .comparison{display:grid;grid-template-columns:5fr 7fr;gap:var(--sp-6);align-items:start;}
+
+    /* Excel dead */
+    .xls-mock{border:1px solid var(--border-strong);border-radius:var(--r-md);overflow:hidden;background:#fff;}
+    .xls-mock__bar{
+      background:#F0EDE8;border-bottom:1px solid var(--border-strong);
+      padding:8px 14px;display:flex;gap:6px;align-items:center;
+    }
+    .xls-mock__dot{width:10px;height:10px;border-radius:50%;background:var(--border-strong);}
+    .xls-mock__bar-title{font-family:var(--font-body);font-size:var(--fs-12);color:var(--fg-3);margin-left:6px;}
+    .xls-mock table{width:100%;border-collapse:collapse;}
+    .xls-mock th{
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);color:var(--fg-3);
+      background:#F6F2ED;padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;
+    }
+    .xls-mock td{
+      font-family:var(--font-body);font-size:11px;color:var(--fg-2);padding:5px 10px;
+      border-bottom:1px solid var(--border);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;
+    }
+    .xls-mock tr:last-child td{border-bottom:none;}
+    .xls-mock tr:nth-child(even) td{background:#FAF7F4;}
+
+    /* Rich profile card */
+    .profile-card{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-md);box-shadow:var(--shadow-md);padding:var(--sp-6);
+    }
+    .profile-card__header{display:flex;align-items:center;gap:var(--sp-4);margin-bottom:var(--sp-5);}
+    .profile-card__avatar{
+      width:52px;height:52px;border-radius:var(--r-pill);background:var(--b2b-gradient);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-display);font-size:var(--fs-20);font-weight:var(--fw-semibold);
+      color:#fff;flex-shrink:0;
+    }
+    .profile-card__name{font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-semibold);color:var(--fg-1);}
+    .profile-card__sub{font-family:var(--font-body);font-size:13px;color:var(--fg-3);margin-top:2px;}
+    .profile-card__stats{display:flex;gap:var(--sp-4);margin-bottom:var(--sp-5);}
+    .profile-stat{flex:1;background:var(--bg-muted);border-radius:var(--r-sm);padding:var(--sp-3) var(--sp-4);text-align:center;}
+    .profile-stat__num{font-family:var(--font-body);font-size:var(--fs-20);font-weight:var(--fw-bold);color:var(--fg-1);}
+    .profile-stat__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);margin-top:2px;}
+    .profile-card__section{margin-bottom:var(--sp-4);}
+    .profile-card__section-label{
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);
+      letter-spacing:.06em;text-transform:uppercase;color:var(--fg-4);margin-bottom:var(--sp-2);
+    }
+    .profile-tags{display:flex;flex-wrap:wrap;gap:var(--sp-2);}
+    .profile-tag{
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-medium);
+      color:var(--brand-dark);background:var(--b2b-50);border:1px solid var(--b2b-100);
+      border-radius:var(--r-pill);padding:3px 10px;
+    }
+    .profile-tag--alert{color:#C42525;background:#FBEAEA;border-color:rgba(196,37,37,.2);}
+    .profile-tag--ok{color:#138A36;background:#E7F6EC;border-color:rgba(19,138,54,.2);}
+    .profile-card__note{
+      font-family:var(--font-body);font-size:13px;color:var(--fg-2);line-height:1.5;
+      background:var(--bg-soft);border-radius:var(--r-sm);padding:var(--sp-3) var(--sp-4);font-style:italic;
+    }
+
+    /* =====================================================================
+       SECCIÓN 3B — EL NÚCLEO — DARK MODE EXCLUSIVO
+       ===================================================================== */
+    .s-hm-dark{
+      min-height:100vh;padding-top:var(--nav-h);
+      display:flex;flex-direction:column;justify-content:center;
+      position:relative;
+      background:#0A0E17;
+      color:#FFFFFF;
+    }
+    .s-hm-dark .section__inner{padding:var(--sp-16) var(--sp-8);}
+
+    .hm-dark-title{
+      font-family:var(--font-display);
+      font-size:clamp(24px,3.2vw,44px);line-height:1.08;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-semibold);
+      color:#FFFFFF;max-width:640px;margin-bottom:var(--sp-12);
+    }
+
+    /* Diagram grid — no column labels */
+    .hm-diagram{
+      position:relative;display:grid;
+      grid-template-columns:1fr 240px 1fr;
+      gap:0;align-items:center;min-height:480px;
+    }
+
+    /* Floating items — no card styling */
+    .hm-items{list-style:none;display:flex;flex-direction:column;gap:var(--sp-4);}
+    .hm-item{
+      display:flex;align-items:center;gap:var(--sp-3);
+      padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);
+      border:1px solid transparent;cursor:default;
+      transition:background var(--dur-1) var(--ease),border-color var(--dur-1) var(--ease);
+      position:relative;
+    }
+    .hm-item:hover,.hm-item.is-hovered{
+      background:rgba(0,102,204,.12);border-color:rgba(0,102,204,.35);
+    }
+    .hm-item__icon{color:rgba(0,102,204,.7);flex-shrink:0;width:18px;height:18px;display:flex;}
+    .hm-item__icon svg{width:18px;height:18px;stroke-width:1.5px;}
+    .hm-item__name{
+      font-family:var(--font-body);font-size:var(--fs-14);font-weight:var(--fw-medium);color:#FFFFFF;
+    }
+
+    /* Left column: items align right */
+    .hm-col--left .hm-items{align-items:flex-end;}
+    .hm-col--left .hm-item{flex-direction:row-reverse;text-align:right;}
+
+    /* Dim non-hovered items when any item is active */
+    .hm-diagram.has-hover .hm-item:not(.is-hovered){opacity:.35;}
+    .hm-diagram.has-hover .hm-item.is-hovered{opacity:1;}
+
+    /* Center core — gradient + static glow */
+    .hm-center{display:flex;align-items:center;justify-content:center;}
+    .hm-core{
+      width:180px;padding:var(--sp-6) var(--sp-5);
+      background:linear-gradient(135deg,#202B3F 0%,#0066CC 100%);
+      border-radius:var(--r-lg);
+      /* Static glow — no animation */
+      box-shadow:0 0 40px rgba(0,102,204,.4),0 0 80px rgba(0,102,204,.15),0 0 4px rgba(0,102,204,.6);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:var(--sp-3);text-align:center;z-index:2;position:relative;
+    }
+    .hm-core__name{
+      font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-semibold);
+      color:#FFFFFF;line-height:1.2;
+    }
+    .hm-core__sub{
+      font-family:var(--font-body);font-size:11px;
+      color:rgba(255,255,255,.5);line-height:1.4;
+    }
+
+    /* SVG overlay */
+    #hm-svg{
+      position:absolute;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;z-index:1;overflow:visible;
+    }
+    /* Base lines — thin, brand blue at 40% */
+    #hm-svg .line-base{
+      stroke:rgba(0,102,204,.4);stroke-width:1;fill:none;stroke-linecap:round;
+      transition:stroke var(--dur-2) var(--ease),stroke-width var(--dur-2) var(--ease),opacity var(--dur-2) var(--ease);
+    }
+    #hm-svg .line-base.is-active{stroke:rgba(0,102,204,1);stroke-width:1.5;}
+    #hm-svg .line-base.is-dimmed{opacity:.15;}
+    /* Shimmer overlay — one-time animation, plays on hover */
+    #hm-svg .line-shimmer{
+      stroke:#5599FF;stroke-width:2;fill:none;stroke-linecap:round;
+      opacity:0;pointer-events:none;
+    }
+
+    /* Tooltip */
+    .hm-tooltip{
+      position:absolute;z-index:10;
+      background:#1A2540;color:#FFFFFF;
+      font-family:var(--font-body);font-size:13px;line-height:1.5;
+      max-width:240px;padding:var(--sp-3) var(--sp-4);
+      border-radius:8px;box-shadow:var(--shadow-lg);
+      pointer-events:none;opacity:0;
+      transition:opacity var(--dur-2) var(--ease);
+      white-space:normal;
+    }
+    .hm-tooltip.is-visible{opacity:1;}
+
+    /* =====================================================================
+       PLACEHOLDER (phases 3–4)
+       ===================================================================== */
+    .placeholder{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:var(--sp-4);min-height:400px;border:2px dashed var(--border);
+      border-radius:var(--r-lg);color:var(--fg-3);text-align:center;
+    }
+    .placeholder__eyebrow{
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:var(--fg-4);
+    }
+    .placeholder__title{
+      font-family:var(--font-display);font-size:var(--fs-24);
+      font-weight:var(--fw-semibold);letter-spacing:var(--tracking-snug);color:var(--fg-3);
+    }
+
+    /* =====================================================================
+       APERTURA — logos grid (reemplaza proof items)
+       ===================================================================== */
+    .apertura__logos {
+      display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3);
+      width:100%;max-width:760px;margin:0 auto;
+    }
+    .apertura__logo-slot {
+      background:var(--bg-muted);border:1px solid var(--border);border-radius:var(--r-md);
+      height:52px;display:flex;align-items:center;justify-content:center;
+    }
+    .apertura__logo-slot span {
+      font-family:var(--font-body);font-size:10px;color:var(--fg-4);
+    }
+    @media (max-width:768px){.apertura__logos{grid-template-columns:repeat(3,1fr);}}
+
+    /* =====================================================================
+       PROBLEMA — dashboard mockup
+       ===================================================================== */
+    .problema__dashboard {
+      width:100%;max-width:660px;
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden;
+    }
+    .db-header {
+      background:var(--b2b-gradient);padding:var(--sp-4) var(--sp-5);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .db-header__title{font-family:var(--font-display);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:#fff;}
+    .db-header__period{font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,.7);}
+    .db-kpis {
+      display:grid;grid-template-columns:repeat(4,1fr);
+      border-bottom:1px solid var(--border);
+    }
+    .db-kpi {
+      padding:var(--sp-4) var(--sp-4);border-right:1px solid var(--border);
+    }
+    .db-kpi:last-child{border-right:none;}
+    .db-kpi__num{font-family:var(--font-body);font-size:var(--fs-24);font-weight:var(--fw-bold);color:var(--fg-1);line-height:1;}
+    .db-kpi__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);margin-top:4px;}
+    .db-kpi__delta{font-family:var(--font-body);font-size:10px;margin-top:4px;font-weight:var(--fw-semibold);}
+    .db-kpi__delta--up{color:#138A36;}
+    .db-kpi__delta--down{color:#C42525;}
+    .db-body{padding:var(--sp-4) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);}
+    .db-row{display:flex;align-items:center;gap:var(--sp-3);}
+    .db-row__label{font-family:var(--font-body);font-size:12px;color:var(--fg-3);width:140px;flex-shrink:0;}
+    .db-bar-wrap{flex:1;background:var(--bg-muted);border-radius:var(--r-pill);height:8px;overflow:hidden;}
+    .db-bar{height:100%;border-radius:var(--r-pill);}
+    .db-bar--new{background:var(--b2b-gradient);}
+    .db-bar--rec{background:linear-gradient(90deg,#138A36,#2ECC71);}
+    .db-bar--lost{background:linear-gradient(90deg,#E8E3DD,#D6CFC5);}
+    .db-row__val{font-family:var(--font-body);font-size:12px;font-weight:var(--fw-semibold);color:var(--fg-1);width:36px;text-align:right;}
+
+    /* =====================================================================
+       HM S3A — more presence
+       ===================================================================== */
+    .hm-hero-stat {
+      display:inline-flex;align-items:center;gap:var(--sp-4);
+      background:var(--b2b-50);border:1px solid var(--b2b-100);
+      border-radius:var(--r-pill);padding:6px 20px 6px 8px;
+      margin-bottom:var(--sp-6);
+    }
+    .hm-hero-stat__dot{width:8px;height:8px;border-radius:50%;background:var(--brand);}
+    .hm-hero-stat__text{font-family:var(--font-body);font-size:var(--fs-13);color:var(--brand-dark);font-weight:var(--fw-medium);}
+
+    /* =====================================================================
+       S7 — marketing campaigns mock
+       ===================================================================== */
+    .campaign-perf-table{width:100%;border-collapse:collapse;}
+    .campaign-perf-table th{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);color:var(--fg-4);text-transform:uppercase;letter-spacing:.06em;padding:0 var(--sp-3) var(--sp-3);text-align:left;border-bottom:1px solid var(--border);}
+    .campaign-perf-table td{font-family:var(--font-body);font-size:13px;color:var(--fg-2);padding:var(--sp-3) var(--sp-3);border-bottom:1px solid var(--border);}
+    .campaign-perf-table tr:last-child td{border-bottom:none;}
+    .campaign-perf-table td:first-child{color:var(--fg-1);font-weight:var(--fw-medium);}
+    .campaign-perf-table td:last-child{color:var(--brand-dark);font-weight:var(--fw-semibold);}
+
+    /* S7 — analytics stack (3 horizontal rows, one on top of the other) */
+    .analytics-stack{display:flex;flex-direction:column;gap:var(--sp-4);margin-top:var(--sp-10);}
+    .analytics-row{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-md);box-shadow:var(--shadow-sm);overflow:hidden;
+      display:grid;grid-template-columns:240px 1fr;align-items:stretch;
+    }
+    .analytics-row__info{
+      padding:var(--sp-6);border-right:1px solid var(--border);
+      background:var(--bg-soft);display:flex;flex-direction:column;
+      justify-content:center;gap:var(--sp-3);
+    }
+    .analytics-row__icon{color:var(--brand);width:22px;height:22px;display:flex;flex-shrink:0;}
+    .analytics-row__icon svg{width:22px;height:22px;stroke-width:1.5px;}
+    .analytics-row__name{font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-semibold);color:var(--fg-1);line-height:1.2;}
+    .analytics-row__desc{font-family:var(--font-body);font-size:var(--fs-13);color:var(--fg-3);line-height:1.55;}
+    .analytics-row__content{padding:var(--sp-5) var(--sp-6);display:flex;align-items:center;gap:var(--sp-5);}
+
+    /* Reviews: big rating + divider + 2 reviews + AI insight */
+    .rating-block{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+    .rating-block__num{font-family:var(--font-body);font-size:52px;font-weight:var(--fw-bold);color:var(--fg-1);line-height:1;}
+    .rating-block__stars{color:#F4A400;font-size:18px;letter-spacing:1px;}
+    .rating-block__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);text-align:center;}
+    .analytics-divider{width:1px;height:80px;background:var(--border);flex-shrink:0;}
+    .reviews-col{flex:1;display:flex;flex-direction:column;gap:var(--sp-3);min-width:0;}
+    .review-mini{display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-2) 0;border-bottom:1px solid var(--border);}
+    .review-mini:last-of-type{border-bottom:none;}
+    .review-mini__source{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);text-transform:uppercase;letter-spacing:.06em;color:var(--fg-4);white-space:nowrap;padding-top:2px;}
+    .review-mini__right{flex:1;min-width:0;}
+    .review-mini__stars{color:#F4A400;font-size:11px;}
+    .review-mini__text{font-family:var(--font-body);font-size:12px;color:var(--fg-2);line-height:1.4;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .ai-insight{background:var(--b2b-50);border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);display:flex;gap:var(--sp-2);align-items:flex-start;}
+    .ai-insight__badge{font-family:var(--font-body);font-size:9px;font-weight:var(--fw-bold);color:var(--brand);background:#fff;border:1px solid var(--b2b-100);border-radius:var(--r-pill);padding:2px 7px;white-space:nowrap;flex-shrink:0;margin-top:2px;letter-spacing:.04em;}
+    .ai-insight__text{font-family:var(--font-body);font-size:12px;color:var(--brand-dark);line-height:1.45;}
+
+    /* Marketing table full-width */
+    .campaign-perf-table{width:100%;}
+
+    /* Ops: 6 boxes in a single row */
+    .ops-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3);width:100%;}
+    .ops-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-4) var(--sp-3);text-align:center;}
+    .ops-box__num{font-family:var(--font-body);font-size:var(--fs-20);font-weight:var(--fw-bold);color:var(--fg-1);}
+    .ops-box__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);margin-top:4px;line-height:1.3;}
+    .ops-box__delta{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);margin-top:4px;}
+    .ops-box__delta--up{color:#138A36;}
+    .ops-box__delta--down{color:#C42525;}
+
+    @media (max-width:900px){
+      .analytics-row{grid-template-columns:1fr;}
+      .analytics-row__info{border-right:none;border-bottom:1px solid var(--border);}
+      .analytics-row__content{flex-wrap:wrap;}
+      .ops-grid{grid-template-columns:repeat(3,1fr);}
+    }
+
+    /* S8 — results hero title */
+    .results-hero-title {
+      font-family:var(--font-display);
+      font-size:clamp(28px,4vw,52px);line-height:1.08;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-bold);
+      background:var(--b2b-gradient);-webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;color:transparent;
+      max-width:780px;margin-bottom:var(--sp-12);
+    }
+
+    /* =====================================================================
+       SHARED SECTION HEADERS (secciones 4–10)
+       ===================================================================== */
+    .section-title {
+      font-family:var(--font-display);
+      font-size:clamp(24px,3vw,40px);line-height:1.1;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-semibold);
+      color:var(--fg-1);margin-bottom:var(--sp-3);
+    }
+    .section-subtitle {
+      font-family:var(--font-body);font-size:clamp(16px,1.8vw,20px);
+      color:var(--fg-2);line-height:1.55;max-width:640px;
+    }
+    .section-header { margin-bottom:var(--sp-10); }
+
+    /* =====================================================================
+       SECCIÓN 4 — ANTES DEL SERVICIO
+       ===================================================================== */
+    /* Tab component */
+    .tab-list {
+      display:flex;gap:0;border-bottom:1px solid var(--border);
+      overflow-x:auto;-webkit-overflow-scrolling:touch;
+      scroll-snap-type:x mandatory;margin-bottom:var(--sp-8);
+      scrollbar-width:none;
+    }
+    .tab-list::-webkit-scrollbar{display:none;}
+    .tab-btn {
+      font-family:var(--font-body);font-size:var(--fs-14);
+      font-weight:var(--fw-medium);color:var(--fg-3);
+      background:none;border:none;border-bottom:2px solid transparent;
+      padding:var(--sp-3) var(--sp-5);white-space:nowrap;
+      scroll-snap-align:start;cursor:pointer;
+      transition:color var(--dur-1) var(--ease),border-color var(--dur-1) var(--ease);
+      margin-bottom:-1px;
+    }
+    .tab-btn:hover{color:var(--fg-1);}
+    .tab-btn.is-active{color:var(--brand-dark);border-bottom-color:var(--brand-dark);font-weight:var(--fw-semibold);}
+    .tab-panel{display:none;}
+    .tab-panel.is-active{display:block;}
+
+    /* Restaurant profile mock */
+    .rp-mock {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);
+      overflow:hidden;max-width:660px;margin:0 auto;
+    }
+    .rp-mock__hero {
+      height:140px;background:var(--b2b-gradient);
+      position:relative;display:flex;align-items:flex-end;padding:var(--sp-4);
+    }
+    .rp-mock__badge {
+      background:rgba(255,255,255,.15);backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.2);border-radius:var(--r-xs);
+      padding:4px 10px;font-family:var(--font-body);font-size:11px;
+      color:#fff;font-weight:var(--fw-medium);
+    }
+    .rp-mock__body{padding:var(--sp-5) var(--sp-6);}
+    .rp-mock__name {
+      font-family:var(--font-display);font-size:var(--fs-24);
+      font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-2);
+    }
+    .rp-mock__meta {
+      display:flex;gap:var(--sp-4);align-items:center;margin-bottom:var(--sp-4);
+      font-family:var(--font-body);font-size:13px;color:var(--fg-3);flex-wrap:wrap;
+    }
+    .rp-mock__rating{color:var(--fg-1);font-weight:var(--fw-semibold);}
+    .rp-mock__stars{color:#F4A400;font-size:12px;}
+    .rp-mock__services{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-bottom:var(--sp-5);}
+    .rp-mock__tag {
+      font-family:var(--font-body);font-size:12px;color:var(--fg-3);
+      background:var(--bg-muted);border-radius:var(--r-pill);padding:4px 10px;
+    }
+    .rp-mock__cta{display:flex;gap:var(--sp-3);}
+    .rp-mock__btn-p {
+      flex:1;background:var(--brand-dark);color:#fff;border:none;
+      border-radius:var(--r-md);padding:10px 20px;
+      font-family:var(--font-body);font-size:var(--fs-14);font-weight:var(--fw-semibold);
+      text-align:center;cursor:default;
+    }
+    .rp-mock__btn-s {
+      background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand-dark);
+      border-radius:var(--r-md);padding:10px 16px;
+      font-family:var(--font-body);font-size:var(--fs-14);font-weight:var(--fw-medium);cursor:default;
+    }
+
+    /* Campaign panel */
+    .campaign-panel{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6);align-items:start;}
+    .sub-tab-list {
+      display:flex;gap:var(--sp-2);margin-bottom:var(--sp-5);
+      background:var(--bg-muted);border-radius:var(--r-md);padding:4px;
+    }
+    .sub-tab-btn {
+      flex:1;font-family:var(--font-body);font-size:var(--fs-12);
+      font-weight:var(--fw-medium);color:var(--fg-3);
+      background:none;border:none;border-radius:var(--r-sm);
+      padding:6px 8px;cursor:pointer;text-align:center;
+      transition:background var(--dur-1) var(--ease),color var(--dur-1) var(--ease);
+    }
+    .sub-tab-btn.is-active{background:#fff;color:var(--brand-dark);box-shadow:var(--shadow-sm);font-weight:var(--fw-semibold);}
+    .segment-info{display:none;}
+    .segment-info.is-active{display:block;}
+    .segment-stat {
+      font-family:var(--font-body);font-size:var(--fs-40);font-weight:var(--fw-bold);
+      color:var(--fg-1);margin-bottom:var(--sp-2);line-height:1;
+    }
+    .segment-label{font-family:var(--font-body);font-size:var(--fs-14);color:var(--fg-3);margin-bottom:var(--sp-4);}
+    .segment-criteria {
+      font-family:var(--font-body);font-size:var(--fs-12);color:var(--fg-2);
+      background:var(--bg-muted);border-radius:var(--r-sm);
+      padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-4);line-height:1.6;
+    }
+    .email-preview {
+      background:#fff;border:1px solid var(--border);border-radius:var(--r-md);
+      overflow:hidden;box-shadow:var(--shadow-sm);
+    }
+    .email-preview__header {
+      background:var(--bg-muted);padding:var(--sp-3) var(--sp-4);
+      border-bottom:1px solid var(--border);
+      font-family:var(--font-body);font-size:11px;color:var(--fg-3);
+    }
+    .email-preview__body{padding:var(--sp-4) var(--sp-5);}
+    .email-preview__subject{font-family:var(--font-body);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-2);}
+    .email-preview__text{font-family:var(--font-body);font-size:13px;color:var(--fg-2);line-height:1.6;}
+    .email-preview__cta {
+      display:inline-block;margin-top:var(--sp-3);background:var(--brand-dark);color:#fff;
+      border-radius:var(--r-sm);padding:8px 16px;font-family:var(--font-body);
+      font-size:var(--fs-12);font-weight:var(--fw-semibold);
+    }
+
+    /* Events grid */
+    .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);}
+    .event-card {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-sm);
+    }
+    .event-card__img {
+      height:90px;display:flex;align-items:center;justify-content:center;
+      font-size:var(--fs-32);
+    }
+    .event-card__body{padding:var(--sp-4);}
+    .event-card__name{font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:4px;}
+    .event-card__date{font-family:var(--font-body);font-size:var(--fs-12);color:var(--fg-3);margin-bottom:var(--sp-3);}
+    .event-card__btn {
+      display:block;width:100%;background:var(--brand-dark);color:#fff;border:none;
+      border-radius:var(--r-sm);padding:8px;font-family:var(--font-body);
+      font-size:var(--fs-12);font-weight:var(--fw-semibold);text-align:center;cursor:default;
+    }
+
+    /* =====================================================================
+       SECCIÓN 5 — MICHELIN
+       ===================================================================== */
+    .michelin-layout {
+      display:grid;grid-template-columns:1fr 60px 1fr;
+      gap:var(--sp-6);align-items:center;margin-top:var(--sp-10);
+    }
+    .michelin-mock {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden;
+    }
+    .michelin-mock__header {
+      background:#1A1A1A;padding:var(--sp-4) var(--sp-5);
+      display:flex;align-items:center;gap:var(--sp-3);
+    }
+    .michelin-mock__guide-name{font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-bold);color:#fff;}
+    .michelin-mock__body{padding:var(--sp-5);}
+    .michelin-mock__rest-name{font-family:var(--font-display);font-size:var(--fs-20);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-2);}
+    .michelin-mock__stars{color:#E63B2E;font-size:var(--fs-20);margin-bottom:var(--sp-2);}
+    .michelin-mock__loc{font-family:var(--font-body);font-size:13px;color:var(--fg-3);margin-bottom:var(--sp-5);}
+    .michelin-mock__book {
+      display:block;width:100%;background:#E63B2E;color:#fff;border:none;
+      border-radius:var(--r-md);padding:10px;font-family:var(--font-body);
+      font-size:var(--fs-14);font-weight:var(--fw-semibold);text-align:center;cursor:default;
+    }
+    .michelin-connector {
+      display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);
+    }
+    .michelin-connector__line{width:1px;height:40px;background:var(--border-strong);}
+    .michelin-woki-mock {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:var(--sp-5);
+    }
+    .michelin-woki-mock__label {
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:var(--fg-4);margin-bottom:var(--sp-4);
+    }
+    .michelin-res-row {
+      display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);
+      border-radius:var(--r-sm);margin-bottom:var(--sp-3);
+    }
+    .michelin-res-row--green{background:#E7F6EC;border:1px solid rgba(19,138,54,.2);}
+    .michelin-res-row--blue{background:var(--b2b-50);border:1px solid var(--b2b-100);}
+    .michelin-res-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .michelin-res-dot--green{background:#138A36;}
+    .michelin-res-dot--blue{background:var(--brand);}
+    .michelin-res-text{font-family:var(--font-body);font-size:13px;color:var(--fg-1);line-height:1.4;}
+    .michelin-close {
+      font-family:var(--font-body);font-size:clamp(14px,1.6vw,18px);color:var(--fg-2);
+      line-height:1.65;max-width:640px;margin:var(--sp-8) auto 0;text-align:center;
+    }
+
+    /* =====================================================================
+       SECCIÓN 6 — DURANTE EL SERVICIO
+       ===================================================================== */
+    .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-8);align-items:start;margin-top:var(--sp-10);}
+    .service-block__label {
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:var(--fg-4);margin-bottom:var(--sp-4);
+    }
+    .brief-mock {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-md);box-shadow:var(--shadow-md);overflow:hidden;
+    }
+    .brief-mock__header {
+      background:var(--b2b-gradient);padding:var(--sp-4) var(--sp-5);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .brief-mock__title{font-family:var(--font-display);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:#fff;}
+    .brief-mock__date{font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,.7);}
+    .brief-mock__body{padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-4);}
+    .brief-section__label {
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);
+      letter-spacing:.06em;text-transform:uppercase;color:var(--fg-4);margin-bottom:var(--sp-2);
+    }
+    .brief-row {
+      display:flex;align-items:flex-start;gap:var(--sp-3);padding:var(--sp-2) 0;
+      border-bottom:1px solid var(--border);
+    }
+    .brief-row:last-child{border-bottom:none;}
+    .brief-row__avatar {
+      width:28px;height:28px;border-radius:50%;background:var(--b2b-gradient);
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-bold);color:#fff;flex-shrink:0;
+    }
+    .brief-row__info{flex:1;min-width:0;}
+    .brief-row__name{font-family:var(--font-body);font-size:13px;font-weight:var(--fw-semibold);color:var(--fg-1);}
+    .brief-row__note{font-family:var(--font-body);font-size:11px;color:var(--fg-3);}
+    .brief-tag {
+      font-family:var(--font-body);font-size:10px;font-weight:var(--fw-medium);
+      border-radius:var(--r-pill);padding:2px 8px;white-space:nowrap;flex-shrink:0;
+    }
+    .brief-tag--vip{background:#FFF3E5;color:#B45309;border:1px solid rgba(180,83,9,.2);}
+    .brief-tag--alert{background:#FBEAEA;color:#C42525;border:1px solid rgba(196,37,37,.2);}
+    .brief-tag--bday{background:#F3E8FF;color:#7C3AED;border:1px solid rgba(124,58,237,.2);}
+    .app-mock-wrap{display:flex;flex-direction:column;align-items:center;}
+    .app-mock {
+      width:248px;background:var(--surface);border:8px solid var(--fg-1);
+      border-radius:32px;box-shadow:var(--shadow-lg);overflow:hidden;
+    }
+    .app-mock__statusbar {
+      background:var(--b2b-gradient);padding:8px 16px 10px;
+      font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,.8);
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .app-mock__topbar {
+      background:var(--surface);padding:var(--sp-3) var(--sp-4);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;gap:var(--sp-3);
+    }
+    .app-mock__back{font-family:var(--font-body);font-size:12px;color:var(--brand);}
+    .app-mock__screen-title{font-family:var(--font-display);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:var(--fg-1);}
+    .app-mock__item{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--border);background:var(--surface);}
+    .app-mock__item-time{font-family:var(--font-body);font-size:11px;color:var(--fg-3);}
+    .app-mock__item-name{font-family:var(--font-body);font-size:13px;font-weight:var(--fw-semibold);color:var(--fg-1);margin:2px 0;}
+    .app-mock__item-tags{display:flex;gap:var(--sp-2);flex-wrap:wrap;margin-top:4px;}
+    .app-mock__item-tag {
+      font-family:var(--font-body);font-size:10px;color:var(--brand-dark);
+      background:var(--b2b-50);border-radius:var(--r-pill);padding:2px 8px;
+    }
+    .app-mock__item-note{margin-top:6px;font-family:var(--font-body);font-size:11px;color:var(--fg-3);font-style:italic;line-height:1.4;}
+    .app-mock__hist{padding:var(--sp-3) var(--sp-4);background:var(--bg-soft);}
+    .app-mock__hist-label{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);text-transform:uppercase;letter-spacing:.06em;color:var(--fg-4);margin-bottom:var(--sp-2);}
+    .app-mock__hist-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border);font-family:var(--font-body);font-size:11px;color:var(--fg-3);}
+    .app-mock__hist-row:last-child{border-bottom:none;}
+    .app-mock__hist-val{font-weight:var(--fw-semibold);color:var(--fg-1);}
+
+    /* =====================================================================
+       SECCIÓN 7 — DESPUÉS DEL SERVICIO
+       ===================================================================== */
+    .post-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5);margin-top:var(--sp-10);}
+    .post-card {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-md);box-shadow:var(--shadow-sm);
+      cursor:pointer;overflow:hidden;
+      transition:box-shadow var(--dur-2) var(--ease);
+    }
+    .post-card:hover{box-shadow:var(--shadow-md);}
+    .post-card__head{padding:var(--sp-5) var(--sp-5) var(--sp-3);}
+    .post-card__icon{color:var(--brand);margin-bottom:var(--sp-3);width:24px;height:24px;display:flex;}
+    .post-card__icon svg{width:24px;height:24px;stroke-width:1.5px;}
+    .post-card__name{font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-2);}
+    .post-card__desc{font-family:var(--font-body);font-size:var(--fs-14);color:var(--fg-3);line-height:1.55;}
+    .post-card__expand-hint {
+      display:flex;align-items:center;gap:var(--sp-2);
+      font-family:var(--font-body);font-size:12px;color:var(--brand);
+      padding:var(--sp-2) var(--sp-5) var(--sp-4);font-weight:var(--fw-medium);
+    }
+    .post-card__expand-hint svg{width:14px;height:14px;stroke-width:2px;transition:transform var(--dur-2) var(--ease);}
+    .post-card.is-open .post-card__expand-hint svg{transform:rotate(180deg);}
+    .post-card__detail{display:none;border-top:1px solid var(--border);padding:var(--sp-5);background:var(--bg-soft);}
+    .post-card.is-open .post-card__detail{display:block;}
+    .review-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-3);}
+    .review-item__source{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);letter-spacing:.06em;text-transform:uppercase;color:var(--fg-4);margin-bottom:4px;}
+    .review-item__stars{color:#F4A400;font-size:12px;}
+    .review-item__text{font-family:var(--font-body);font-size:12px;color:var(--fg-2);margin-top:4px;line-height:1.5;}
+    .review-insight{background:var(--b2b-50);border-radius:var(--r-sm);padding:var(--sp-3) var(--sp-4);font-family:var(--font-body);font-size:12px;color:var(--brand-dark);}
+    .review-insight__label{font-weight:var(--fw-semibold);margin-bottom:4px;}
+    .payment-row{display:flex;justify-content:space-between;align-items:center;padding:var(--sp-3) 0;border-bottom:1px solid var(--border);}
+    .payment-row:last-child{border-bottom:none;}
+    .payment-row__label{font-family:var(--font-body);font-size:13px;color:var(--fg-2);}
+    .payment-row__value{font-family:var(--font-body);font-size:13px;font-weight:var(--fw-semibold);color:var(--fg-1);}
+    .payment-badge{font-family:var(--font-body);font-size:10px;padding:2px 8px;border-radius:var(--r-pill);}
+    .payment-badge--green{background:#E7F6EC;color:#138A36;}
+    .payment-badge--blue{background:var(--b2b-50);color:var(--brand-dark);}
+    .metrics-mock{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);}
+    .metric-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-4);}
+    .metric-box__num{font-family:var(--font-body);font-size:var(--fs-24);font-weight:var(--fw-bold);color:var(--fg-1);}
+    .metric-box__label{font-family:var(--font-body);font-size:11px;color:var(--fg-3);margin-top:4px;}
+
+    /* =====================================================================
+       SECCIÓN 8 — RESULTADOS
+       ===================================================================== */
+    .results-quote {
+      font-family:var(--font-display);font-size:clamp(18px,2.2vw,28px);
+      font-weight:var(--fw-medium);color:var(--fg-1);line-height:1.35;
+      max-width:600px;font-style:italic;margin-bottom:var(--sp-12);
+    }
+    .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);margin-bottom:var(--sp-12);}
+    .kpi-item{display:flex;flex-direction:column;gap:var(--sp-2);}
+    .kpi-sep{width:32px;height:2px;background:var(--b2b-gradient);border-radius:2px;margin-bottom:var(--sp-2);}
+    .kpi-item__num {
+      font-family:var(--font-body);font-size:clamp(40px,5vw,64px);
+      font-weight:var(--fw-bold);color:var(--fg-1);line-height:1;
+      letter-spacing:var(--tracking-tight);
+    }
+    .kpi-item__text{font-family:var(--font-body);font-size:var(--fs-14);color:var(--fg-2);line-height:1.55;max-width:240px;}
+    .calc-wrap {
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);padding:var(--sp-8);
+    }
+    .calc-title{font-family:var(--font-display);font-size:var(--fs-20);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-6);}
+    .calc-inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);margin-bottom:var(--sp-6);}
+    .calc-field{display:flex;flex-direction:column;gap:var(--sp-2);}
+    .calc-label{font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);letter-spacing:.04em;text-transform:uppercase;color:var(--fg-3);}
+    .calc-input {
+      font-family:var(--font-body);font-size:var(--fs-20);font-weight:var(--fw-bold);color:var(--fg-1);
+      background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-md);
+      padding:var(--sp-3) var(--sp-4);width:100%;
+      transition:border-color var(--dur-1) var(--ease);
+    }
+    .calc-input:focus{outline:none;border-color:var(--brand);}
+    .calc-slider-val{font-family:var(--font-body);font-size:var(--fs-20);font-weight:var(--fw-bold);color:var(--fg-1);}
+    .calc-slider{width:100%;accent-color:var(--brand-dark);cursor:pointer;margin-top:var(--sp-2);}
+    .calc-output {
+      background:var(--b2b-gradient);border-radius:var(--r-md);padding:var(--sp-6) var(--sp-8);
+      text-align:center;
+    }
+    .calc-output__label{font-family:var(--font-body);font-size:var(--fs-14);color:rgba(255,255,255,.85);margin-bottom:var(--sp-3);line-height:1.6;}
+    .calc-output__num{font-family:var(--font-body);font-size:clamp(36px,5vw,56px);font-weight:var(--fw-bold);color:#fff;letter-spacing:var(--tracking-tight);}
+    .calc-output__sub{font-family:var(--font-body);font-size:var(--fs-12);color:rgba(255,255,255,.6);margin-top:var(--sp-2);}
+    .results-disclaimers{margin-top:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-2);}
+
+    /* =====================================================================
+       SECCIÓN 9 — IMPLEMENTACIÓN
+       ===================================================================== */
+    .impl-hero{text-align:center;margin-bottom:var(--sp-16);}
+    .impl-72 {
+      font-family:var(--font-body);font-size:clamp(80px,12vw,120px);
+      font-weight:var(--fw-bold);line-height:1;letter-spacing:var(--tracking-tight);
+      background:var(--b2b-gradient);-webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;color:transparent;
+      margin-bottom:var(--sp-4);
+    }
+    .impl-hero-sub{font-family:var(--font-body);font-size:clamp(16px,1.8vw,20px);color:var(--fg-2);line-height:1.55;}
+    .impl-steps{display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;gap:0;align-items:start;}
+    .impl-step{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--sp-4);}
+    .impl-step__icon {
+      width:64px;height:64px;border-radius:var(--r-pill);
+      background:var(--b2b-50);border:1px solid var(--b2b-100);
+      display:flex;align-items:center;justify-content:center;color:var(--brand);
+    }
+    .impl-step__icon svg{width:28px;height:28px;stroke-width:1.5px;}
+    .impl-step__num{font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);color:var(--fg-4);letter-spacing:.08em;}
+    .impl-step__name{font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-semibold);color:var(--fg-1);}
+    .impl-step__desc{font-family:var(--font-body);font-size:var(--fs-14);color:var(--fg-3);line-height:1.55;max-width:200px;}
+    .impl-connector{display:flex;align-items:flex-start;padding-top:32px;justify-content:center;}
+    .impl-connector__line{width:40px;height:1px;background:var(--border-strong);}
+
+    /* =====================================================================
+       SECCIÓN 10 — CIERRE
+       ===================================================================== */
+    .logos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-4);margin-bottom:var(--sp-12);}
+    .logo-slot {
+      background:var(--bg-muted);border:1px solid var(--border);
+      border-radius:var(--r-md);height:64px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .logo-slot__label{font-family:var(--font-body);font-size:11px;color:var(--fg-4);}
+    .cierre-ctas{display:flex;gap:var(--sp-4);justify-content:center;flex-wrap:wrap;margin-bottom:var(--sp-5);}
+    .btn--large{padding:14px 28px;font-size:var(--fs-16);}
+    .cierre-link{display:flex;justify-content:center;margin-bottom:var(--sp-10);}
+    .cierre-link a{font-family:var(--font-body);font-size:var(--fs-14);color:var(--brand);text-decoration:underline;text-underline-offset:3px;}
+    .cierre-footer{display:flex;justify-content:center;border-top:1px solid var(--border);padding-top:var(--sp-6);}
+
+    /* =====================================================================
+       RESPONSIVE — secciones nuevas
+       ===================================================================== */
+    @media (max-width:900px) {
+      .campaign-panel{grid-template-columns:1fr;}
+      .events-grid{grid-template-columns:1fr 1fr;}
+      .michelin-layout{grid-template-columns:1fr;gap:var(--sp-6);}
+      .michelin-connector{flex-direction:row;}.michelin-connector__line{width:40px;height:1px;}
+      .service-grid{grid-template-columns:1fr;}
+      .post-cards{grid-template-columns:1fr;}
+      .kpi-row{grid-template-columns:1fr;gap:var(--sp-8);}
+      .calc-inputs{grid-template-columns:1fr;}
+      .impl-steps{grid-template-columns:1fr;gap:var(--sp-8);}
+      .impl-connector{display:none;}
+      .logos-grid{grid-template-columns:repeat(3,1fr);}
+    }
+    @media (max-width:768px) {
+      .events-grid{grid-template-columns:1fr;}
+      .logos-grid{grid-template-columns:repeat(2,1fr);}
+      .cierre-ctas{flex-direction:column;align-items:center;}
+    }
+
+    /* =====================================================================
+       PRINT
+       ===================================================================== */
+    @media print {
+      .top-nav,.side-nav{display:none!important;}
+      .section,.s-hm-dark{
+        page-break-after:always;break-after:page;min-height:100vh;padding-top:var(--sp-12);
+      }
+      .section:last-child{page-break-after:avoid;break-after:avoid;}
+      *{animation:none!important;transition:none!important;}
+      body{background:#fff;}
+      .s-hm-dark{background:#0A0E17!important;}
+      .reveal{opacity:1!important;transform:none!important;}
+    }
+
+    /* =====================================================================
+       RESPONSIVE
+       ===================================================================== */
+    @media (max-width:900px) {
+      .comparison{grid-template-columns:1fr;}
+      .hm-diagram{grid-template-columns:1fr;gap:var(--sp-8);}
+      .hm-col--left .hm-items{align-items:flex-start;}
+      .hm-col--left .hm-item{flex-direction:row;text-align:left;}
+      #hm-svg{display:none;}
+      .hm-tooltip{display:none;}
+    }
+    @media (max-width:768px) {
+      :root{--nav-h:52px;}
+      .side-nav{display:none;}
+      .top-nav{padding:0 16px;}
+      .section__inner,.s-hm-dark .section__inner{padding:48px 24px;}
+      .hm-product-name{font-size:36px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================================
+       STICKY TOP NAV
+       ================================================================ -->
+  <nav class="top-nav" role="navigation" aria-label="Navegación principal">
+    <a href="#apertura" class="top-nav__logo" aria-label="Woki — inicio">
+      <svg id="woki-b2b-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.48 54.72" aria-label="Woki" role="img">
+        <defs>
+          <style>
+            #woki-b2b-logo .lc1{fill:url(#wlg1);} #woki-b2b-logo .lc2{fill:url(#wlg2);}
+            #woki-b2b-logo .lc3{fill:url(#wlg3);} #woki-b2b-logo .lc4{fill:url(#wlg4);}
+            #woki-b2b-logo .lc5{fill:url(#wlg5);} #woki-b2b-logo .lc6{fill:url(#wlg6);}
+            #woki-b2b-logo .lc7{fill:url(#wlg7);} #woki-b2b-logo .lc8{fill:url(#wlg8);}
+          </style>
+          <linearGradient id="wlg1" x1="91.69" y1="124.98" x2="253.17" y2="-79.27" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#132f60"/><stop offset="1" stop-color="#0066cc"/>
+          </linearGradient>
+          <linearGradient id="wlg2" x1="91.18" y1="124.58" x2="197.62" y2="-10.05" xlink:href="#wlg1"/>
+          <linearGradient id="wlg3" x1="47.56" y1="90.08"  x2="209.03" y2="-114.16" xlink:href="#wlg1"/>
+          <linearGradient id="wlg4" x1="73.75" y1="110.79" x2="235.23" y2="-93.46"  xlink:href="#wlg1"/>
+          <linearGradient id="wlg5" x1="106.83" y1="136.94" x2="268.3" y2="-67.3"  xlink:href="#wlg1"/>
+          <linearGradient id="wlg6" x1="14.85"  y1="64.22"  x2="176.32" y2="-140.02" xlink:href="#wlg1"/>
+          <linearGradient id="wlg7" x1="12.33"  y1="62.24"  x2="173.81" y2="-142.01" xlink:href="#wlg1"/>
+          <linearGradient id="wlg8" x1="-4.09"  y1="49.25"  x2="157.39" y2="-154.99" xlink:href="#wlg1"/>
+        </defs>
+        <g>
+          <g>
+            <path class="lc2" d="M177.22,47.77c.2.44.31.92.31,1.43,0,1.92-1.54,3.47-3.46,3.49h-9.36c-1.36,0-2.53-.77-3.11-1.9l-5.06-11.98-1.38-3.29c-.16-.42-.32-.86-.45-1.29-.88-2.7-1.32-5.51-1.33-8.31,0-2.94.5-5.89,1.46-8.7.47-1.7,2.6-6.09,4.43-9.72l.82-1.6c.57-1.12,1.07-2.09,1.44-2.79.16-.3.29-.55.38-.74l.19-.37c.61-1.01,1.72-1.68,2.99-1.68h9.05c1.91.02,3.46,1.57,3.46,3.49,0,.32-.04.64-.13.93l-8.76,17.68-.05.11c-.29.62-1.5,3.57-.27,7.06l.17.43.59,1.4,7.96,16.12.11.23z"/>
+            <path class="lc4" d="M171.39,23.13v.02s0-.01,0-.01z"/>
+          </g>
+          <path class="lc8" d="M124.36,25.2c-.1-1.17-.27-2.35-.52-3.49-.25-1.19-.59-2.35-.99-3.49-.29-.81-.61-1.62-.98-2.4-.17-.36-.35-.73-.55-1.09-.63-1.21-1.36-2.39-2.16-3.49-.26-.35-.52-.7-.79-1.04-.29-.35-.57-.69-.87-1.02-.43-.5-.9-.98-1.37-1.43-.4-.39-.83-.78-1.26-1.15-1-.86-2.07-1.64-3.19-2.33l-.31-.2c-1.12-.69-2.29-1.29-3.51-1.81-1.13-.5-2.31-.9-3.51-1.22l-1.03-.26c-.61-.14-1.23-.26-1.84-.36l-.64-.09c-1.16-.17-2.33-.25-3.51-.26-1.16,0-2.33.06-3.49.21-.96.12-1.93.29-2.88.51l-.63.14c-1.2.31-2.37.69-3.51,1.16-1.13.46-2.24,1-3.31,1.62l-.2.1-.76.47c-.95.6-1.88,1.26-2.75,1.98-.59.47-1.15.98-1.68,1.5-.64.63-1.25,1.26-1.82,1.94-.43.51-.83,1.02-1.23,1.55-.81,1.11-1.54,2.28-2.18,3.49l-.1.2c-.43.85-.82,1.72-1.17,2.62l-.25.68c-.4,1.15-.74,2.31-.99,3.49-.23,1.15-.42,2.32-.51,3.49-.09,1.16-.1,2.32-.05,3.49.05,1.17.18,2.33.39,3.49.21,1.17.5,2.35.86,3.49l.04.12c.36,1.16.82,2.28,1.34,3.36l.34.72c.5.95,1.04,1.89,1.66,2.78.56.86,1.19,1.67,1.85,2.45l.94,1.04c.79.86,1.66,1.65,2.57,2.4l1.42,1.09.98.66c.36.23.73.47,1.11.68,1.12.66,2.29,1.24,3.51,1.73l1.09.42c.8.29,1.6.52,2.41.73,1.15.3,2.32.52,3.51.66,1.09.13,2.19.2,3.3.2h.2c.87,0,1.76-.05,2.63-.14l.87-.1c1.19-.17,2.36-.4,3.51-.72l1.95-.63c.52-.18,1.04-.39,1.55-.6,1.21-.52,2.38-1.12,3.51-1.81l1.64-1.08c.64-.46,1.26-.94,1.86-1.46.55-.46,1.07-.94,1.58-1.45l.56-.59c.48-.5.94-1.02,1.37-1.55.51-.63.99-1.28,1.43-1.94.74-1.11,1.41-2.27,1.99-3.49l.08-.16c.26-.57.51-1.16.74-1.76l.55-1.56c.36-1.15.65-2.32.86-3.49.21-1.16.34-2.32.39-3.49.04-.87.04-1.75,0-2.62l-.05-.87zm-27.15,14.6c-6.78,0-12.26-5.49-12.26-12.26s5.49-12.26,12.26-12.26,12.26,5.49,12.26,12.26-5.49,12.26-12.26,12.26z"/>
+          <path class="lc5" d="M148.29,4.05v45.4c0,1.92-1.54,3.47-3.46,3.49h-9.22c-1.36,0-2.53-.77-3.11-1.9l-.17-.39-.03-.07c-.08-.23-.14-.48-.16-.73-.02-.13-.02-.26-.02-.4V4.05c0-.14,0-.27.02-.4.04-.36.14-.71.28-1.03.06-.13.12-.25.19-.36.61-1.01,1.72-1.68,2.99-1.68h9.22c1.91.02,3.46,1.57,3.46,3.49z"/>
+          <path class="lc3" d="M202.48,3.49v45.4c0,1.92-1.54,3.47-3.46,3.49h-9.22c-1.36,0-2.53-.77-3.11-1.9l-.17-.39-.03-.07c-.08-.23-.14-.48-.16-.73-.02-.13-.02-.26-.02-.4V3.49c0-.14,0-.27.02-.4.04-.36.14-.71.28-1.03.06-.13.12-.25.19-.36.61-1.01,1.72-1.68,2.99-1.68h9.22c1.91.02,3.46,1.57,3.46,3.49z"/>
+          <path class="lc6" d="M69.97,2.86h0l-.14-.4-.03-.09c-.03-.07-.07-.14-.11-.21h0l-.03-.05c-.03-.05-.07-.11-.1-.16l-.07-.1-.05-.06-.08-.1c-.05-.07-.11-.13-.17-.19l-.07-.07-.12-.11h0l-.11-.09-.12-.1-.13-.09-.08-.05-.08-.05-.04-.02-.04-.02h-.02l-.07-.04h-.02l-.06-.03-.11-.05h-.03l-.04-.02h0l-.17-.07-.16-.05-.11-.03h-.05l-.16-.04-.14-.03h-.05l-.15-.02-.17-.01h0l-.18,0h-9.89c-1.89,0-3.43,1.54-3.43,3.43,0,.21.02.42.06.63.03.15.07.3.11.45v.01l.06.16v.02l3.53,9.67v.02l.04.12v.02l.05.13h0l.01.03c.53,1.25,1.77,2.13,3.21,2.13,1.08,0,2.05-.49,2.69-1.27l.02-.02c.14-.19.26-.4.36-.61l.08-.18.21-.47c1.3-2.88,2.96-5.56,4.92-7.99l.57-.69c.49-.59.78-1.34.78-2.17,0-.33-.05-.65-.14-.96z"/>
+          <path class="lc7" d="M57.16,42.98c0,.22,0,.43-.02.64h0c-.21,3.77-2.24,7.06-5.23,8.99-1.19.77-2.53,1.32-3.96,1.61-.22.04-.45.07-.69.07-1.11,0-2.03-.4-2.68-1.3-.28-.38-.6-1.15-.6-1.15l-6.24-17.11L26.93,5.11v-.02l-.06-.16v-.01c-.05-.14-.09-.29-.11-.45-.04-.2-.06-.41-.06-.63,0-1.89,1.53-3.43,3.43-3.43h9.88c1.36,0,2.53.79,3.09,1.94l.23.64h0s13.33,36.58,13.35,36.65h0c.32,1.05.49,2.17.49,3.33z"/>
+          <path class="lc1" d="M30.47,42.98c0,.22,0,.43-.02.64h0c-.21,3.77-2.24,7.06-5.23,8.99-1.19.77-2.53,1.32-3.96,1.61-.22.04-.45.07-.69.07-1.11,0-2.03-.4-2.68-1.3-.28-.38-.6-1.15-.6-1.15l-6.24-17.11L.24,5.11v-.02l-.06-.16v-.01C.13,4.8.09,4.65.07,4.49.03,4.29.01,4.08.01,3.86.01,1.97,1.54.43,3.44.43h9.88c1.36,0,2.53.79,3.09,1.94l.23.64h0s13.33,36.58,13.35,36.65h0c.32,1.05.49,2.17.49,3.33z"/>
+        </g>
+      </svg>
+    </a>
+    <a href="#" class="btn btn--secondary" id="nav-cta">Agendá implementación</a>
+  </nav>
+
+  <!-- ================================================================
+       SIDE NAV — 10 dots
+       ================================================================ -->
+  <nav class="side-nav" role="navigation" aria-label="Ir a sección">
+    <button class="side-nav__dot is-active" data-target="apertura"             data-label="Apertura"              aria-label="Apertura"></button>
+    <button class="side-nav__dot"            data-target="problema"             data-label="El problema"           aria-label="El problema"></button>
+    <button class="side-nav__dot"            data-target="hospitality-manager"  data-label="Hospitality Manager"  aria-label="Hospitality Manager"></button>
+    <button class="side-nav__dot"            data-target="antes-del-servicio"   data-label="Antes del servicio"   aria-label="Antes del servicio"></button>
+    <button class="side-nav__dot"            data-target="michelin"             data-label="Guía Michelin"         aria-label="Guía Michelin"></button>
+    <button class="side-nav__dot"            data-target="durante-el-servicio"  data-label="Durante el servicio"  aria-label="Durante el servicio"></button>
+    <button class="side-nav__dot"            data-target="despues-del-servicio" data-label="Después del servicio" aria-label="Después del servicio"></button>
+    <button class="side-nav__dot"            data-target="resultados"           data-label="Resultados"            aria-label="Resultados"></button>
+    <button class="side-nav__dot"            data-target="implementacion"       data-label="Implementación"        aria-label="Implementación"></button>
+    <button class="side-nav__dot"            data-target="cierre"               data-label="Cierre"                aria-label="Cierre"></button>
+  </nav>
+
+  <!-- ================================================================
+       MAIN
+       ================================================================ -->
+  <main>
+
+    <!-- ============================================================
+         SECCIÓN 1 — APERTURA
+         ============================================================ -->
+    <section id="apertura" class="section s-apertura" data-index="0" aria-label="Apertura">
+      <div class="apertura__wrap">
+
+        <svg class="apertura__logo reveal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.48 54.72" aria-label="Woki" role="img">
+          <use href="#woki-b2b-logo" xlink:href="#woki-b2b-logo"/>
+        </svg>
+
+        <h1 class="apertura__tagline reveal reveal--d1">
+          El sistema de reservas y hospitalidad para los mejores restaurantes.
+        </h1>
+
+        <div class="apertura__logos reveal reveal--d2" role="list" aria-label="Restaurantes partner">
+          <div class="apertura__logo-slot"><span>Logo 01</span></div>
+          <div class="apertura__logo-slot"><span>Logo 02</span></div>
+          <div class="apertura__logo-slot"><span>Logo 03</span></div>
+          <div class="apertura__logo-slot"><span>Logo 04</span></div>
+          <div class="apertura__logo-slot"><span>Logo 05</span></div>
+          <div class="apertura__logo-slot"><span>Logo 06</span></div>
+        </div>
+
+      </div>
+      <p class="apertura__disclaimer disclaimer reveal reveal--d3">
+        * Datos a la fecha de publicación de este material. La cobrabilidad refiere a operaciones con anticipo o garantía gestionadas a través de Woki.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 2 — EL PROBLEMA
+         Cambios: pregunta retórica · 25% · nuevo contexto y cierre · nuevo disclaimer
+         ============================================================ -->
+    <section id="problema" class="section section--alt s-problema" data-index="1" aria-label="El problema">
+
+      <div class="problema__wrap">
+
+        <!-- Pregunta retórica — Mona Sans display, grande -->
+        <h2 class="problema__question reveal">
+          ¿Cuántos clientes salieron de tu restaurante encantados… y nunca más volvieron?
+        </h2>
+
+        <!-- Dashboard mockup -->
+        <div class="problema__dashboard reveal reveal--d1">
+          <div class="db-header">
+            <span class="db-header__title">Panel de clientes — Woki</span>
+            <span class="db-header__period">Mayo 2025</span>
+          </div>
+          <div class="db-kpis">
+            <div class="db-kpi">
+              <div class="db-kpi__num">1.820</div>
+              <div class="db-kpi__label">Cubiertos / mes</div>
+              <div class="db-kpi__delta db-kpi__delta--up">↑ 8% vs abril</div>
+            </div>
+            <div class="db-kpi">
+              <div class="db-kpi__num">412</div>
+              <div class="db-kpi__label">Clientes nuevos</div>
+              <div class="db-kpi__delta db-kpi__delta--up">↑ 5% vs abril</div>
+            </div>
+            <div class="db-kpi">
+              <div class="db-kpi__num">618</div>
+              <div class="db-kpi__label">Clientes que volvieron</div>
+              <div class="db-kpi__delta db-kpi__delta--up">↑ 12% vs abril</div>
+            </div>
+            <div class="db-kpi">
+              <div class="db-kpi__num">34%</div>
+              <div class="db-kpi__label">Tasa de recurrencia</div>
+              <div class="db-kpi__delta db-kpi__delta--up">↑ 4pp vs abril</div>
+            </div>
+          </div>
+          <div class="db-body">
+            <div class="db-row">
+              <span class="db-row__label">Clientes nuevos</span>
+              <div class="db-bar-wrap"><div class="db-bar db-bar--new" style="width:55%"></div></div>
+              <span class="db-row__val">412</span>
+            </div>
+            <div class="db-row">
+              <span class="db-row__label">Volvieron</span>
+              <div class="db-bar-wrap"><div class="db-bar db-bar--rec" style="width:82%"></div></div>
+              <span class="db-row__val">618</span>
+            </div>
+            <div class="db-row">
+              <span class="db-row__label">No volvieron</span>
+              <div class="db-bar-wrap"><div class="db-bar db-bar--lost" style="width:100%"></div></div>
+              <span class="db-row__val">790</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cierre -->
+        <p class="problema__close reveal reveal--d2">
+          Con Woki, comunicate con tu cliente en el momento indicado para asegurarte de que vuelva&nbsp;— a través de automatizaciones y alertas.
+        </p>
+
+      </div>
+
+      <p class="problema__disclaimer disclaimer reveal reveal--d3">
+        * Bain &amp; Company, citado en Harvard Business Review. Estadística de la industria; los resultados reales dependen de la operación y el segmento.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 3 — HOSPITALITY MANAGER
+         Parte A: El cambio (light bg)
+         Cambios: nombre de producto con protagonismo · nuevo título · escala asimétrica
+         ============================================================ -->
+    <section id="hospitality-manager" class="section s-hm" data-index="2" aria-label="Hospitality Manager — El cambio">
+      <div class="section__inner">
+
+        <!-- Nombre de producto — protagonismo máximo, gradiente oficial -->
+        <div class="hm-product-hero reveal">
+          <div class="hm-hero-stat">
+            <div class="hm-hero-stat__dot"></div>
+            <span class="hm-hero-stat__text">Incluido en todos los planes Woki</span>
+          </div>
+          <h2 class="hm-product-name">Hospitality<br>Manager</h2>
+          <p class="hm-part-a-title reveal reveal--d1">
+            Pasá de números y estadísticas a conocimiento real sobre tus clientes.
+          </p>
+        </div>
+
+        <!-- Comparación side-by-side — sin etiquetas antes/después -->
+        <div class="comparison reveal reveal--d2">
+
+          <!-- Izquierda: Excel muerta, levemente más pequeña -->
+          <div class="xls-mock">
+            <div class="xls-mock__bar">
+              <div class="xls-mock__dot"></div>
+              <div class="xls-mock__dot"></div>
+              <div class="xls-mock__dot"></div>
+              <span class="xls-mock__bar-title">clientes_2024.xlsx</span>
+            </div>
+            <table aria-label="Planilla de clientes genérica">
+              <thead>
+                <tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Fecha</th><th>Visitas</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Martín García</td><td>mgarcia@gmail.com</td><td>+54 9 11…</td><td>12/03/24</td><td>1</td></tr>
+                <tr><td>Laura Sánchez</td><td>lsanchez@hotmail…</td><td>+54 9 11…</td><td>14/03/24</td><td>1</td></tr>
+                <tr><td>Diego Fernández</td><td>dfernandez@yah…</td><td>+54 9 11…</td><td>15/03/24</td><td>3</td></tr>
+                <tr><td>Ana Rodríguez</td><td>arodriguez@gmai…</td><td>+54 9 11…</td><td>18/03/24</td><td>1</td></tr>
+                <tr><td>Carlos López</td><td>clopez@outlook.c…</td><td>+54 9 11…</td><td>20/03/24</td><td>2</td></tr>
+                <tr><td>Valeria Torres</td><td>vtorres@gmail.co…</td><td>+54 9 11…</td><td>22/03/24</td><td>1</td></tr>
+                <tr><td>Pablo Morales</td><td>pmorales@hotmai…</td><td>+54 9 11…</td><td>25/03/24</td><td>1</td></tr>
+                <tr><td>Sofía Castro</td><td>scastro@gmail.co…</td><td>+54 9 11…</td><td>28/03/24</td><td>4</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Derecha: perfil rico, levemente más grande -->
+          <div class="profile-card">
+            <div class="profile-card__header">
+              <div class="profile-card__avatar" aria-hidden="true">SC</div>
+              <div>
+                <p class="profile-card__name">Sofía Castro</p>
+                <p class="profile-card__sub">Cliente recurrente · 4 visitas</p>
+              </div>
+            </div>
+            <div class="profile-card__stats">
+              <div class="profile-stat">
+                <div class="profile-stat__num">4</div>
+                <div class="profile-stat__label">Visitas</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat__num">$18k</div>
+                <div class="profile-stat__label">Ticket prom.</div>
+              </div>
+              <div class="profile-stat">
+                <div class="profile-stat__num">3d</div>
+                <div class="profile-stat__label">Última visita</div>
+              </div>
+            </div>
+            <div class="profile-card__section">
+              <p class="profile-card__section-label">Preferencias</p>
+              <div class="profile-tags">
+                <span class="profile-tag">Mesa junto a ventana</span>
+                <span class="profile-tag">Sin gluten</span>
+                <span class="profile-tag">Vino tinto</span>
+              </div>
+            </div>
+            <div class="profile-card__section">
+              <p class="profile-card__section-label">Alertas</p>
+              <div class="profile-tags">
+                <span class="profile-tag profile-tag--alert">Alérgica a mariscos</span>
+                <span class="profile-tag profile-tag--ok">Reseñó 5 estrellas</span>
+              </div>
+            </div>
+            <div class="profile-card__section">
+              <p class="profile-card__section-label">Nota del equipo</p>
+              <p class="profile-card__note">
+                "Celebró su cumpleaños en marzo. Mencionó que le encantó el postre de temporada. VIP para eventos especiales."
+              </p>
+            </div>
+          </div>
+
+        </div><!-- /comparison -->
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 3B — EL NÚCLEO
+         Dark mode exclusivo · fondo #0A0E17 · glow estático · shimmer en hover
+         ============================================================ -->
+    <section id="hm-nucleo" class="s-hm-dark" aria-label="Hospitality Manager — El núcleo">
+      <div class="section__inner">
+
+        <h3 class="hm-dark-title reveal">El cerebro detrás de cada herramienta de Woki.</h3>
+
+        <!-- Diagram -->
+        <div class="hm-diagram reveal reveal--d1" id="hm-diagram">
+
+          <!-- Left: inputs — sin etiqueta de columna -->
+          <div class="hm-col hm-col--left">
+            <ul class="hm-items" id="hm-inputs">
+              <li class="hm-item" data-item="pos"
+                data-tooltip="Ticket promedio, frecuencia de consumo y productos preferidos de cada cliente.">
+                <span class="hm-item__icon"><i data-lucide="bar-chart-2"></i></span>
+                <span class="hm-item__name">POS del restaurante</span>
+              </li>
+              <li class="hm-item" data-item="reservas"
+                data-tooltip="Historial de visitas, horarios preferidos y tamaño de mesa habitual.">
+                <span class="hm-item__icon"><i data-lucide="calendar"></i></span>
+                <span class="hm-item__name">Reservas</span>
+              </li>
+              <li class="hm-item" data-item="notas"
+                data-tooltip="Observaciones del equipo de sala: preferencias de mesa, detalles y alertas de la última visita.">
+                <span class="hm-item__icon"><i data-lucide="pencil-line"></i></span>
+                <span class="hm-item__name">Notas del equipo</span>
+              </li>
+              <li class="hm-item" data-item="resenas"
+                data-tooltip="Feedback en Google y Woki, patrones de satisfacción y alertas de experiencia negativa.">
+                <span class="hm-item__icon"><i data-lucide="star"></i></span>
+                <span class="hm-item__name">Reseñas</span>
+              </li>
+              <li class="hm-item" data-item="michelin-in"
+                data-tooltip="Demanda calificada de alta gastronomía en el momento de máxima intención de reserva.">
+                <span class="hm-item__icon"><i data-lucide="award"></i></span>
+                <span class="hm-item__name">Guía Michelin</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Center: core — gradient + static glow -->
+          <div class="hm-center">
+            <div class="hm-core">
+              <p class="hm-core__name">Hospitality<br>Manager</p>
+              <p class="hm-core__sub">Perfiles accionables de cada cliente</p>
+            </div>
+          </div>
+
+          <!-- Right: outputs — sin etiqueta de columna -->
+          <div class="hm-col hm-col--right">
+            <ul class="hm-items" id="hm-outputs">
+              <li class="hm-item" data-item="app"
+                data-tooltip="Perfiles completos de cada cliente en tiempo real para el equipo de sala.">
+                <span class="hm-item__icon"><i data-lucide="smartphone"></i></span>
+                <span class="hm-item__name">App Woki para restaurantes</span>
+              </li>
+              <li class="hm-item" data-item="perfil"
+                data-tooltip="Identidad de marca y flujo de reserva optimizados para captar más reservas.">
+                <span class="hm-item__icon"><i data-lucide="globe"></i></span>
+                <span class="hm-item__name">Perfil del restaurante</span>
+              </li>
+              <li class="hm-item" data-item="email"
+                data-tooltip="Segmentación precisa por comportamiento, historial y preferencias de cada cliente.">
+                <span class="hm-item__icon"><i data-lucide="mail"></i></span>
+                <span class="hm-item__name">Email marketing</span>
+              </li>
+              <li class="hm-item" data-item="ads"
+                data-tooltip="Audiencias personalizadas en Meta, Google y TikTok, basadas en datos reales de tu base.">
+                <span class="hm-item__icon"><i data-lucide="megaphone"></i></span>
+                <span class="hm-item__name">Campañas de ads</span>
+              </li>
+              <li class="hm-item" data-item="briefs"
+                data-tooltip="Resumen del turno antes del servicio: VIPs, alergias, cumpleaños y alertas previas.">
+                <span class="hm-item__icon"><i data-lucide="clipboard-list"></i></span>
+                <span class="hm-item__name">Briefs pre-servicio</span>
+              </li>
+              <li class="hm-item" data-item="panel"
+                data-tooltip="Análisis de feedback con IA, detección de patrones y planes de acción sugeridos.">
+                <span class="hm-item__icon"><i data-lucide="message-square"></i></span>
+                <span class="hm-item__name">Panel de reseñas</span>
+              </li>
+              <li class="hm-item" data-item="metricas"
+                data-tooltip="Panel unificado de marketing, operación y reseñas, con reporte mensual al correo.">
+                <span class="hm-item__icon"><i data-lucide="trending-up"></i></span>
+                <span class="hm-item__name">Métricas y reporte mensual</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- SVG: base lines + shimmer paths -->
+          <svg id="hm-svg" aria-hidden="true">
+            <defs>
+              <!-- Subtle arrowhead — stroke 1px, 30% opacity, toward nucleus -->
+              <marker id="arrow-hint" markerWidth="6" markerHeight="6"
+                      refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L5,3 L0,6" fill="none"
+                      stroke="rgba(0,102,204,0.3)" stroke-width="0.8"/>
+              </marker>
+            </defs>
+          </svg>
+
+          <!-- Tooltip bubble -->
+          <div class="hm-tooltip" id="hm-tooltip" role="tooltip" aria-live="polite"></div>
+
+        </div><!-- /hm-diagram -->
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 4 — ANTES DEL SERVICIO
+         ============================================================ -->
+    <section id="antes-del-servicio" class="section section--alt" data-index="3" aria-label="Antes del servicio">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Activás tu base con audiencias precisas.</h2>
+          <p class="section-subtitle">Tres formas de convertir tu base de datos en reservas reales.</p>
+        </div>
+
+        <div class="reveal reveal--d1">
+          <div class="tab-list" role="tablist" id="ads-tabs">
+            <button class="tab-btn is-active" role="tab" data-tab="perfil" aria-selected="true">Perfil del restaurante</button>
+            <button class="tab-btn" role="tab" data-tab="campanas" aria-selected="false">Campañas y email segmentado</button>
+            <button class="tab-btn" role="tab" data-tab="eventos" aria-selected="false">Eventos y experiencias</button>
+          </div>
+
+          <!-- Tab 1: Perfil del restaurante -->
+          <div class="tab-panel is-active" data-panel="perfil">
+            <div class="rp-mock">
+              <div class="rp-mock__hero">
+                <span class="rp-mock__badge">Buenos Aires · Fine dining</span>
+              </div>
+              <div class="rp-mock__body">
+                <h3 class="rp-mock__name">Casa Lucía</h3>
+                <div class="rp-mock__meta">
+                  <span class="rp-mock__rating">4.9</span>
+                  <span class="rp-mock__stars">★★★★★</span>
+                  <span>·</span>
+                  <span>412 reseñas</span>
+                  <span>·</span>
+                  <span>Cocina argentina contemporánea</span>
+                </div>
+                <div class="rp-mock__services">
+                  <span class="rp-mock__tag">Menú degustación</span>
+                  <span class="rp-mock__tag">Carta de vinos</span>
+                  <span class="rp-mock__tag">Apto celíacos</span>
+                  <span class="rp-mock__tag">Estacionamiento</span>
+                  <span class="rp-mock__tag">Aceptamos grupos</span>
+                </div>
+                <div class="rp-mock__cta">
+                  <div class="rp-mock__btn-p">Reservar mesa</div>
+                  <div class="rp-mock__btn-s">Ver menú</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Campañas y email segmentado -->
+          <div class="tab-panel" data-panel="campanas">
+            <div class="campaign-panel">
+              <div>
+                <div class="sub-tab-list" role="tablist" id="seg-tabs">
+                  <button class="sub-tab-btn is-active" data-sub="dormidos">Recuperar dormidos</button>
+                  <button class="sub-tab-btn" data-sub="nuevos">Fidelizar nuevos</button>
+                  <button class="sub-tab-btn" data-sub="fieles">Mantener fieles</button>
+                </div>
+                <div class="segment-info is-active" data-segment="dormidos">
+                  <div class="segment-stat">1.240</div>
+                  <div class="segment-label">clientes sin visita en más de 90 días</div>
+                  <div class="segment-criteria">Filtro: última visita &gt; 90 días · ticket promedio ≥ $8.000 · al menos 2 visitas previas</div>
+                </div>
+                <div class="segment-info" data-segment="nuevos">
+                  <div class="segment-stat">380</div>
+                  <div class="segment-label">clientes con su primera visita en los últimos 60 días</div>
+                  <div class="segment-criteria">Filtro: primera visita &lt; 60 días · sin reserva activa · reseña positiva o sin reseña</div>
+                </div>
+                <div class="segment-info" data-segment="fieles">
+                  <div class="segment-stat">215</div>
+                  <div class="segment-label">clientes con 5 o más visitas en el último año</div>
+                  <div class="segment-criteria">Filtro: ≥ 5 visitas anuales · recurrencia mensual · ticket en percentil 80+</div>
+                </div>
+              </div>
+              <div class="email-preview" id="email-preview-wrap">
+                <div class="email-preview__header" id="email-header">
+                  Para: segmento seleccionado · Asunto: <span id="email-subject-short">Te extrañamos en Casa Lucía</span>
+                </div>
+                <div class="email-preview__body">
+                  <div class="email-preview__subject" id="email-subject">Te extrañamos en Casa Lucía</div>
+                  <p class="email-preview__text" id="email-text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.</p>
+                  <div class="email-preview__cta" id="email-cta">Reservar con descuento</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Eventos y experiencias -->
+          <div class="tab-panel" data-panel="eventos">
+            <div class="events-grid">
+              <div class="event-card">
+                <div class="event-card__img" style="background:linear-gradient(135deg,#202B3F,#0066CC);">🍷</div>
+                <div class="event-card__body">
+                  <p class="event-card__name">Cena maridaje</p>
+                  <p class="event-card__date">Viernes 30 de mayo · 20:30hs</p>
+                  <div class="event-card__btn">Ver y reservar</div>
+                </div>
+              </div>
+              <div class="event-card">
+                <div class="event-card__img" style="background:linear-gradient(135deg,#3D1A00,#8B4513);">🥩</div>
+                <div class="event-card__body">
+                  <p class="event-card__name">Noche de cortes</p>
+                  <p class="event-card__date">Sábado 7 de junio · 20:00hs</p>
+                  <div class="event-card__btn">Ver y reservar</div>
+                </div>
+              </div>
+              <div class="event-card">
+                <div class="event-card__img" style="background:linear-gradient(135deg,#1A3A1A,#2D7D32);">🌿</div>
+                <div class="event-card__body">
+                  <p class="event-card__name">Menú primavera</p>
+                  <p class="event-card__date">Todos los viernes de junio</p>
+                  <div class="event-card__btn">Ver y reservar</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 5 — MICHELIN
+         ============================================================ -->
+    <section id="michelin" class="section" data-index="4" aria-label="Guía Michelin">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Tomá reservas desde tu perfil en la Guía Michelin.</h2>
+          <p class="section-subtitle">Woki es el sistema integrado para que los restaurantes de la Guía Michelin reciban reservas directo en su panel.</p>
+        </div>
+
+        <div class="michelin-layout reveal reveal--d1">
+          <!-- Mockup perfil Michelin -->
+          <div class="michelin-mock">
+            <div class="michelin-mock__header">
+              <!-- Estrella geométrica — sin logo real de Michelin -->
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                <polygon points="14,2 16.9,10 25.5,10 18.8,15.3 21.3,24 14,18.8 6.7,24 9.2,15.3 2.5,10 11.1,10" fill="#E63B2E"/>
+              </svg>
+              <span class="michelin-mock__guide-name">Guía Michelin</span>
+            </div>
+            <div class="michelin-mock__body">
+              <p class="michelin-mock__rest-name">Casa Lucía</p>
+              <div class="michelin-mock__stars">★★</div>
+              <p class="michelin-mock__loc">Buenos Aires · Cocina argentina contemporánea</p>
+              <div class="michelin-mock__book">Reservar en Woki</div>
+            </div>
+          </div>
+
+          <!-- Conector visual -->
+          <div class="michelin-connector">
+            <div class="michelin-connector__line"></div>
+            <i data-lucide="arrow-right" style="width:20px;height:20px;stroke-width:1.5;color:var(--brand);flex-shrink:0;"></i>
+            <div class="michelin-connector__line"></div>
+          </div>
+
+          <!-- Panel Woki -->
+          <div class="michelin-woki-mock">
+            <p class="michelin-woki-mock__label">Panel Woki — reservas entrantes</p>
+            <div class="michelin-res-row michelin-res-row--green">
+              <div class="michelin-res-dot michelin-res-dot--green"></div>
+              <div class="michelin-res-text">Nueva reserva · Guía Michelin · 2 personas · vie 30/05 · 20:30hs</div>
+            </div>
+            <div class="michelin-res-row michelin-res-row--blue">
+              <div class="michelin-res-dot michelin-res-dot--blue"></div>
+              <div class="michelin-res-text">Nueva reserva · Guía Michelin · 4 personas · sáb 31/05 · 21:00hs</div>
+            </div>
+            <div class="michelin-res-row michelin-res-row--green">
+              <div class="michelin-res-dot michelin-res-dot--green"></div>
+              <div class="michelin-res-text">Nueva reserva · Guía Michelin · 6 personas · dom 01/06 · 20:00hs</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="michelin-close reveal reveal--d2">
+          Captás la demanda más calificada del mundo gastronómico, en el momento de máxima intención de reserva.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 6 — DURANTE EL SERVICIO
+         ============================================================ -->
+    <section id="durante-el-servicio" class="section section--alt" data-index="5" aria-label="Durante el servicio">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Tu equipo arranca cada turno sabiendo a quién espera.</h2>
+          <p class="section-subtitle">Atención personalizada hecha estándar para todo el equipo.</p>
+        </div>
+
+        <div class="service-grid reveal reveal--d1">
+          <!-- Brief pre-servicio -->
+          <div>
+            <p class="service-block__label">Brief pre-servicio</p>
+            <div class="brief-mock">
+              <div class="brief-mock__header">
+                <span class="brief-mock__title">Turno noche — viernes 30/05</span>
+                <span class="brief-mock__date">21:00–24:00 · 18 cubiertos</span>
+              </div>
+              <div class="brief-mock__body">
+                <div>
+                  <p class="brief-section__label">VIPs y recurrentes</p>
+                  <div class="brief-row">
+                    <div class="brief-row__avatar">SC</div>
+                    <div class="brief-row__info">
+                      <p class="brief-row__name">Sofía Castro</p>
+                      <p class="brief-row__note">Mesa 4 · 4ta visita · prefiere ventana</p>
+                    </div>
+                    <span class="brief-tag brief-tag--vip">VIP</span>
+                  </div>
+                  <div class="brief-row">
+                    <div class="brief-row__avatar">MR</div>
+                    <div class="brief-row__info">
+                      <p class="brief-row__name">Martín Rodríguez</p>
+                      <p class="brief-row__note">Mesa 7 · cumpleaños hoy · sin gluten</p>
+                    </div>
+                    <span class="brief-tag brief-tag--bday">Cumpleaños</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="brief-section__label">Alertas del turno</p>
+                  <div class="brief-row">
+                    <div class="brief-row__avatar" style="background:#FBEAEA;color:#C42525;font-size:13px;font-weight:700;">!</div>
+                    <div class="brief-row__info">
+                      <p class="brief-row__name">Laura Gómez · Mesa 2</p>
+                      <p class="brief-row__note">Alérgica a mariscos · verificar menú degustación</p>
+                    </div>
+                    <span class="brief-tag brief-tag--alert">Alergia</span>
+                  </div>
+                  <div class="brief-row">
+                    <div class="brief-row__avatar" style="background:#FBEAEA;color:#C42525;font-size:13px;font-weight:700;">!</div>
+                    <div class="brief-row__info">
+                      <p class="brief-row__name">Diego Herrera · Mesa 9</p>
+                      <p class="brief-row__note">Reseñó 2★ en última visita · servicio lento</p>
+                    </div>
+                    <span class="brief-tag brief-tag--alert">Recuperar</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- App mockup -->
+          <div class="app-mock-wrap">
+            <p class="service-block__label">App Woki para el equipo de sala</p>
+            <div class="app-mock">
+              <div class="app-mock__statusbar">
+                <span>21:14</span>
+                <span style="letter-spacing:2px;">●●●</span>
+              </div>
+              <div class="app-mock__topbar">
+                <span class="app-mock__back">‹ Turno</span>
+                <span class="app-mock__screen-title">Mesa 4 — Sofía Castro</span>
+              </div>
+              <div class="app-mock__item">
+                <div class="app-mock__item-time">Reserva 21:00hs · 2 personas</div>
+                <div class="app-mock__item-name">Sofía Castro</div>
+                <div class="app-mock__item-tags">
+                  <span class="app-mock__item-tag">4 visitas</span>
+                  <span class="app-mock__item-tag">Sin gluten</span>
+                  <span class="app-mock__item-tag">Vino tinto</span>
+                </div>
+                <div class="app-mock__item-note">"Celebró cumpleaños en marzo. Le encantó el postre de temporada."</div>
+              </div>
+              <div class="app-mock__hist">
+                <p class="app-mock__hist-label">Historial</p>
+                <div class="app-mock__hist-row"><span>12/03/24</span><span class="app-mock__hist-val">$18.200</span></div>
+                <div class="app-mock__hist-row"><span>28/01/24</span><span class="app-mock__hist-val">$15.800</span></div>
+                <div class="app-mock__hist-row"><span>15/11/23</span><span class="app-mock__hist-val">$21.500</span></div>
+              </div>
+              <div class="app-mock__item">
+                <div class="app-mock__item-tags">
+                  <span class="app-mock__item-tag" style="background:#FBEAEA;color:#C42525;">Alérgica a mariscos</span>
+                  <span class="app-mock__item-tag" style="background:#E7F6EC;color:#138A36;">Reseñó 5★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 7 — DESPUÉS DEL SERVICIO
+         ============================================================ -->
+    <section id="despues-del-servicio" class="section" data-index="6" aria-label="Después del servicio">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Analizá las métricas operativas, de marketing y de reseñas de tu restaurante.</h2>
+          <p class="section-subtitle">Lo que aprendés de cada turno se vuelve la decisión del próximo.</p>
+        </div>
+
+        <div class="analytics-stack reveal reveal--d1">
+
+          <!-- Fila 1: Reseñas unificadas -->
+          <div class="analytics-row">
+            <div class="analytics-row__info">
+              <div class="analytics-row__icon"><i data-lucide="star"></i></div>
+              <p class="analytics-row__name">Reseñas de todos los canales unificadas</p>
+              <p class="analytics-row__desc">Detectá patrones y tendencias en las reseñas de todas las plataformas en un solo lugar.</p>
+            </div>
+            <div class="analytics-row__content">
+              <!-- Rating grande -->
+              <div class="rating-block">
+                <div class="rating-block__num">4.5</div>
+                <div class="rating-block__stars">★★★★½</div>
+                <div class="rating-block__label">Google + Woki<br>412 reseñas</div>
+              </div>
+              <div class="analytics-divider"></div>
+              <!-- Reviews + AI insight -->
+              <div class="reviews-col">
+                <div class="review-mini">
+                  <span class="review-mini__source">Google</span>
+                  <div class="review-mini__right">
+                    <div class="review-mini__stars">★★★★★</div>
+                    <div class="review-mini__text">"La atención fue increíble. El mozo sabía exactamente mis preferencias."</div>
+                  </div>
+                </div>
+                <div class="review-mini">
+                  <span class="review-mini__source">Woki</span>
+                  <div class="review-mini__right">
+                    <div class="review-mini__stars">★★★★☆</div>
+                    <div class="review-mini__text">"Excelente menú de temporada. Volveríamos sin dudarlo."</div>
+                  </div>
+                </div>
+                <div class="ai-insight">
+                  <span class="ai-insight__badge">IA</span>
+                  <p class="ai-insight__text">Las reseñas sobre el servicio mejoraron respecto al mes pasado. Los comentarios positivos subieron un 18%.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 2: Métricas de marketing -->
+          <div class="analytics-row">
+            <div class="analytics-row__info">
+              <div class="analytics-row__icon"><i data-lucide="megaphone"></i></div>
+              <p class="analytics-row__name">Métricas de marketing</p>
+              <p class="analytics-row__desc">Medí el rendimiento de tus campañas, eventos y acciones con influencers.</p>
+            </div>
+            <div class="analytics-row__content">
+              <table class="campaign-perf-table">
+                <thead>
+                  <tr>
+                    <th>Campaña</th>
+                    <th>Visitas al perfil</th>
+                    <th>Reservas generadas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Email — clientes dormidos</td>
+                    <td>1.240</td>
+                    <td>87</td>
+                  </tr>
+                  <tr>
+                    <td>Evento — Cena maridaje</td>
+                    <td>890</td>
+                    <td>64</td>
+                  </tr>
+                  <tr>
+                    <td>Meta Ads — captación</td>
+                    <td>3.420</td>
+                    <td>112</td>
+                  </tr>
+                  <tr>
+                    <td>Influencer — @gastrobaires</td>
+                    <td>5.100</td>
+                    <td>48</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Fila 3: Métricas operativas -->
+          <div class="analytics-row">
+            <div class="analytics-row__info">
+              <div class="analytics-row__icon"><i data-lucide="trending-up"></i></div>
+              <p class="analytics-row__name">Métricas operativas</p>
+              <p class="analytics-row__desc">Tasa de cancelación, permanencia, ticket promedio. Para que no se te escape nada.</p>
+            </div>
+            <div class="analytics-row__content">
+              <div class="ops-grid">
+                <div class="ops-box">
+                  <div class="ops-box__num">6.2%</div>
+                  <div class="ops-box__label">Cancelación</div>
+                  <div class="ops-box__delta ops-box__delta--up">↓ 1.4pp</div>
+                </div>
+                <div class="ops-box">
+                  <div class="ops-box__num">94 min</div>
+                  <div class="ops-box__label">Permanencia prom.</div>
+                  <div class="ops-box__delta ops-box__delta--up">↑ 8 min</div>
+                </div>
+                <div class="ops-box">
+                  <div class="ops-box__num">$17.400</div>
+                  <div class="ops-box__label">Ticket promedio</div>
+                  <div class="ops-box__delta ops-box__delta--up">↑ 12%</div>
+                </div>
+                <div class="ops-box">
+                  <div class="ops-box__num">34%</div>
+                  <div class="ops-box__label">Recurrencia</div>
+                  <div class="ops-box__delta ops-box__delta--up">↑ 4pp</div>
+                </div>
+                <div class="ops-box">
+                  <div class="ops-box__num">1.820</div>
+                  <div class="ops-box__label">Cubiertos / mes</div>
+                  <div class="ops-box__delta ops-box__delta--up">↑ 8%</div>
+                </div>
+                <div class="ops-box">
+                  <div class="ops-box__num">2.4%</div>
+                  <div class="ops-box__label">No-show</div>
+                  <div class="ops-box__delta ops-box__delta--up">↓ 0.8pp</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 8 — RESULTADOS
+         ============================================================ -->
+    <section id="resultados" class="section section--alt" data-index="7" aria-label="Resultados">
+      <div class="section__inner">
+
+        <h2 class="results-hero-title reveal">Usá Woki Hospitality para hacer que tus clientes vuelvan.</h2>
+
+        <div class="kpi-row reveal reveal--d1">
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">5%</div>
+            <p class="kpi-item__text">Un aumento del 5% en la tasa de retención puede traducirse en hasta <strong>25–95% más de ganancias.</strong><sup>*1</sup></p>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">51%</div>
+            <p class="kpi-item__text">En restaurantes de fine dining, el 51% de la facturación viene de <strong>clientes recurrentes.</strong><sup>*2</sup></p>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">67%</div>
+            <p class="kpi-item__text">Un cliente recurrente gasta en promedio <strong>67% más por visita</strong> que uno nuevo.<sup>*3</sup></p>
+          </div>
+        </div>
+
+        <!-- Calculadora -->
+        <div class="calc-wrap reveal reveal--d2">
+          <h3 class="calc-title">¿Cuánto vale para tu restaurante una mejora del 5% en la recurrencia?</h3>
+          <div class="calc-inputs" style="grid-template-columns:1fr 1fr;">
+            <div class="calc-field">
+              <label class="calc-label" for="calc-cubiertos">Cubiertos por mes</label>
+              <input type="number" id="calc-cubiertos" class="calc-input" value="1500" min="100" max="20000">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label" for="calc-ticket">Ticket promedio</label>
+              <input type="number" id="calc-ticket" class="calc-input" value="15000" min="1000" max="500000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <p class="calc-output__label" id="calc-label-text">Con una mejora del <strong>5%</strong> en tu tasa de recurrencia, tu restaurante factura aproximadamente</p>
+            <div class="calc-output__num" id="calc-result">+$13.500.000</div>
+            <p class="calc-output__sub">al año sin sumar un solo cliente nuevo.**</p>
+          </div>
+        </div>
+
+        <div class="results-disclaimers reveal reveal--d3">
+          <p class="disclaimer">*1 Bain &amp; Company, citado en Harvard Business Review. *2 National Restaurant Association. *3 Datos agregados de la industria gastronómica internacional. Estadísticas del rubro; los resultados reales dependen de la operación, segmento y plan de hospitalidad.</p>
+          <p class="disclaimer">** Estimación basada en datos agregados (NRA, Bain &amp; Company). Asume ticket promedio y cubiertos estables. No es una proyección comercial ni una promesa de resultado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 9 — IMPLEMENTACIÓN
+         ============================================================ -->
+    <section id="implementacion" class="section" data-index="8" aria-label="Implementación">
+      <div class="section__inner">
+        <div class="impl-hero reveal">
+          <div class="impl-72">72hs</div>
+          <p class="impl-hero-sub">Migrás tus datos, configuramos Woki y capacitamos a tu equipo.<br>Estás operativo en menos de 72 horas.</p>
+        </div>
+
+        <div class="impl-steps reveal reveal--d1">
+          <div class="impl-step">
+            <div class="impl-step__icon"><i data-lucide="database"></i></div>
+            <span class="impl-step__num">01</span>
+            <p class="impl-step__name">Migración</p>
+            <p class="impl-step__desc">Bases de clientes y reservas existentes, en minutos.</p>
+          </div>
+          <div class="impl-connector"><div class="impl-connector__line"></div></div>
+          <div class="impl-step">
+            <div class="impl-step__icon"><i data-lucide="settings"></i></div>
+            <span class="impl-step__num">02</span>
+            <p class="impl-step__name">Configuración</p>
+            <p class="impl-step__desc">La hace el equipo de Woki, adaptada a cómo trabaja tu restaurante.</p>
+          </div>
+          <div class="impl-connector"><div class="impl-connector__line"></div></div>
+          <div class="impl-step">
+            <div class="impl-step__icon"><i data-lucide="users"></i></div>
+            <span class="impl-step__num">03</span>
+            <p class="impl-step__name">Capacitación</p>
+            <p class="impl-step__desc">Al personal, para que el sistema rinda desde el día uno.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN 10 — CIERRE
+         ============================================================ -->
+    <section id="cierre" class="section section--alt" data-index="9" aria-label="Cierre">
+      <div class="section__inner" style="text-align:center;">
+        <h2 class="cierre-title reveal">Los mejores restaurantes ya están en Woki.</h2>
+
+        <div class="logos-grid reveal reveal--d1" aria-label="Restaurantes partner">
+          <div class="logo-slot"><span class="logo-slot__label">Logo 01</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 02</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 03</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 04</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 05</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 06</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 07</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 08</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 09</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 10</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 11</span></div>
+          <div class="logo-slot"><span class="logo-slot__label">Logo 12</span></div>
+        </div>
+
+        <div class="cierre-ctas reveal reveal--d2">
+          <a href="#" class="btn btn--primary btn--large">Agendá tu implementación</a>
+          <a href="mailto:?subject=Quiero%20hablar%20con%20un%20cliente%20de%20Woki" class="btn btn--secondary btn--large">Hablá con un cliente nuestro</a>
+        </div>
+
+        <div class="cierre-link reveal reveal--d3">
+          <a href="#">Pedí tu propuesta personalizada</a>
+        </div>
+
+        <div class="cierre-footer reveal reveal--d3">
+          <button class="btn btn--secondary" onclick="window.print()" aria-label="Descargar como PDF">
+            <i data-lucide="download" style="width:16px;height:16px;stroke-width:1.5;"></i>
+            Descargar PDF
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================================================================
+       SCRIPTS
+       ================================================================ -->
+  <script>
+  (function () {
+    'use strict';
+
+    /* ----------------------------------------------------------------
+       NAVIGATION
+       ---------------------------------------------------------------- */
+    var SECTIONS = [
+      'apertura','problema','hospitality-manager',
+      'antes-del-servicio','michelin','durante-el-servicio',
+      'despues-del-servicio','resultados','implementacion','cierre'
+    ];
+    var dots = document.querySelectorAll('.side-nav__dot');
+    var currentIndex = 0, prog = false;
+
+    function activateDot(i) {
+      dots.forEach(function(d,j){ d.classList.toggle('is-active', j===i); });
+      currentIndex = i;
+    }
+    function pushState(i) {
+      try { history.replaceState(null,'','#'+SECTIONS[i]); } catch(_){}
+      try { localStorage.setItem('woki-deck-section', String(i)); } catch(_){}
+    }
+    function scrollTo(i) {
+      if (i < 0 || i >= SECTIONS.length) return;
+      var el = document.getElementById(SECTIONS[i]);
+      if (!el) return;
+      prog = true;
+      el.scrollIntoView({ behavior:'smooth', block:'start' });
+      activateDot(i); pushState(i);
+      clearTimeout(scrollTo._t);
+      scrollTo._t = setTimeout(function(){ prog = false; }, 700);
+    }
+    dots.forEach(function(d,i){ d.addEventListener('click', function(){ scrollTo(i); }); });
+    document.addEventListener('keydown', function(e){
+      if (e.key==='ArrowRight'||e.key==='ArrowDown'){ e.preventDefault(); scrollTo(currentIndex+1); }
+      else if (e.key==='ArrowLeft'||e.key==='ArrowUp'){ e.preventDefault(); scrollTo(currentIndex-1); }
+    });
+
+    var io = new IntersectionObserver(function(entries){
+      if (prog) return;
+      entries.forEach(function(entry){
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          var id = entry.target.id === 'hm-nucleo' ? 'hospitality-manager' : entry.target.id;
+          var idx = SECTIONS.indexOf(id);
+          if (idx !== -1) { activateDot(idx); pushState(idx); }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    var allSections = SECTIONS.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    allSections.forEach(function(el){ io.observe(el); });
+    var hmN = document.getElementById('hm-nucleo'); if(hmN) io.observe(hmN);
+
+    var tsx=0, tsy=0;
+    document.addEventListener('touchstart',function(e){ tsx=e.touches[0].clientX; tsy=e.touches[0].clientY; },{passive:true});
+    document.addEventListener('touchend',function(e){
+      var dx=e.changedTouches[0].clientX-tsx, dy=e.changedTouches[0].clientY-tsy;
+      if (Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.5) scrollTo(dx<0?currentIndex+1:currentIndex-1);
+    },{passive:true});
+
+    function restore(){
+      var hash=window.location.hash.replace('#',''), hi=SECTIONS.indexOf(hash);
+      if(hi!==-1){ scrollTo(hi); return; }
+      try {
+        var s=parseInt(localStorage.getItem('woki-deck-section'),10);
+        if(!isNaN(s)&&s>0&&s<SECTIONS.length) scrollTo(s);
+      }catch(_){}
+    }
+
+    /* ----------------------------------------------------------------
+       REVEAL on scroll (IntersectionObserver)
+       ---------------------------------------------------------------- */
+    var revealIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('is-visible'); });
+    },{ threshold:0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ revealIO.observe(el); });
+
+    /* ----------------------------------------------------------------
+       HOSPITALITY MANAGER DIAGRAM
+       SVG lines + shimmer (one-time on hover) + tooltips
+       ---------------------------------------------------------------- */
+    var diagram   = document.getElementById('hm-diagram');
+    var hmSvg     = document.getElementById('hm-svg');
+    var tooltip   = document.getElementById('hm-tooltip');
+    var hmCore    = diagram ? diagram.querySelector('.hm-core') : null;
+
+    /* Map item id → { base: pathEl, shimmer: pathEl } */
+    var lineMap = {};
+
+    function drawLines() {
+      if (!diagram || !hmSvg || !hmCore) return;
+
+      /* Remove only the dynamic paths (keep <defs>) */
+      var toRemove = hmSvg.querySelectorAll('path[data-item], g[data-item]');
+      toRemove.forEach(function(el){ el.parentNode.removeChild(el); });
+      lineMap = {};
+
+      var dRect = diagram.getBoundingClientRect();
+      var kRect = hmCore.getBoundingClientRect();
+      var kL = kRect.left - dRect.left, kR = kRect.right - dRect.left;
+      var kMY = kRect.top + kRect.height/2 - dRect.top;
+
+      diagram.querySelectorAll('.hm-item').forEach(function(item) {
+        var id = item.dataset.item;
+        if (!id) return;
+        var iRect = item.getBoundingClientRect();
+        var isLeft = !!item.closest('.hm-col--left');
+        var iMY = iRect.top + iRect.height/2 - dRect.top;
+        var iX = isLeft ? (iRect.right - dRect.left) : (iRect.left - dRect.left);
+        var kX = isLeft ? kL : kR;
+
+        /* Bezier control points */
+        var midX = (iX + kX) / 2;
+        var d = 'M '+iX+','+iMY+' C '+midX+','+iMY+' '+midX+','+kMY+' '+kX+','+kMY;
+
+        /* Base line */
+        var base = document.createElementNS('http://www.w3.org/2000/svg','path');
+        base.setAttribute('d', d);
+        base.setAttribute('class', 'line-base');
+        base.setAttribute('marker-end', 'url(#arrow-hint)');
+        base.dataset.item = id;
+        hmSvg.appendChild(base);
+
+        /* Shimmer overlay — same path, animated on hover, once */
+        var shimmer = document.createElementNS('http://www.w3.org/2000/svg','path');
+        shimmer.setAttribute('d', d);
+        shimmer.setAttribute('class', 'line-shimmer');
+        shimmer.dataset.item = id;
+        hmSvg.appendChild(shimmer);
+
+        lineMap[id] = { base: base, shimmer: shimmer };
+      });
+    }
+
+    function triggerShimmer(shimmerPath, basePath) {
+      /* Shimmer: bright segment travels from item → nucleus, once */
+      var len = basePath.getTotalLength ? basePath.getTotalLength() : 200;
+      var seg = 35;
+      shimmerPath.setAttribute('stroke-dasharray', seg + ' ' + (len + seg * 2));
+      shimmerPath.style.opacity = '1';
+
+      /* Web Animations API (camelCase for SVG presentation attrs) */
+      try {
+        var anim = shimmerPath.animate(
+          [
+            { strokeDashoffset: String(len + seg) },
+            { strokeDashoffset: String(-(seg)) }
+          ],
+          { duration: 520, easing: 'cubic-bezier(0.2,0,0,1)', fill: 'none', iterations: 1 }
+        );
+        if (anim && anim.onfinish !== undefined) {
+          anim.onfinish = function() { shimmerPath.style.opacity = '0'; };
+        } else {
+          setTimeout(function(){ shimmerPath.style.opacity = '0'; }, 540);
+        }
+      } catch(_) {
+        shimmerPath.style.opacity = '0';
+      }
+    }
+
+    function setHighlight(activeId, on) {
+      var hasCls = 'has-hover';
+      if (on) {
+        diagram.classList.add(hasCls);
+        Object.keys(lineMap).forEach(function(id) {
+          var b = lineMap[id].base;
+          if (id === activeId) { b.classList.add('is-active'); b.classList.remove('is-dimmed'); }
+          else                 { b.classList.remove('is-active'); b.classList.add('is-dimmed'); }
+        });
+      } else {
+        diagram.classList.remove(hasCls);
+        Object.keys(lineMap).forEach(function(id) {
+          lineMap[id].base.classList.remove('is-active','is-dimmed');
+        });
+      }
+    }
+
+    function showTooltip(item) {
+      if (!tooltip) return;
+      var tip = item.dataset.tooltip;
+      if (!tip) return;
+      tooltip.textContent = tip;
+      tooltip.classList.add('is-visible');
+
+      var dRect = diagram.getBoundingClientRect();
+      var iRect = item.getBoundingClientRect();
+      var isLeft = !!item.closest('.hm-col--left');
+      var tw = tooltip.offsetWidth || 220;
+
+      var top = iRect.top - dRect.top - (tooltip.offsetHeight || 54) - 10;
+      if (top < 4) top = iRect.bottom - dRect.top + 8;
+
+      var left = isLeft ? (iRect.left - dRect.left) : (iRect.right - dRect.left - tw);
+      left = Math.max(4, Math.min(left, dRect.width - tw - 4));
+
+      tooltip.style.top  = top  + 'px';
+      tooltip.style.left = left + 'px';
+    }
+
+    if (diagram) {
+      diagram.querySelectorAll('.hm-item').forEach(function(item){
+        var id = item.dataset.item;
+
+        item.addEventListener('mouseenter', function(){
+          item.classList.add('is-hovered');
+          setHighlight(id, true);
+          showTooltip(item);
+          if (lineMap[id]) triggerShimmer(lineMap[id].shimmer, lineMap[id].base);
+        });
+        item.addEventListener('mouseleave', function(){
+          item.classList.remove('is-hovered');
+          setHighlight(id, false);
+          if (tooltip) tooltip.classList.remove('is-visible');
+        });
+
+        /* Touch */
+        item.addEventListener('touchstart', function(e){
+          e.preventDefault();
+          item.classList.add('is-hovered');
+          setHighlight(id, true);
+          showTooltip(item);
+          if (lineMap[id]) triggerShimmer(lineMap[id].shimmer, lineMap[id].base);
+        },{ passive:false });
+        item.addEventListener('touchend', function(){
+          setTimeout(function(){
+            item.classList.remove('is-hovered');
+            setHighlight(id, false);
+            if (tooltip) tooltip.classList.remove('is-visible');
+          }, 2000);
+        },{ passive:true });
+      });
+
+      window.addEventListener('resize', drawLines);
+    }
+
+    /* ----------------------------------------------------------------
+       SECCIÓN 4 — TABS (Antes del servicio)
+       ---------------------------------------------------------------- */
+    var adsTabs = document.getElementById('ads-tabs');
+    if (adsTabs) {
+      adsTabs.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var target = btn.dataset.tab;
+          adsTabs.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+          btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
+          document.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('is-active'); });
+          var panel = document.querySelector('[data-panel="'+target+'"]');
+          if (panel) panel.classList.add('is-active');
+        });
+      });
+    }
+
+    /* Campañas: sub-tabs + email preview */
+    var emailData = {
+      dormidos: {
+        subject: 'Te extrañamos en Casa Lucía',
+        short: 'Te extrañamos en Casa Lucía',
+        text: 'Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.',
+        cta: 'Reservar con descuento'
+      },
+      nuevos: {
+        subject: 'Nos alegra que hayas venido',
+        short: 'Nos alegra que hayas venido',
+        text: 'Hola Laura, fue un placer recibirte la semana pasada. Queremos que tu segunda visita sea todavía mejor: te reservamos tu mesa favorita.<br><br>Volvé cuando quieras — las reservas se abren 30 días antes.',
+        cta: 'Reservar mi próxima visita'
+      },
+      fieles: {
+        subject: 'Para vos, acceso anticipado',
+        short: 'Para vos, acceso anticipado',
+        text: 'Hola Sofía, como cliente frecuente tenés acceso anticipado a nuestro menú de temporada antes que nadie. Solo para los que ya son parte de la familia Casa Lucía.',
+        cta: 'Ver acceso exclusivo'
+      }
+    };
+    var segTabs = document.getElementById('seg-tabs');
+    if (segTabs) {
+      segTabs.querySelectorAll('.sub-tab-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.sub;
+          segTabs.querySelectorAll('.sub-tab-btn').forEach(function(b){ b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          document.querySelectorAll('[data-segment]').forEach(function(s){ s.classList.remove('is-active'); });
+          var seg = document.querySelector('[data-segment="'+key+'"]');
+          if (seg) seg.classList.add('is-active');
+          var d = emailData[key];
+          if (d) {
+            var subEl = document.getElementById('email-subject');
+            var shortEl = document.getElementById('email-subject-short');
+            var textEl = document.getElementById('email-text');
+            var ctaEl = document.getElementById('email-cta');
+            if (subEl) subEl.textContent = d.subject;
+            if (shortEl) shortEl.textContent = d.short;
+            if (textEl) textEl.innerHTML = d.text;
+            if (ctaEl) ctaEl.textContent = d.cta;
+          }
+        });
+      });
+    }
+
+    /* ----------------------------------------------------------------
+       SECCIÓN 7 — CARDS EXPANDIBLES (Después del servicio)
+       ---------------------------------------------------------------- */
+    document.querySelectorAll('.post-card').forEach(function(card) {
+      function toggle() {
+        var isOpen = card.classList.toggle('is-open');
+        card.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    });
+
+    /* ----------------------------------------------------------------
+       SECCIÓN 8 — CALCULADORA (Resultados)
+       ---------------------------------------------------------------- */
+    function formatNum(n) {
+      return n.toLocaleString('es-AR').replace(/,/g, '.');
+    }
+    function calcUpdate() {
+      var cubiertos = parseInt(document.getElementById('calc-cubiertos').value, 10) || 1500;
+      var ticket    = parseInt(document.getElementById('calc-ticket').value, 10)    || 15000;
+      /* Mejora fija del 5% en recurrencia */
+      var mejora = 0.05;
+      var clientesExtra = cubiertos * mejora;
+      var impacto = Math.round(clientesExtra * ticket * 12);
+      var resultEl = document.getElementById('calc-result');
+      if (resultEl) resultEl.textContent = '+$' + formatNum(impacto);
+    }
+    ['calc-cubiertos','calc-ticket'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', calcUpdate);
+    });
+    calcUpdate();
+
+    /* ----------------------------------------------------------------
+       INIT (after fonts + icons painted)
+       ---------------------------------------------------------------- */
+    function init() {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      /* Re-observe reveals after icons */
+      document.querySelectorAll('.reveal').forEach(function(el){ revealIO.observe(el); });
+      drawLines();
+      restore();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 80); });
+    } else {
+      setTimeout(init, 80);
+    }
+
+  })();
+  </script>
+
+</body>
+</html>
