@@ -91,7 +91,9 @@
       backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);
       background:rgba(255,255,255,.88);border-bottom:1px solid rgba(232,227,221,.55);
       display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp-8);
+      transition:transform .3s ease;
     }
+    .top-nav.is-hidden{transform:translateY(-100%);}
     .top-nav__logo{display:flex;align-items:center;height:30px;}
     .top-nav__logo svg{height:30px;width:auto;}
 
@@ -240,11 +242,12 @@
     .hm-product-name{
       font-family:var(--font-display);
       font-size:clamp(56px,9vw,112px);
-      line-height:.95;letter-spacing:var(--tracking-tight);font-weight:var(--fw-bold);
+      line-height:1.08;letter-spacing:var(--tracking-tight);font-weight:var(--fw-bold);
       background:var(--b2b-gradient);
       -webkit-background-clip:text;background-clip:text;
       -webkit-text-fill-color:transparent;color:transparent;
       margin-bottom:var(--sp-6);
+      padding-bottom:.08em;
     }
     .hm-part-a-title{
       font-family:var(--font-display);
@@ -751,7 +754,7 @@
        PROBLEMA — dashboard mockup
        ===================================================================== */
     .problema__dashboard {
-      width:100%;max-width:660px;
+      width:100%;max-width:980px;
       background:var(--surface);border:1px solid var(--border);
       border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden;
     }
@@ -759,8 +762,8 @@
       background:var(--b2b-gradient);padding:var(--sp-4) var(--sp-5);
       display:flex;justify-content:space-between;align-items:center;
     }
-    .db-header__title{font-family:var(--font-display);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:#fff;}
-    .db-header__period{font-family:var(--font-body);font-size:11px;color:rgba(255,255,255,.7);}
+    .db-header__title{font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-semibold);color:#fff;}
+    .db-header__period{font-family:var(--font-body);font-size:12px;color:rgba(255,255,255,.75);}
     .db-kpis {
       display:grid;grid-template-columns:repeat(4,1fr);
       border-bottom:1px solid var(--border);
@@ -769,20 +772,20 @@
       padding:var(--sp-4) var(--sp-4);border-right:1px solid var(--border);
     }
     .db-kpi:last-child{border-right:none;}
-    .db-kpi__num{font-family:var(--font-body);font-size:var(--fs-24);font-weight:var(--fw-bold);color:var(--fg-1);line-height:1;}
-    .db-kpi__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);margin-top:4px;}
-    .db-kpi__delta{font-family:var(--font-body);font-size:10px;margin-top:4px;font-weight:var(--fw-semibold);}
+    .db-kpi__num{font-family:var(--font-body);font-size:var(--fs-32);font-weight:var(--fw-bold);color:var(--fg-1);line-height:1;}
+    .db-kpi__label{font-family:var(--font-body);font-size:12px;color:var(--fg-3);margin-top:6px;}
+    .db-kpi__delta{font-family:var(--font-body);font-size:12px;margin-top:6px;font-weight:var(--fw-semibold);}
     .db-kpi__delta--up{color:#138A36;}
     .db-kpi__delta--down{color:#C42525;}
     .db-body{padding:var(--sp-4) var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);}
     .db-row{display:flex;align-items:center;gap:var(--sp-3);}
-    .db-row__label{font-family:var(--font-body);font-size:12px;color:var(--fg-3);width:140px;flex-shrink:0;}
-    .db-bar-wrap{flex:1;background:var(--bg-muted);border-radius:var(--r-pill);height:8px;overflow:hidden;}
+    .db-row__label{font-family:var(--font-body);font-size:14px;color:var(--fg-3);width:170px;flex-shrink:0;}
+    .db-bar-wrap{flex:1;background:var(--bg-muted);border-radius:var(--r-pill);height:10px;overflow:hidden;}
     .db-bar{height:100%;border-radius:var(--r-pill);}
     .db-bar--new{background:var(--b2b-gradient);}
     .db-bar--rec{background:linear-gradient(90deg,#138A36,#2ECC71);}
     .db-bar--lost{background:linear-gradient(90deg,#E8E3DD,#D6CFC5);}
-    .db-row__val{font-family:var(--font-body);font-size:12px;font-weight:var(--fw-semibold);color:var(--fg-1);width:36px;text-align:right;}
+    .db-row__val{font-family:var(--font-body);font-size:14px;font-weight:var(--fw-semibold);color:var(--fg-1);width:48px;text-align:right;}
 
     /* =====================================================================
        HM S3A — more presence · 10X AI showcase
@@ -1031,7 +1034,7 @@
     }
     .analytics-row__icon{color:var(--brand);width:22px;height:22px;display:flex;flex-shrink:0;}
     .analytics-row__icon svg{width:22px;height:22px;stroke-width:1.5px;}
-    .analytics-row__name{font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-semibold);color:var(--fg-1);line-height:1.2;}
+    .analytics-row__name{font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-bold);color:var(--fg-1);line-height:1.2;}
     .analytics-row__desc{font-family:var(--font-body);font-size:var(--fs-13);color:var(--fg-3);line-height:1.55;}
     .analytics-row__content{padding:var(--sp-5) var(--sp-6);display:flex;align-items:center;gap:var(--sp-5);}
 
@@ -1056,11 +1059,11 @@
     .campaign-perf-table{width:100%;}
 
     /* Ops: 6 boxes in a single row */
-    .ops-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--sp-3);width:100%;}
-    .ops-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-4) var(--sp-3);text-align:center;}
-    .ops-box__num{font-family:var(--font-body);font-size:var(--fs-20);font-weight:var(--fw-bold);color:var(--fg-1);}
-    .ops-box__label{font-family:var(--font-body);font-size:10px;color:var(--fg-3);margin-top:4px;line-height:1.3;}
-    .ops-box__delta{font-family:var(--font-body);font-size:10px;font-weight:var(--fw-semibold);margin-top:4px;}
+    .ops-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-3);width:100%;}
+    .ops-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-sm);padding:var(--sp-5) var(--sp-4);text-align:center;}
+    .ops-box__num{font-family:var(--font-body);font-size:var(--fs-24);font-weight:var(--fw-bold);color:var(--fg-1);}
+    .ops-box__label{font-family:var(--font-body);font-size:12px;color:var(--fg-3);margin-top:6px;line-height:1.3;}
+    .ops-box__delta{font-family:var(--font-body);font-size:12px;font-weight:var(--fw-semibold);margin-top:6px;}
     .ops-box__delta--up{color:#138A36;}
     .ops-box__delta--down{color:#C42525;}
 
@@ -1191,6 +1194,28 @@
       font-family:var(--font-body);font-size:var(--fs-12);color:var(--fg-2);
       background:var(--bg-muted);border-radius:var(--r-sm);
       padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-4);line-height:1.6;
+    }
+    .campaign-eyebrow{
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--sp-2);
+    }
+    .campaign-title{
+      font-family:var(--font-display);font-size:var(--fs-28);font-weight:var(--fw-bold);
+      color:var(--fg-1);line-height:1.15;margin:0 0 var(--sp-6) 0;
+    }
+    .campaign-kpis{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);
+    }
+    .campaign-kpi{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);
+      padding:var(--sp-4) var(--sp-4);
+    }
+    .campaign-kpi__num{
+      font-family:var(--font-display);font-size:var(--fs-24);font-weight:var(--fw-bold);
+      color:var(--fg-1);line-height:1;margin-bottom:var(--sp-2);
+    }
+    .campaign-kpi__label{
+      font-family:var(--font-body);font-size:var(--fs-12);color:var(--fg-3);
     }
     .email-preview {
       background:#fff;border:1px solid var(--border);border-radius:var(--r-md);
@@ -1940,10 +1965,6 @@
         </p>
 
       </div>
-
-      <p class="problema__disclaimer disclaimer reveal reveal--d3">
-        * Bain &amp; Company, citado en Harvard Business Review. Estadística de la industria; los resultados reales dependen de la operación y el segmento.
-      </p>
     </section>
 
     <!-- ============================================================
@@ -2283,35 +2304,31 @@
           <div class="tab-panel" data-panel="campanas">
             <div class="campaign-panel">
               <div>
-                <div class="sub-tab-list" role="tablist" id="seg-tabs">
-                  <button class="sub-tab-btn is-active" data-sub="dormidos">Recuperar dormidos</button>
-                  <button class="sub-tab-btn" data-sub="nuevos">Fidelizar nuevos</button>
-                  <button class="sub-tab-btn" data-sub="fieles">Mantener fieles</button>
-                </div>
-                <div class="segment-info is-active" data-segment="dormidos">
-                  <div class="segment-stat">1.240</div>
-                  <div class="segment-label">clientes sin visita en más de 90 días</div>
-                  <div class="segment-criteria">Filtro: última visita &gt; 90 días · ticket promedio ≥ $8.000 · al menos 2 visitas previas</div>
-                </div>
-                <div class="segment-info" data-segment="nuevos">
-                  <div class="segment-stat">380</div>
-                  <div class="segment-label">clientes con su primera visita en los últimos 60 días</div>
-                  <div class="segment-criteria">Filtro: primera visita &lt; 60 días · sin reserva activa · reseña positiva o sin reseña</div>
-                </div>
-                <div class="segment-info" data-segment="fieles">
-                  <div class="segment-stat">215</div>
-                  <div class="segment-label">clientes con 5 o más visitas en el último año</div>
-                  <div class="segment-criteria">Filtro: ≥ 5 visitas anuales · recurrencia mensual · ticket en percentil 80+</div>
+                <div class="campaign-eyebrow">Campaña</div>
+                <h3 class="campaign-title">Recuperar clientes dormidos</h3>
+                <div class="campaign-kpis">
+                  <div class="campaign-kpi">
+                    <div class="campaign-kpi__num">1.240</div>
+                    <div class="campaign-kpi__label">Enviados</div>
+                  </div>
+                  <div class="campaign-kpi">
+                    <div class="campaign-kpi__num">87</div>
+                    <div class="campaign-kpi__label">Conversiones</div>
+                  </div>
+                  <div class="campaign-kpi">
+                    <div class="campaign-kpi__num">$3.480.000</div>
+                    <div class="campaign-kpi__label">Ganancia estimada</div>
+                  </div>
                 </div>
               </div>
-              <div class="email-preview" id="email-preview-wrap">
-                <div class="email-preview__header" id="email-header">
-                  Para: segmento seleccionado · Asunto: <span id="email-subject-short">Te extrañamos en Casa Lucía</span>
+              <div class="email-preview">
+                <div class="email-preview__header">
+                  Para: clientes dormidos · Asunto: <span>Te extrañamos en Casa Lucía</span>
                 </div>
                 <div class="email-preview__body">
-                  <div class="email-preview__subject" id="email-subject">Te extrañamos en Casa Lucía</div>
-                  <p class="email-preview__text" id="email-text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.</p>
-                  <div class="email-preview__cta" id="email-cta">Reservar con descuento</div>
+                  <div class="email-preview__subject">Te extrañamos en Casa Lucía</div>
+                  <p class="email-preview__text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.</p>
+                  <div class="email-preview__cta">Reservar con descuento</div>
                 </div>
               </div>
             </div>
@@ -2471,7 +2488,7 @@
             <div class="integraciones-banner__slot"><img src="logos-integraciones/instagram.png" alt="Instagram"></div>
             <div class="integraciones-banner__slot"><img src="logos-integraciones/google.png" alt="Google"></div>
             <div class="integraciones-banner__slot"><img src="logos-integraciones/guia_m.png" alt="Guía Michelin"></div>
-            <div class="integraciones-banner__slot"><img src="logos-integraciones/safari.png" alt="Safari"></div>
+            <div class="integraciones-banner__slot"><img src="logos-integraciones/bigbox.jpg" alt="Bigbox"></div>
           </div>
         </div>
       </div>
@@ -2764,7 +2781,7 @@
                 </div>
                 <div class="ai-insight">
                   <span class="ai-insight__badge">IA</span>
-                  <p class="ai-insight__text">Las reseñas sobre el servicio mejoraron respecto al mes pasado. Los comentarios positivos subieron un 18%.</p>
+                  <p class="ai-insight__text">Las reseñas sobre el servicio mejoraron respecto al mes pasado. Los comentarios positivos subieron un 18%. La atención de los camareros fue el principal cambio.</p>
                 </div>
               </div>
             </div>
@@ -2784,6 +2801,7 @@
                     <th>Campaña</th>
                     <th>Visitas al perfil</th>
                     <th>Reservas generadas</th>
+                    <th>Ganancias estimadas</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2791,21 +2809,25 @@
                     <td>Email — clientes dormidos</td>
                     <td>1.240</td>
                     <td>87</td>
+                    <td>$3.480.000</td>
                   </tr>
                   <tr>
                     <td>Evento — Cena maridaje</td>
                     <td>890</td>
                     <td>64</td>
+                    <td>$2.560.000</td>
                   </tr>
                   <tr>
                     <td>Meta Ads — captación</td>
                     <td>3.420</td>
                     <td>112</td>
+                    <td>$4.480.000</td>
                   </tr>
                   <tr>
                     <td>Influencer — @gastrobaires</td>
                     <td>5.100</td>
                     <td>48</td>
+                    <td>$1.920.000</td>
                   </tr>
                 </tbody>
               </table>
@@ -2822,17 +2844,12 @@
             <div class="analytics-row__content">
               <div class="ops-grid">
                 <div class="ops-box">
-                  <div class="ops-box__num">6.2%</div>
-                  <div class="ops-box__label">Cancelación</div>
-                  <div class="ops-box__delta ops-box__delta--up">↓ 1.4pp</div>
-                </div>
-                <div class="ops-box">
                   <div class="ops-box__num">94 min</div>
                   <div class="ops-box__label">Permanencia prom.</div>
                   <div class="ops-box__delta ops-box__delta--up">↑ 8 min</div>
                 </div>
                 <div class="ops-box">
-                  <div class="ops-box__num">$17.400</div>
+                  <div class="ops-box__num">$40.000</div>
                   <div class="ops-box__label">Ticket promedio</div>
                   <div class="ops-box__delta ops-box__delta--up">↑ 12%</div>
                 </div>
@@ -2978,14 +2995,6 @@
 
         <div class="cierre-ctas reveal reveal--d2">
           <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--primary btn--large">Sumate a Woki</a>
-          <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary btn--large">Saber más</a>
-        </div>
-
-        <div class="cierre-footer reveal reveal--d3">
-          <button class="btn btn--secondary" onclick="window.print()" aria-label="Descargar como PDF">
-            <i data-lucide="download" style="width:16px;height:16px;stroke-width:1.5;"></i>
-            Descargar PDF
-          </button>
         </div>
       </div>
     </section>
@@ -3048,6 +3057,25 @@
     var allSections = SECTIONS.map(function(id){ return document.getElementById(id); }).filter(Boolean);
     allSections.forEach(function(el){ io.observe(el); });
     var hmN = document.getElementById('hm-nucleo'); if(hmN) io.observe(hmN);
+
+    /* ----------------------------------------------------------------
+       AUTO-HIDE TOP NAV on scroll down
+       ---------------------------------------------------------------- */
+    var topNav = document.querySelector('.top-nav');
+    var lastScrollY = window.scrollY || 0;
+    var navTicking = false;
+    function updateNavVisibility(){
+      var y = window.scrollY || 0;
+      if (topNav) {
+        if (y > lastScrollY && y > 80) topNav.classList.add('is-hidden');
+        else if (y < lastScrollY) topNav.classList.remove('is-hidden');
+      }
+      lastScrollY = y;
+      navTicking = false;
+    }
+    window.addEventListener('scroll', function(){
+      if (!navTicking) { window.requestAnimationFrame(updateNavVisibility); navTicking = true; }
+    }, { passive:true });
 
     var tsx=0, tsy=0;
     document.addEventListener('touchstart',function(e){ tsx=e.touches[0].clientX; tsy=e.touches[0].clientY; },{passive:true});
@@ -3281,52 +3309,6 @@
           document.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('is-active'); });
           var panel = document.querySelector('[data-panel="'+target+'"]');
           if (panel) panel.classList.add('is-active');
-        });
-      });
-    }
-
-    /* Campañas: sub-tabs + email preview */
-    var emailData = {
-      dormidos: {
-        subject: 'Te extrañamos en Casa Lucía',
-        short: 'Te extrañamos en Casa Lucía',
-        text: 'Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.',
-        cta: 'Reservar con descuento'
-      },
-      nuevos: {
-        subject: 'Nos alegra que hayas venido',
-        short: 'Nos alegra que hayas venido',
-        text: 'Hola Laura, fue un placer recibirte la semana pasada. Queremos que tu segunda visita sea todavía mejor: te reservamos tu mesa favorita.<br><br>Volvé cuando quieras — las reservas se abren 30 días antes.',
-        cta: 'Reservar mi próxima visita'
-      },
-      fieles: {
-        subject: 'Para vos, acceso anticipado',
-        short: 'Para vos, acceso anticipado',
-        text: 'Hola Sofía, como cliente frecuente tenés acceso anticipado a nuestro menú de temporada antes que nadie. Solo para los que ya son parte de la familia Casa Lucía.',
-        cta: 'Ver acceso exclusivo'
-      }
-    };
-    var segTabs = document.getElementById('seg-tabs');
-    if (segTabs) {
-      segTabs.querySelectorAll('.sub-tab-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.sub;
-          segTabs.querySelectorAll('.sub-tab-btn').forEach(function(b){ b.classList.remove('is-active'); });
-          btn.classList.add('is-active');
-          document.querySelectorAll('[data-segment]').forEach(function(s){ s.classList.remove('is-active'); });
-          var seg = document.querySelector('[data-segment="'+key+'"]');
-          if (seg) seg.classList.add('is-active');
-          var d = emailData[key];
-          if (d) {
-            var subEl = document.getElementById('email-subject');
-            var shortEl = document.getElementById('email-subject-short');
-            var textEl = document.getElementById('email-text');
-            var ctaEl = document.getElementById('email-cta');
-            if (subEl) subEl.textContent = d.subject;
-            if (shortEl) shortEl.textContent = d.short;
-            if (textEl) textEl.innerHTML = d.text;
-            if (ctaEl) ctaEl.textContent = d.cta;
-          }
         });
       });
     }
