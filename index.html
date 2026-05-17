@@ -1006,7 +1006,23 @@
       .hm-transformation{grid-template-columns:1fr;}
       .hm-trans__bridge{flex-direction:row;}
       .hm-bridge-track{width:42px;height:1px;background:linear-gradient(to right, rgba(178,16,255,.4), rgba(26,175,222,0));}
-      .hm-callout--tl,.hm-callout--tr,.hm-callout--bl,.hm-callout--br{position:static;margin:6px;}
+
+      /* Showcase: mockup arriba, 4 callouts en grid 2x2 abajo */
+      .hm-showcase{
+        flex-direction:row;flex-wrap:wrap;
+        min-height:auto;padding:var(--sp-4) 0;gap:10px;
+        align-items:flex-start;justify-content:center;
+      }
+      .hm-showcase__halo{display:none;}
+      .hm-showcase__frame{flex:0 0 100%;}
+      .hm-showcase__frame-inner img{max-width:100%;max-height:none;width:100%;height:auto;}
+      .hm-callout{
+        position:static!important;margin:0!important;
+        flex:1 1 calc(50% - 5px);max-width:calc(50% - 5px);
+        animation:none;font-size:11px;padding:8px 10px;
+      }
+      .hm-callout::after{display:none;}
+
       .mare-callout{position:static;margin:8px auto;max-width:none;}
     }
 
@@ -1249,12 +1265,27 @@
       overflow:hidden;box-shadow:var(--shadow-sm);
     }
     .email-preview__header {
-      background:var(--bg-muted);padding:var(--sp-3) var(--sp-4);
+      display:flex;align-items:center;gap:10px;
+      background:#fff;padding:12px var(--sp-4);
       border-bottom:1px solid var(--border);
-      font-family:var(--font-body);font-size:11px;color:var(--fg-3);
+    }
+    .email-preview__avatar{
+      width:36px;height:36px;border-radius:50%;flex-shrink:0;
+      background:var(--b2b-gradient);color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--font-display);font-weight:var(--fw-bold);font-size:15px;
+    }
+    .email-preview__meta{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+    .email-preview__from{
+      font-family:var(--font-body);font-size:12.5px;color:var(--fg-1);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .email-preview__from strong{font-weight:var(--fw-semibold);}
+    .email-preview__to{
+      font-family:var(--font-body);font-size:11.5px;color:var(--fg-3);
     }
     .email-preview__body{padding:var(--sp-4) var(--sp-5);}
-    .email-preview__subject{font-family:var(--font-body);font-size:var(--fs-14);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-2);}
+    .email-preview__subject{font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-semibold);color:var(--fg-1);margin-bottom:var(--sp-3);letter-spacing:var(--tracking-snug);}
     .email-preview__text{font-family:var(--font-body);font-size:13px;color:var(--fg-2);line-height:1.6;}
     .email-preview__cta {
       display:inline-block;margin-top:var(--sp-3);background:var(--brand-dark);color:#fff;
@@ -2015,19 +2046,50 @@
       .section__inner,.s-hm-dark .section__inner{padding:48px 24px;}
       .hm-product-name{font-size:36px;}
 
-      /* Apertura: proof más chico, slots más bajos */
+      /* Apertura: proof más chico, slots más bajos, simétrico sin Ness */
       .apertura__proof-item{font-size:14px;text-align:center;}
       .apertura__logo-slot{height:104px;}
+      .apertura__logo-slot:nth-child(8){display:none;}
+
+      /* Mare callouts: solo título, compactos */
+      .mare-callout{padding:8px 12px;max-width:none;}
+      .mare-callout__title{font-size:12px;margin-bottom:0;}
+      .mare-callout__desc{display:none;}
 
       /* Mare showcase: min-height libre y mockup full-width */
       .mare-showcase{min-height:0;padding:var(--sp-4) 0;}
       .mare-showcase__img-wrap{width:100%;}
       .mare-showcase__img-wrap img{max-width:100%;height:auto;max-height:none;}
 
-      /* Tabla de campañas: scroll horizontal de seguridad + tipos más chicos */
-      .analytics-row__content{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-      .campaign-perf-table th{font-size:9.5px;}
-      .campaign-perf-table td{font-size:12px;}
+      /* Campañas: email centrado y panel apilado */
+      .campaign-panel{gap:var(--sp-5);}
+      .email-preview{max-width:480px;margin:0 auto;width:100%;}
+
+      /* Eventos: solo 1 card */
+      .event-card:nth-child(n+2){display:none;}
+
+      /* Tabla de campañas → card list mobile (anula scroll horizontal) */
+      .analytics-row__content{overflow-x:visible;}
+      .campaign-perf-table{display:block;width:100%;}
+      .campaign-perf-table thead{display:none;}
+      .campaign-perf-table tbody{display:block;}
+      .campaign-perf-table tr{
+        display:block;border:1px solid var(--border);border-radius:var(--r-md);
+        padding:12px 14px;margin-bottom:10px;background:var(--surface);
+      }
+      .campaign-perf-table td{
+        display:flex;justify-content:space-between;align-items:center;
+        padding:5px 0;border:none;font-size:13px;
+      }
+      .campaign-perf-table td::before{
+        content:attr(data-label);color:var(--fg-3);font-size:11.5px;font-weight:var(--fw-medium);
+        text-transform:uppercase;letter-spacing:.04em;
+      }
+      .campaign-perf-table td:first-child{
+        font-weight:var(--fw-semibold);font-size:14px;color:var(--fg-1);
+        margin-bottom:6px;padding-bottom:8px;border-bottom:1px solid var(--border);
+        display:block;
+      }
 
       /* Monthly report: ícono arriba */
       .monthly-report{flex-direction:column;text-align:center;padding:var(--sp-5);gap:var(--sp-3);}
@@ -2041,21 +2103,20 @@
       /* Integraciones: logos un poco más chicos */
       .integraciones-banner__slot img{max-height:38px;max-width:110px;}
 
-      /* Cierre: 9 logos en 2 columnas y separadores limpios */
-      .cierre-partners__grid{grid-template-columns:repeat(2,1fr);}
+      /* Cierre: 8 logos en 2 columnas (sin Ness), sin flourishes dorados */
+      .cierre-partners__grid{grid-template-columns:repeat(2,1fr);gap:var(--sp-3);column-gap:var(--sp-3);}
       .cierre-partners__cell::after,
-      .cierre-partners__cell::before{display:none;}
-      .cierre-partners__cell{height:108px;}
-      .cierre-partners__cell:not(:nth-child(2n))::after{
-        content:"";position:absolute;right:0;top:22%;bottom:22%;width:1px;
-        background:linear-gradient(180deg, transparent, rgba(184,148,90,.30) 30%, rgba(184,148,90,.30) 70%, transparent);
-        display:block;
+      .cierre-partners__cell::before{display:none!important;}
+      .cierre-partners__cell{
+        height:104px;padding:var(--sp-3);
+        background:rgba(255,255,255,.03);border-radius:var(--r-md);
       }
-      .cierre-partners__cell:nth-child(n+3)::before{
-        content:"";position:absolute;left:14%;right:14%;top:0;height:1px;
-        background:linear-gradient(90deg, transparent, rgba(184,148,90,.30) 30%, rgba(184,148,90,.30) 70%, transparent);
-        display:block;
-      }
+      .cierre-partners__cell:nth-child(8){display:none;}
+      .cierre-partners__cell img[data-w="narrow"]{max-height:52px;max-width:110px;}
+      .cierre-partners__cell img[data-w="medium"]{max-height:60px;max-width:130px;}
+      .cierre-partners__cell img[data-w="wide"]{max-height:50px;max-width:150px;}
+      .cierre-partners__cell img[data-w="oval"]{max-height:72px;max-width:140px;}
+
       /* CTAs cierre: full-width consistente */
       .cierre-ctas .btn--large{width:100%;max-width:320px;text-align:center;}
     }
@@ -2106,8 +2167,9 @@
       .integraciones-banner__slot img{max-height:32px;max-width:90px;}
       .integraciones-banner__row{gap:var(--sp-5);}
 
-      /* Después del servicio: ops-grid 2 columnas */
+      /* Después del servicio: ops-grid 2 columnas, sin Permanencia (la flat) */
       .ops-grid{grid-template-columns:repeat(2,1fr);}
+      .ops-grid .ops-box:first-child{display:none;}
       .ops-box{padding:var(--sp-3);}
       .ops-box__num{font-size:18px;}
 
@@ -2286,8 +2348,7 @@
         </p>
 
         <div class="results-disclaimers reveal reveal--d3">
-          <p class="disclaimer">*1 Bain &amp; Company, citado en Harvard Business Review. *2 National Restaurant Association. *3 Datos agregados de la industria gastronómica internacional. Estadísticas del rubro; los resultados reales dependen de la operación, segmento y plan de hospitalidad.</p>
-          <p class="disclaimer">** Estimación basada en datos agregados (NRA, Bain &amp; Company). Asume ticket promedio y cubiertos estables. No es una proyección comercial ni una promesa de resultado.</p>
+          <p class="disclaimer">Fuentes: Bain &amp; Company (HBR), NRA y datos agregados de la industria. Estimación; resultados varían según operación.</p>
         </div>
 
       </div>
@@ -2303,10 +2364,6 @@
 
         <!-- Nombre de producto — protagonismo máximo, gradiente oficial -->
         <div class="hm-product-hero reveal">
-          <div class="hm-hero-stat">
-            <div class="hm-hero-stat__dot"></div>
-            <span class="hm-hero-stat__text">Powered by AI · Incluido en todos los planes Woki</span>
-          </div>
           <h2 class="hm-product-name">Hospitality<br>Manager</h2>
           <p class="hm-part-a-title reveal reveal--d1">
             El cerebro que convierte cada herramienta de Woki en una máquina hecha a medida de tu restaurante.
@@ -2655,7 +2712,11 @@
               </div>
               <div class="email-preview">
                 <div class="email-preview__header">
-                  Para: clientes dormidos · Asunto: <span>Te extrañamos en Casa Lucía</span>
+                  <div class="email-preview__avatar">C</div>
+                  <div class="email-preview__meta">
+                    <div class="email-preview__from"><strong>Casa Lucía</strong> &lt;reservas@casalucia.com.ar&gt;</div>
+                    <div class="email-preview__to">Para: Martín García</div>
+                  </div>
                 </div>
                 <div class="email-preview__body">
                   <div class="email-preview__subject">Te extrañamos en Casa Lucía</div>
@@ -3248,27 +3309,27 @@
                 <tbody>
                   <tr>
                     <td>Email — clientes dormidos</td>
-                    <td>1.240</td>
-                    <td>87</td>
-                    <td>$3.480.000</td>
+                    <td data-label="Visitas al perfil">1.240</td>
+                    <td data-label="Reservas generadas">87</td>
+                    <td data-label="Ganancias estimadas">$3.480.000</td>
                   </tr>
                   <tr>
                     <td>Evento — Cena maridaje</td>
-                    <td>890</td>
-                    <td>64</td>
-                    <td>$2.560.000</td>
+                    <td data-label="Visitas al perfil">890</td>
+                    <td data-label="Reservas generadas">64</td>
+                    <td data-label="Ganancias estimadas">$2.560.000</td>
                   </tr>
                   <tr>
                     <td>Meta Ads — captación</td>
-                    <td>3.420</td>
-                    <td>112</td>
-                    <td>$4.480.000</td>
+                    <td data-label="Visitas al perfil">3.420</td>
+                    <td data-label="Reservas generadas">112</td>
+                    <td data-label="Ganancias estimadas">$4.480.000</td>
                   </tr>
                   <tr>
                     <td>Influencer — @gastrobaires</td>
-                    <td>5.100</td>
-                    <td>48</td>
-                    <td>$1.920.000</td>
+                    <td data-label="Visitas al perfil">5.100</td>
+                    <td data-label="Reservas generadas">48</td>
+                    <td data-label="Ganancias estimadas">$1.920.000</td>
                   </tr>
                 </tbody>
               </table>
