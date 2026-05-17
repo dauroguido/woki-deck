@@ -2001,6 +2001,12 @@
       .hm-col--left .hm-item{flex-direction:row;text-align:left;}
       #hm-svg{display:none;}
       .hm-tooltip{display:none;}
+      /* Guest Center: pasa de fila (52/48) a columna stack */
+      .gc-split{flex-direction:column;height:auto;}
+      .gc-split-left{width:100%;border-right:none;border-bottom:1px solid #2A2C34;}
+      .gc-split-left .gcv2-list{max-height:300px;}
+      .gcp-wrap{width:100%;}
+      .gcp-notes{max-height:240px;}
     }
     @media (max-width:768px) {
       :root{--nav-h:52px;}
@@ -2008,6 +2014,120 @@
       .top-nav{padding:0 16px;}
       .section__inner,.s-hm-dark .section__inner{padding:48px 24px;}
       .hm-product-name{font-size:36px;}
+
+      /* Apertura: proof más chico, slots más bajos */
+      .apertura__proof-item{font-size:14px;text-align:center;}
+      .apertura__logo-slot{height:104px;}
+
+      /* Mare showcase: min-height libre y mockup full-width */
+      .mare-showcase{min-height:0;padding:var(--sp-4) 0;}
+      .mare-showcase__img-wrap{width:100%;}
+      .mare-showcase__img-wrap img{max-width:100%;height:auto;max-height:none;}
+
+      /* Tabla de campañas: scroll horizontal de seguridad + tipos más chicos */
+      .analytics-row__content{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+      .campaign-perf-table th{font-size:9.5px;}
+      .campaign-perf-table td{font-size:12px;}
+
+      /* Monthly report: ícono arriba */
+      .monthly-report{flex-direction:column;text-align:center;padding:var(--sp-5);gap:var(--sp-3);}
+
+      /* Bloque puente: padding más razonable */
+      .bridge-block{padding:var(--sp-12) var(--sp-6);}
+
+      /* Pagos: header del mock más limpio (sin fecha) */
+      .pagos-mock__period{display:none;}
+
+      /* Integraciones: logos un poco más chicos */
+      .integraciones-banner__slot img{max-height:38px;max-width:110px;}
+
+      /* Cierre: 9 logos en 2 columnas y separadores limpios */
+      .cierre-partners__grid{grid-template-columns:repeat(2,1fr);}
+      .cierre-partners__cell::after,
+      .cierre-partners__cell::before{display:none;}
+      .cierre-partners__cell{height:108px;}
+      .cierre-partners__cell:not(:nth-child(2n))::after{
+        content:"";position:absolute;right:0;top:22%;bottom:22%;width:1px;
+        background:linear-gradient(180deg, transparent, rgba(184,148,90,.30) 30%, rgba(184,148,90,.30) 70%, transparent);
+        display:block;
+      }
+      .cierre-partners__cell:nth-child(n+3)::before{
+        content:"";position:absolute;left:14%;right:14%;top:0;height:1px;
+        background:linear-gradient(90deg, transparent, rgba(184,148,90,.30) 30%, rgba(184,148,90,.30) 70%, transparent);
+        display:block;
+      }
+      /* CTAs cierre: full-width consistente */
+      .cierre-ctas .btn--large{width:100%;max-width:320px;text-align:center;}
+    }
+
+    @media (max-width:560px) {
+      /* Sections: apretar el padding general */
+      .section__inner,.s-hm-dark .section__inner{padding:40px 18px;}
+
+      /* Apertura: 2 cols pero slot bien compacto, proof más chico aún */
+      .apertura__logo-slot{height:80px;padding:var(--sp-3);}
+      .apertura__logo-slot img{max-height:42px;}
+      .apertura__proof-item{font-size:13px;}
+
+      /* Problema: calculadora respira menos */
+      .calc-output__num{font-size:clamp(28px,9vw,40px);}
+      .calc-wrap{padding:var(--sp-5);}
+      .results-disclaimers .disclaimer{font-size:11px;}
+
+      /* HM parte A: nombre más chico */
+      .hm-product-name{font-size:30px;line-height:1.05;}
+      .hm-part-a-title{font-size:15px;}
+
+      /* Núcleo: core orb más chico para que respire */
+      .hm-core-wrap{width:240px;height:240px;}
+      .hm-core{width:170px;height:170px;}
+      .hm-core-halo{width:200px;height:200px;}
+      .hm-stat{padding:var(--sp-3);}
+      .hm-stat__num{font-size:22px;}
+      .hm-dark-title{font-size:28px;}
+
+      /* Antes del servicio: header del bloque vertical */
+      .ads-block__header{flex-direction:column;align-items:flex-start;gap:2px;}
+      .ads-block__title{font-size:22px;}
+      .ads-block{margin-bottom:var(--sp-10);}
+
+      /* Pagos: mockup más compacto, icon más chico, concept menor */
+      .pagos-mock__row{gap:var(--sp-3);padding:var(--sp-3) 0;}
+      .pagos-mock__icon{width:30px;height:30px;}
+      .pagos-mock__icon svg{width:15px;height:15px;}
+      .pagos-mock__concept{font-size:12.5px;}
+      .pagos-mock__sub{font-size:11px;}
+      .pagos-mock__amount{font-size:13px;}
+      .pagos-mock__status{font-size:10px;padding:2px 8px;}
+      .pagos-card{padding:var(--sp-5);}
+      .pagos-diff__item{padding:var(--sp-4) var(--sp-5);}
+
+      /* Banner integraciones: logos aún más chicos */
+      .integraciones-banner__slot img{max-height:32px;max-width:90px;}
+      .integraciones-banner__row{gap:var(--sp-5);}
+
+      /* Después del servicio: ops-grid 2 columnas */
+      .ops-grid{grid-template-columns:repeat(2,1fr);}
+      .ops-box{padding:var(--sp-3);}
+      .ops-box__num{font-size:18px;}
+
+      /* Bloque puente: aún más compacto */
+      .bridge-block{padding:var(--sp-10) var(--sp-5);}
+      .bridge-block__title{font-size:24px;}
+
+      /* Implementación: 72hs más chico */
+      .impl-72{font-size:88px;}
+
+      /* Cierre: imágenes con un poco menos de tamaño */
+      .cierre-title{font-size:28px;}
+      .cierre-partners__cell{height:92px;padding:var(--sp-3);}
+      .cierre-partners__cell img[data-w="narrow"]{max-height:48px;max-width:96px;}
+      .cierre-partners__cell img[data-w="medium"]{max-height:56px;max-width:120px;}
+      .cierre-partners__cell img[data-w="wide"]{max-height:46px;max-width:140px;}
+      .cierre-partners__cell img[data-w="oval"]{max-height:66px;max-width:130px;}
+
+      /* Top-nav: si está apretado, esconder el CTA secundario del nav */
+      .top-nav #nav-cta{display:none;}
     }
   </style>
 </head>
