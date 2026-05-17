@@ -684,6 +684,8 @@
       transition:transform var(--dur-3) var(--ease), opacity var(--dur-2) var(--ease);
       opacity:.95;
     }
+    /* Anchoita es un logo oval con borde — necesita más altura para equiparar peso visual */
+    .apertura__logo-slot img[alt="Anchoita"]{max-height:108px;}
     .apertura__logo-slot:hover img{transform:scale(1.08);opacity:1;}
     .apertura__logo-slot span {
       font-family:var(--font-body);font-size:10px;color:var(--fg-4);
@@ -692,6 +694,7 @@
       .apertura__logos{grid-template-columns:repeat(2,1fr);}
       .apertura__logo-slot{height:96px;padding:var(--sp-4);}
       .apertura__logo-slot img{max-height:56px;}
+      .apertura__logo-slot img[alt="Anchoita"]{max-height:78px;}
       .apertura__logo-slot:nth-child(3n){border-right:1px solid rgba(255,255,255,.06);}
       .apertura__logo-slot:nth-child(2n){border-right:none;}
       .apertura__logo-slot:nth-last-child(-n+3){border-bottom:1px solid rgba(255,255,255,.06);}
@@ -1850,7 +1853,7 @@
     }
     /* Proportional sizing — match visual mass, not pixel height */
     .cierre-partners__cell img[data-w="narrow"]{max-height:64px;max-width:130px;}
-    .cierre-partners__cell img[data-w="oval"]{max-height:108px;max-width:210px;}
+    .cierre-partners__cell img[data-w="oval"]{max-height:104px;max-width:200px;}
     .cierre-partners__cell img[data-w="medium"]{max-height:54px;max-width:160px;}
     .cierre-partners__cell img[data-w="wide"]{max-height:42px;max-width:210px;}
     .cierre-partners__cell:hover img{opacity:1;transform:scale(1.04);}
@@ -2224,21 +2227,23 @@
       .integraciones-banner__slot img{max-height:38px;max-width:110px;}
 
       /* Cierre: padding wrapper más chico, flourish más angosto */
-      .cierre-partners{padding:var(--sp-6) var(--sp-4);gap:var(--sp-5);}
-      .cierre-partners__flourish{width:160px;}
+      .cierre-partners{padding:var(--sp-5) var(--sp-3);gap:var(--sp-4);}
+      .cierre-partners__flourish{width:140px;}
       /* Cierre: 8 logos en 2 columnas (sin Ness), sin flourishes dorados */
-      .cierre-partners__grid{grid-template-columns:repeat(2,1fr);gap:var(--sp-3);column-gap:var(--sp-3);}
+      .cierre-partners__grid{grid-template-columns:repeat(2,1fr);gap:8px;column-gap:8px;}
       .cierre-partners__cell::after,
       .cierre-partners__cell::before{display:none!important;}
       .cierre-partners__cell{
-        height:104px;padding:var(--sp-3);
+        height:100px;padding:8px;
         background:rgba(255,255,255,.03);border-radius:var(--r-md);
+        overflow:hidden;
       }
       .cierre-partners__cell:nth-child(8){display:none;}
-      .cierre-partners__cell img[data-w="narrow"]{max-height:52px;max-width:110px;}
-      .cierre-partners__cell img[data-w="medium"]{max-height:60px;max-width:130px;}
-      .cierre-partners__cell img[data-w="wide"]{max-height:50px;max-width:150px;}
-      .cierre-partners__cell img[data-w="oval"]{max-height:72px;max-width:140px;}
+      .cierre-partners__cell img{max-width:90%!important;}
+      .cierre-partners__cell img[data-w="narrow"]{max-height:48px;}
+      .cierre-partners__cell img[data-w="medium"]{max-height:54px;}
+      .cierre-partners__cell img[data-w="wide"]{max-height:42px;}
+      .cierre-partners__cell img[data-w="oval"]{max-height:88px;}
 
       /* CTAs cierre: full-width consistente */
       .cierre-ctas .btn--large{width:100%;max-width:320px;text-align:center;}
@@ -2251,6 +2256,7 @@
       /* Apertura: 2 cols pero slot bien compacto, proof más chico aún */
       .apertura__logo-slot{height:80px;padding:var(--sp-3);}
       .apertura__logo-slot img{max-height:42px;}
+      .apertura__logo-slot img[alt="Anchoita"]{max-height:62px;}
       .apertura__proof-item{font-size:13px;}
 
       /* Problema: calculadora respira menos */
@@ -2305,11 +2311,11 @@
 
       /* Cierre: imágenes con un poco menos de tamaño */
       .cierre-title{font-size:28px;}
-      .cierre-partners__cell{height:92px;padding:var(--sp-3);}
-      .cierre-partners__cell img[data-w="narrow"]{max-height:48px;max-width:96px;}
-      .cierre-partners__cell img[data-w="medium"]{max-height:56px;max-width:120px;}
-      .cierre-partners__cell img[data-w="wide"]{max-height:46px;max-width:140px;}
-      .cierre-partners__cell img[data-w="oval"]{max-height:66px;max-width:130px;}
+      .cierre-partners__cell{height:88px;padding:6px;}
+      .cierre-partners__cell img[data-w="narrow"]{max-height:42px;}
+      .cierre-partners__cell img[data-w="medium"]{max-height:48px;}
+      .cierre-partners__cell img[data-w="wide"]{max-height:36px;}
+      .cierre-partners__cell img[data-w="oval"]{max-height:76px;}
 
       /* Top-nav: si está apretado, esconder el CTA secundario del nav */
       .top-nav #nav-cta{display:none;}
