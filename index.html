@@ -970,16 +970,94 @@
     }
     .mare-showcase__img-wrap{
       position:relative;z-index:1;
-      padding:8px;border-radius:18px;
-      background:linear-gradient(141deg, rgba(26,175,222,.4), rgba(178,16,255,.35), rgba(255,173,92,.35));
+      width:340px;max-width:100%;
+      border-radius:28px;overflow:hidden;
+      background:#fff;
       box-shadow:
         0 36px 70px -20px rgba(32,43,63,.32),
-        0 0 0 1px rgba(255,255,255,.7) inset,
-        0 0 90px -20px rgba(178,16,255,.30);
+        0 0 0 1px rgba(32,43,63,.06),
+        0 0 90px -20px rgba(0,102,204,.18);
     }
-    .mare-showcase__img-wrap img{
-      display:block;max-height:440px;width:auto;border-radius:12px;background:#fff;
+
+    /* Mockup HTML del perfil del restaurante — inspirado en wokiapp.com */
+    .mare-mockup{
+      display:flex;flex-direction:column;background:#fff;font-family:var(--font-body);
     }
+    .mare-mockup__hero{
+      position:relative;height:180px;
+      background-size:cover;background-position:center;
+    }
+    .mare-mockup__count{
+      position:absolute;right:10px;bottom:10px;
+      background:rgba(20,20,20,.78);color:#fff;
+      font-size:10px;font-weight:600;padding:3px 10px;
+      border-radius:99px;letter-spacing:.04em;
+    }
+    .mare-mockup__body{padding:14px 18px 18px;}
+    .mare-mockup__name{
+      font-family:var(--font-display);font-size:22px;font-weight:var(--fw-bold);
+      color:var(--fg-1);line-height:1.1;letter-spacing:-.01em;margin-bottom:8px;
+    }
+    .mare-mockup__meta{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      font-size:12px;color:var(--fg-3);margin-bottom:12px;
+    }
+    .mare-mockup__rating{
+      display:inline-flex;align-items:center;gap:4px;
+      border:1px solid #F4A400;border-radius:99px;
+      padding:1px 9px;color:#F4A400;font-weight:600;
+    }
+    .mare-mockup__rating-num{color:#F4A400;}
+    .mare-mockup__rating-count{color:var(--fg-3);font-weight:400;margin-left:2px;}
+    .mare-mockup__loc{
+      display:inline-flex;align-items:center;gap:4px;
+      color:var(--fg-2);text-decoration:underline;
+    }
+    .mare-mockup__loc svg{width:12px;height:12px;stroke-width:2px;}
+    .mare-mockup__divider{height:1px;background:var(--border);margin:4px -18px 14px;}
+    .mare-mockup__section-title{
+      font-family:var(--font-display);font-size:15px;font-weight:var(--fw-semibold);
+      color:var(--fg-1);margin-bottom:8px;
+    }
+    .mare-mockup__section-q{font-size:12px;color:var(--fg-3);margin-bottom:10px;}
+    .mare-mockup__people{
+      display:flex;gap:6px;margin-bottom:14px;overflow:hidden;
+    }
+    .mare-mockup__person{
+      flex:0 0 auto;width:32px;height:32px;border-radius:50%;
+      border:1.5px solid var(--brand-dark);color:var(--brand-dark);
+      display:flex;align-items:center;justify-content:center;
+      font-size:13px;font-weight:600;
+    }
+    .mare-mockup__person--active{background:var(--brand-dark);color:#fff;}
+    .mare-mockup__tabs{
+      display:flex;gap:14px;border-bottom:1px solid var(--border);
+      margin:0 -18px 12px;padding:0 18px;
+      font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+    }
+    .mare-mockup__tab{
+      color:var(--fg-3);padding:8px 0 10px;flex-shrink:0;
+    }
+    .mare-mockup__tab--active{
+      color:var(--brand-dark);border-bottom:2px solid var(--brand-dark);
+      margin-bottom:-1px;
+    }
+    .mare-mockup__promo{
+      display:flex;align-items:flex-start;gap:10px;
+      border:1px solid var(--border);border-radius:10px;
+      padding:10px 12px;background:#FFFCF6;
+    }
+    .mare-mockup__promo-icon{
+      width:26px;height:26px;border-radius:50%;
+      background:#FFEFD9;color:#E68900;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .mare-mockup__promo-icon svg{width:14px;height:14px;stroke-width:2px;}
+    .mare-mockup__promo-text{display:flex;flex-direction:column;gap:2px;font-size:12px;}
+    .mare-mockup__promo-text strong{
+      color:var(--fg-1);font-weight:var(--fw-semibold);font-size:13px;
+    }
+    .mare-mockup__promo-text span{color:var(--fg-3);}
     .mare-callout{
       position:absolute;z-index:3;
       display:flex;align-items:flex-start;gap:10px;
@@ -1772,7 +1850,7 @@
     }
     /* Proportional sizing — match visual mass, not pixel height */
     .cierre-partners__cell img[data-w="narrow"]{max-height:64px;max-width:130px;}
-    .cierre-partners__cell img[data-w="oval"]{max-height:88px;max-width:170px;}
+    .cierre-partners__cell img[data-w="oval"]{max-height:108px;max-width:210px;}
     .cierre-partners__cell img[data-w="medium"]{max-height:54px;max-width:160px;}
     .cierre-partners__cell img[data-w="wide"]{max-height:42px;max-width:210px;}
     .cierre-partners__cell:hover img{opacity:1;transform:scale(1.04);}
@@ -2030,6 +2108,8 @@
       .hm-diagram{grid-template-columns:1fr;gap:var(--sp-8);}
       .hm-col--left .hm-items{align-items:flex-start;}
       .hm-col--left .hm-item{flex-direction:row;text-align:left;}
+      .hm-col--left .hm-item__body{align-items:flex-start;}
+      .hm-colhead--left,.hm-colhead--right{position:static;display:block;margin-bottom:6px;}
       #hm-svg{display:none;}
       .hm-tooltip{display:none;}
       /* Guest Center: pasa de fila (52/48) a columna stack */
@@ -2038,13 +2118,25 @@
       .gc-split-left .gcv2-list{max-height:300px;}
       .gcp-wrap{width:100%;}
       .gcp-notes{max-height:240px;}
+      /* Reseñas confiables: layout column, sin truncar texto */
+      .analytics-row__content{flex-direction:column;align-items:stretch;gap:var(--sp-4);}
+      .rating-block{flex-direction:row;justify-content:flex-start;align-items:center;gap:var(--sp-3);}
+      .rating-block__num{font-size:36px;}
+      .rating-block__stars{font-size:15px;}
+      .rating-block__label{text-align:left;}
+      .analytics-divider{display:none;}
+      .review-mini{flex-direction:column;gap:4px;padding:var(--sp-3) 0;}
+      .review-mini__text{white-space:normal;overflow:visible;text-overflow:clip;}
     }
     @media (max-width:768px) {
       :root{--nav-h:52px;}
       .side-nav{display:none;}
       .top-nav{padding:0 16px;}
-      .section__inner,.s-hm-dark .section__inner{padding:48px 24px;}
+      .section,.s-hm-dark{min-height:auto;justify-content:flex-start;}
+      .section__inner,.s-hm-dark .section__inner{padding:36px 24px;}
       .hm-product-name{font-size:36px;}
+      .problema__close{margin-top:var(--sp-4);margin-bottom:0;}
+      .results-disclaimers{margin-top:var(--sp-4);}
 
       /* Apertura: proof más chico, slots más bajos, simétrico sin Ness */
       .apertura__proof-item{font-size:14px;text-align:center;}
@@ -2077,6 +2169,7 @@
         display:block;border:1px solid var(--border);border-radius:var(--r-md);
         padding:12px 14px;margin-bottom:10px;background:var(--surface);
       }
+      .campaign-perf-table tr:nth-child(n+3){display:none;}
       .campaign-perf-table td{
         display:flex;justify-content:space-between;align-items:center;
         padding:5px 0;border:none;font-size:13px;
@@ -2103,6 +2196,9 @@
       /* Integraciones: logos un poco más chicos */
       .integraciones-banner__slot img{max-height:38px;max-width:110px;}
 
+      /* Cierre: padding wrapper más chico, flourish más angosto */
+      .cierre-partners{padding:var(--sp-6) var(--sp-4);gap:var(--sp-5);}
+      .cierre-partners__flourish{width:160px;}
       /* Cierre: 8 logos en 2 columnas (sin Ness), sin flourishes dorados */
       .cierre-partners__grid{grid-template-columns:repeat(2,1fr);gap:var(--sp-3);column-gap:var(--sp-3);}
       .cierre-partners__cell::after,
@@ -2654,10 +2750,44 @@
             </div>
           <div class="tab-panel is-active" data-panel="perfil">
             <div class="mare-showcase">
-              <div class="mare-showcase__grid"></div>
               <div class="mare-showcase__halo"></div>
               <div class="mare-showcase__img-wrap">
-                <img src="woki-mare.png" alt="Mare By Gekko — Woki">
+                <div class="mare-mockup">
+                  <div class="mare-mockup__hero" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80&fit=crop')">
+                    <span class="mare-mockup__count">1/5</span>
+                  </div>
+                  <div class="mare-mockup__body">
+                    <h4 class="mare-mockup__name">Mare By Gekko</h4>
+                    <div class="mare-mockup__meta">
+                      <span class="mare-mockup__rating"><span class="mare-mockup__rating-num">★ 4.8</span> <span class="mare-mockup__rating-count">(49)</span></span>
+                      <span class="mare-mockup__loc"><i data-lucide="map-pin"></i> Jorge Luis Borges 2075</span>
+                    </div>
+                    <div class="mare-mockup__divider"></div>
+                    <p class="mare-mockup__section-title">Configurá tu reserva</p>
+                    <p class="mare-mockup__section-q">¿Cuántas personas?</p>
+                    <div class="mare-mockup__people">
+                      <span class="mare-mockup__person">1</span>
+                      <span class="mare-mockup__person">2</span>
+                      <span class="mare-mockup__person mare-mockup__person--active">3</span>
+                      <span class="mare-mockup__person">4</span>
+                      <span class="mare-mockup__person">5</span>
+                      <span class="mare-mockup__person">6</span>
+                    </div>
+                    <div class="mare-mockup__tabs">
+                      <span class="mare-mockup__tab mare-mockup__tab--active">Descuentos</span>
+                      <span class="mare-mockup__tab">Premios</span>
+                      <span class="mare-mockup__tab">Información</span>
+                      <span class="mare-mockup__tab">Giftcards</span>
+                    </div>
+                    <div class="mare-mockup__promo">
+                      <span class="mare-mockup__promo-icon"><i data-lucide="badge-percent"></i></span>
+                      <div class="mare-mockup__promo-text">
+                        <strong>Hasta 20% OFF en Ticket</strong>
+                        <span>Lunes a Jueves · 12:30 a 13:30hs</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="mare-callout mare-callout--1">
                 <span class="mare-callout__icon"><i data-lucide="image"></i></span>
