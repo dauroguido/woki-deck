@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Woki — El sistema de reservas y hospitalidad para los mejores restaurantes</title>
   <meta property="og:title" content="Woki — El sistema de reservas y hospitalidad para los mejores restaurantes">
-  <meta property="og:description" content="+700 restaurantes · 98% de cobrabilidad · Alta en menos de 72hs">
+  <meta property="og:description" content="+700 restaurantes · Reservas, hospitalidad, pagos y métricas en una sola plataforma · Alta en menos de 72hs">
   <meta property="og:type" content="website">
   <meta name="description" content="El sistema de reservas y hospitalidad para los mejores restaurantes.">
 
@@ -323,10 +323,10 @@
       display:flex;flex-direction:column;justify-content:center;
       position:relative;overflow:hidden;
       background:
-        radial-gradient(circle at 18% 22%, rgba(26,175,222,.10), transparent 35%),
-        radial-gradient(circle at 82% 78%, rgba(178,16,255,.10), transparent 38%),
-        radial-gradient(circle at 50% 50%, rgba(0,102,204,.06), transparent 60%),
-        #060912;
+        radial-gradient(circle at 18% 22%, rgba(0,102,204,.12), transparent 35%),
+        radial-gradient(circle at 82% 78%, rgba(0,102,204,.08), transparent 38%),
+        radial-gradient(circle at 50% 50%, rgba(32,43,63,.5), transparent 60%),
+        #0E0F12;
       color:#FFFFFF;
     }
     /* Neural network background — dot constellation + faint grid */
@@ -345,8 +345,8 @@
       content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
       width:1200px;height:600px;z-index:0;pointer-events:none;
       background:
-        radial-gradient(ellipse 600px 200px at 30% 50%, rgba(26,175,222,.10), transparent 60%),
-        radial-gradient(ellipse 600px 200px at 70% 50%, rgba(178,16,255,.10), transparent 60%);
+        radial-gradient(ellipse 600px 200px at 30% 50%, rgba(0,102,204,.14), transparent 60%),
+        radial-gradient(ellipse 600px 200px at 70% 50%, rgba(0,102,204,.08), transparent 60%);
       filter:blur(40px);
     }
     .s-hm-dark .section__inner{padding:var(--sp-16) var(--sp-8);position:relative;z-index:2;}
@@ -356,14 +356,14 @@
       display:inline-flex;align-items:center;gap:10px;
       font-family:var(--font-body);font-size:11px;font-weight:var(--fw-bold);
       letter-spacing:.18em;text-transform:uppercase;
-      color:transparent;background:linear-gradient(141deg,#1AAFDE 13%,#B210FF 48%,#FFAD5C 84%);
+      color:transparent;background:linear-gradient(141deg,#4D9FE3 0%,#0066CC 100%);
       -webkit-background-clip:text;background-clip:text;
       margin-bottom:14px;
     }
     .hm-dark-eyebrow::before{
       content:"";width:6px;height:6px;border-radius:50%;
-      background:linear-gradient(141deg,#1AAFDE,#B210FF);
-      box-shadow:0 0 0 3px rgba(178,16,255,.18);
+      background:linear-gradient(141deg,#4D9FE3,#0066CC);
+      box-shadow:0 0 0 3px rgba(0,102,204,.22);
       animation:hm-pulse 2.4s ease-in-out infinite;
       -webkit-text-fill-color:initial;
     }
@@ -374,7 +374,7 @@
       color:#FFFFFF;max-width:760px;margin-bottom:14px;
     }
     .hm-dark-title .hm-dark-grad{
-      background:linear-gradient(141deg,#1AAFDE 13%,#B210FF 48%,#FFAD5C 84%);
+      background:linear-gradient(141deg,#4D9FE3 0%,#0066CC 60%,#EEF4FC 100%);
       -webkit-background-clip:text;background-clip:text;color:transparent;
     }
     .hm-dark-sub{
@@ -400,8 +400,8 @@
     .hm-colhead--left{left:0;}
     .hm-colhead--right{right:0;}
     .hm-colhead__count{
-      color:#fff;background:rgba(26,175,222,.12);
-      border:1px solid rgba(26,175,222,.28);
+      color:#fff;background:rgba(0,102,204,.16);
+      border:1px solid rgba(0,102,204,.34);
       border-radius:var(--r-pill);padding:1px 7px;font-size:9px;letter-spacing:.04em;
     }
 
@@ -416,23 +416,23 @@
       transition:background var(--dur-2) var(--ease),border-color var(--dur-2) var(--ease),transform var(--dur-2) var(--ease),box-shadow var(--dur-2) var(--ease);
     }
     .hm-item:hover,.hm-item.is-hovered{
-      background:linear-gradient(180deg, rgba(26,175,222,.10), rgba(178,16,255,.06));
-      border-color:rgba(178,16,255,.45);
+      background:linear-gradient(180deg, rgba(0,102,204,.14), rgba(0,102,204,.06));
+      border-color:rgba(0,102,204,.55);
       transform:translateY(-1px);
-      box-shadow:0 8px 24px -8px rgba(178,16,255,.40), 0 0 0 1px rgba(178,16,255,.20);
+      box-shadow:0 8px 24px -8px rgba(0,102,204,.45), 0 0 0 1px rgba(0,102,204,.22);
     }
     .hm-item__icon{
       flex-shrink:0;width:32px;height:32px;border-radius:8px;
       display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg, rgba(26,175,222,.14), rgba(178,16,255,.14));
+      background:linear-gradient(135deg, rgba(0,102,204,.16), rgba(77,159,227,.14));
       border:1px solid rgba(255,255,255,.08);
       color:#9CC3FF;
       transition:color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
     }
     .hm-item:hover .hm-item__icon,.hm-item.is-hovered .hm-item__icon{
-      color:#fff;border-color:rgba(178,16,255,.4);
-      background:linear-gradient(135deg, rgba(26,175,222,.28), rgba(178,16,255,.28));
-      box-shadow:0 0 18px -4px rgba(178,16,255,.55);
+      color:#fff;border-color:rgba(0,102,204,.5);
+      background:linear-gradient(135deg, rgba(0,102,204,.32), rgba(77,159,227,.28));
+      box-shadow:0 0 18px -4px rgba(0,102,204,.60);
     }
     .hm-item__icon svg{width:16px;height:16px;stroke-width:1.8px;}
     .hm-item__body{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1;}
@@ -445,9 +445,9 @@
     }
     .hm-item__pulse{
       position:absolute;width:6px;height:6px;border-radius:50%;
-      background:linear-gradient(141deg,#1AAFDE,#B210FF);
+      background:linear-gradient(141deg,#4D9FE3,#0066CC);
       opacity:0;
-      box-shadow:0 0 0 3px rgba(178,16,255,.18);
+      box-shadow:0 0 0 3px rgba(0,102,204,.22);
     }
     .hm-col--left .hm-item__pulse{right:-3px;}
     .hm-col--right .hm-item__pulse{left:-3px;}
@@ -473,13 +473,13 @@
     .hm-ring{
       position:absolute;top:50%;left:50%;
       width:160px;height:160px;border-radius:50%;
-      border:1px solid rgba(178,16,255,.32);
+      border:1px solid rgba(0,102,204,.36);
       transform:translate(-50%,-50%) scale(1);
       opacity:0;
       animation:hm-ring 4.2s ease-out infinite;
     }
-    .hm-ring--2{animation-delay:1.4s;border-color:rgba(26,175,222,.28);}
-    .hm-ring--3{animation-delay:2.8s;border-color:rgba(255,173,92,.24);}
+    .hm-ring--2{animation-delay:1.4s;border-color:rgba(77,159,227,.30);}
+    .hm-ring--3{animation-delay:2.8s;border-color:rgba(238,244,252,.18);}
     @keyframes hm-ring{
       0%{transform:translate(-50%,-50%) scale(.6);opacity:.7;}
       60%{opacity:.3;}
@@ -490,7 +490,7 @@
     .hm-core-halo{
       position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
       width:240px;height:240px;border-radius:50%;
-      background:radial-gradient(circle, rgba(178,16,255,.28) 0%, rgba(26,175,222,.18) 35%, transparent 70%);
+      background:radial-gradient(circle, rgba(0,102,204,.32) 0%, rgba(77,159,227,.20) 35%, transparent 70%);
       filter:blur(34px);z-index:0;
     }
 
@@ -499,10 +499,10 @@
       position:relative;z-index:3;
       width:200px;height:200px;border-radius:50%;
       padding:6px;
-      background:conic-gradient(from 0deg, #1AAFDE, #B210FF, #FFAD5C, #1AAFDE);
+      background:conic-gradient(from 0deg, #202B3F, #0066CC, #4D9FE3, #0066CC, #202B3F);
       box-shadow:
-        0 0 60px -10px rgba(178,16,255,.55),
-        0 0 120px -20px rgba(26,175,222,.40),
+        0 0 60px -10px rgba(0,102,204,.60),
+        0 0 120px -20px rgba(77,159,227,.40),
         0 0 0 1px rgba(255,255,255,.08) inset;
       animation:hm-core-rotate 14s linear infinite;
     }
@@ -510,9 +510,9 @@
     .hm-core__inner{
       width:100%;height:100%;border-radius:50%;
       background:
-        radial-gradient(circle at 35% 30%, rgba(91,140,255,.32), transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(178,16,255,.22), transparent 50%),
-        linear-gradient(135deg, #0B1124 0%, #14092C 100%);
+        radial-gradient(circle at 35% 30%, rgba(77,159,227,.32), transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(0,102,204,.22), transparent 50%),
+        linear-gradient(135deg, #0E0F12 0%, #202B3F 100%);
       display:flex;flex-direction:column;align-items:center;justify-content:center;
       gap:4px;text-align:center;padding:0 18px;
       animation:hm-core-rotate-r 14s linear infinite;
@@ -520,9 +520,9 @@
     @keyframes hm-core-rotate-r{to{transform:rotate(-360deg);}}
     .hm-core__logo{
       width:30px;height:30px;border-radius:50%;
-      background:linear-gradient(135deg,#1AAFDE,#B210FF);
+      background:linear-gradient(135deg,#4D9FE3,#0066CC);
       display:flex;align-items:center;justify-content:center;
-      box-shadow:0 4px 16px -2px rgba(178,16,255,.6);
+      box-shadow:0 4px 16px -2px rgba(0,102,204,.65);
       margin-bottom:2px;
     }
     .hm-core__logo svg{width:16px;height:16px;color:#fff;stroke-width:2px;}
@@ -542,7 +542,7 @@
     }
     .hm-core__metric strong{
       display:block;font-size:14px;font-weight:var(--fw-bold);
-      background:linear-gradient(141deg,#1AAFDE,#B210FF,#FFAD5C);
+      background:linear-gradient(141deg,#4D9FE3,#0066CC,#EEF4FC);
       -webkit-background-clip:text;background-clip:text;color:transparent;
       line-height:1;
     }
@@ -558,12 +558,12 @@
       opacity:.55;
       transition:opacity var(--dur-2) var(--ease),stroke-width var(--dur-2) var(--ease);
     }
-    #hm-svg .line-base.is-active{stroke-width:2;opacity:1;filter:drop-shadow(0 0 6px rgba(178,16,255,.6));}
+    #hm-svg .line-base.is-active{stroke-width:2;opacity:1;filter:drop-shadow(0 0 6px rgba(0,102,204,.65));}
     #hm-svg .line-base.is-dimmed{opacity:.12;}
     /* Continuous particle that travels each line */
     #hm-svg .line-particle{
       stroke:url(#hm-line-grad-bright);stroke-width:2.6;fill:none;stroke-linecap:round;
-      filter:drop-shadow(0 0 6px rgba(178,16,255,.55));
+      filter:drop-shadow(0 0 6px rgba(0,102,204,.6));
       opacity:.95;
     }
     /* Shimmer on hover (kept for compatibility) */
@@ -581,21 +581,21 @@
       border:1px solid rgba(255,255,255,.06);
     }
     .hm-stat{
-      background:linear-gradient(180deg, rgba(11,17,36,.6), rgba(6,9,18,.6));
+      background:linear-gradient(180deg, rgba(32,43,63,.6), rgba(14,15,18,.6));
       padding:var(--sp-5) var(--sp-5);
       display:flex;flex-direction:column;gap:4px;
       position:relative;
     }
     .hm-stat__icon{
       width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg, rgba(26,175,222,.18), rgba(178,16,255,.18));
+      background:linear-gradient(135deg, rgba(0,102,204,.22), rgba(77,159,227,.18));
       color:#9CC3FF;margin-bottom:6px;
     }
     .hm-stat__icon svg{width:14px;height:14px;stroke-width:1.8px;}
     .hm-stat__num{
       font-family:var(--font-display);font-size:clamp(22px,2.4vw,30px);font-weight:var(--fw-bold);
       letter-spacing:-.02em;line-height:1;
-      background:linear-gradient(141deg,#FFFFFF 0%, #C5B3FF 100%);
+      background:linear-gradient(141deg,#FFFFFF 0%, #9CC3FF 100%);
       -webkit-background-clip:text;background-clip:text;color:transparent;
       font-variant-numeric:tabular-nums;
     }
@@ -1066,6 +1066,7 @@
     .ops-box__delta{font-family:var(--font-body);font-size:12px;font-weight:var(--fw-semibold);margin-top:6px;}
     .ops-box__delta--up{color:#138A36;}
     .ops-box__delta--down{color:#C42525;}
+    .ops-box__delta--flat{color:var(--fg-3);}
 
     @media (max-width:900px){
       .analytics-row{grid-template-columns:1fr;}
@@ -1123,6 +1124,32 @@
     .tab-btn.is-active{color:var(--brand-dark);border-bottom-color:var(--brand-dark);font-weight:var(--fw-semibold);}
     .tab-panel{display:none;}
     .tab-panel.is-active{display:block;}
+
+    /* Vertical blocks (replaces external tabs) */
+    .ads-block{
+      margin-bottom:var(--sp-16);
+      padding-top:var(--sp-8);
+      border-top:1px solid var(--border);
+    }
+    .ads-block:first-of-type{border-top:none;padding-top:0;}
+    .ads-block__header{
+      display:flex;align-items:baseline;gap:var(--sp-4);
+      margin-bottom:var(--sp-8);
+    }
+    .ads-block__num{
+      font-family:var(--font-body);font-size:13px;font-weight:var(--fw-bold);
+      letter-spacing:.12em;color:var(--brand);
+      font-variant-numeric:tabular-nums;
+    }
+    .ads-block__title{
+      font-family:var(--font-display);
+      font-size:clamp(22px,2.4vw,30px);
+      line-height:1.15;font-weight:var(--fw-semibold);
+      letter-spacing:var(--tracking-tight);color:var(--fg-1);
+    }
+    @media (max-width:768px){
+      .ads-block{margin-bottom:var(--sp-12);}
+    }
 
     /* Restaurant profile mock */
     .rp-mock {
@@ -1307,6 +1334,122 @@
     }
 
     /* =====================================================================
+       SECCIÓN PAGOS — Pasarela hecha a medida
+       ===================================================================== */
+    .pagos-mock{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);box-shadow:var(--shadow-md);
+      max-width:780px;margin:var(--sp-10) auto var(--sp-12);overflow:hidden;
+    }
+    .pagos-mock__header{
+      display:flex;align-items:center;gap:var(--sp-3);
+      padding:12px var(--sp-5);border-bottom:1px solid var(--border);
+      background:var(--bg-soft);
+    }
+    .pagos-mock__bar-dots{display:flex;gap:6px;}
+    .pagos-mock__dot{width:9px;height:9px;border-radius:50%;background:var(--border-strong);}
+    .pagos-mock__bar-dots .pagos-mock__dot:first-child{background:#FF5F57;}
+    .pagos-mock__bar-dots .pagos-mock__dot:nth-child(2){background:#FFBD2E;}
+    .pagos-mock__bar-dots .pagos-mock__dot:nth-child(3){background:#28C840;}
+    .pagos-mock__title{
+      flex:1;font-family:var(--font-body);font-size:13px;font-weight:var(--fw-semibold);
+      color:var(--fg-1);text-align:center;
+    }
+    .pagos-mock__period{
+      font-family:var(--font-body);font-size:12px;color:var(--fg-3);font-variant-numeric:tabular-nums;
+    }
+    .pagos-mock__body{padding:var(--sp-4) var(--sp-5);}
+    .pagos-mock__row{
+      display:grid;grid-template-columns:auto 1fr auto auto;
+      align-items:center;gap:var(--sp-4);
+      padding:var(--sp-3) 0;border-bottom:1px solid var(--border);
+    }
+    .pagos-mock__row:last-child{border-bottom:none;}
+    .pagos-mock__icon{
+      width:36px;height:36px;border-radius:8px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--b2b-50);color:var(--brand);
+    }
+    .pagos-mock__icon svg{width:18px;height:18px;stroke-width:1.8px;}
+    .pagos-mock__col{min-width:0;}
+    .pagos-mock__concept{
+      font-family:var(--font-body);font-size:13.5px;font-weight:var(--fw-semibold);
+      color:var(--fg-1);line-height:1.3;
+    }
+    .pagos-mock__sub{
+      font-family:var(--font-body);font-size:12px;color:var(--fg-3);margin-top:2px;
+    }
+    .pagos-mock__amount{
+      font-family:var(--font-body);font-size:14px;font-weight:var(--fw-bold);
+      color:var(--fg-1);font-variant-numeric:tabular-nums;white-space:nowrap;
+    }
+    .pagos-mock__amount--pos{color:#1E8E3E;}
+    .pagos-mock__status{
+      font-family:var(--font-body);font-size:11px;font-weight:var(--fw-semibold);
+      letter-spacing:.04em;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap;
+    }
+    .pagos-mock__status--ok{background:rgba(30,142,62,.10);color:#1E8E3E;}
+    .pagos-mock__status--hold{background:var(--b2b-50);color:var(--brand-dark);}
+
+    .pagos-cards{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);
+      max-width:1080px;margin:0 auto var(--sp-12);
+    }
+    .pagos-card{
+      background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r-lg);padding:var(--sp-6);
+      box-shadow:var(--shadow-sm);
+      transition:transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+    }
+    .pagos-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);}
+    .pagos-card__icon{
+      width:44px;height:44px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--b2b-gradient);color:#fff;margin-bottom:var(--sp-4);
+    }
+    .pagos-card__icon svg{width:22px;height:22px;stroke-width:1.8px;}
+    .pagos-card__title{
+      font-family:var(--font-display);font-size:var(--fs-18);font-weight:var(--fw-semibold);
+      color:var(--fg-1);line-height:1.25;letter-spacing:var(--tracking-snug);margin-bottom:var(--sp-2);
+    }
+    .pagos-card__desc{
+      font-family:var(--font-body);font-size:14px;color:var(--fg-2);line-height:1.55;
+    }
+
+    .pagos-diff{
+      display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5);
+      max-width:1080px;margin:0 auto var(--sp-5);
+    }
+    .pagos-diff__item{
+      display:flex;gap:var(--sp-4);align-items:flex-start;
+      padding:var(--sp-5) var(--sp-6);
+      background:var(--b2b-50);border:1px solid var(--b2b-100);
+      border-radius:var(--r-md);
+    }
+    .pagos-diff__icon{
+      width:36px;height:36px;border-radius:8px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--brand-dark);color:#fff;
+    }
+    .pagos-diff__icon svg{width:18px;height:18px;stroke-width:1.8px;}
+    .pagos-diff__title{
+      font-family:var(--font-display);font-size:var(--fs-16);font-weight:var(--fw-bold);
+      color:var(--fg-1);line-height:1.3;margin-bottom:2px;
+    }
+    .pagos-diff__desc{
+      font-family:var(--font-body);font-size:13.5px;color:var(--fg-2);line-height:1.5;
+    }
+    .pagos-foot{
+      text-align:center;margin:0 auto;max-width:600px;color:var(--fg-disclaimer);
+    }
+
+    @media (max-width:880px){
+      .pagos-cards,.pagos-diff{grid-template-columns:1fr;}
+      .pagos-mock__row{grid-template-columns:auto 1fr;gap:var(--sp-3);}
+      .pagos-mock__amount,.pagos-mock__status{grid-column:2;justify-self:flex-start;}
+    }
+
+    /* =====================================================================
        SECCIÓN 6 — DURANTE EL SERVICIO
        ===================================================================== */
     .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-8);align-items:start;margin-top:var(--sp-10);}
@@ -1466,9 +1609,55 @@
     .calc-output__sub{font-family:var(--font-body);font-size:var(--fs-12);color:rgba(255,255,255,.6);margin-top:var(--sp-2);}
     .results-disclaimers{margin-top:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-2);}
 
+    /* Monthly report — pie de Sec 7 */
+    .monthly-report{
+      margin-top:var(--sp-10);padding:var(--sp-6) var(--sp-8);
+      background:var(--b2b-50);border:1px solid var(--b2b-100);
+      border-radius:var(--r-lg);
+      display:flex;gap:var(--sp-4);align-items:center;
+      max-width:760px;margin-left:auto;margin-right:auto;
+    }
+    .monthly-report__icon{
+      width:42px;height:42px;border-radius:10px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--brand-dark);color:#fff;
+    }
+    .monthly-report__icon svg{width:20px;height:20px;stroke-width:1.8px;}
+    .monthly-report__text{
+      font-family:var(--font-body);font-size:14.5px;color:var(--fg-1);
+      line-height:1.5;font-weight:var(--fw-medium);
+    }
+    .monthly-report__text span{color:var(--fg-2);font-weight:var(--fw-regular);}
+
+    /* Bloque puente — Migración sin pérdidas */
+    .bridge-block{
+      padding:var(--sp-20) var(--sp-8);
+      background:var(--bg-soft);
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    }
+    .bridge-block__inner{
+      max-width:840px;margin:0 auto;text-align:center;
+      display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);
+    }
+    .bridge-block__eyebrow{
+      font-family:var(--font-body);font-size:11px;font-weight:var(--fw-bold);
+      letter-spacing:.18em;text-transform:uppercase;color:var(--brand);
+    }
+    .bridge-block__title{
+      font-family:var(--font-display);
+      font-size:clamp(26px,3.2vw,42px);line-height:1.12;
+      letter-spacing:var(--tracking-tight);font-weight:var(--fw-semibold);
+      color:var(--fg-1);max-width:780px;
+    }
+    .bridge-block__sub{
+      font-family:var(--font-body);font-size:clamp(15px,1.5vw,18px);
+      color:var(--fg-2);line-height:1.6;max-width:640px;
+    }
+
     /* =====================================================================
        SECCIÓN 9 — IMPLEMENTACIÓN
        ===================================================================== */
+    .impl-hero-sub__small{font-size:.78em;color:var(--fg-3);font-weight:var(--fw-regular);}
     .impl-hero{text-align:center;margin-bottom:var(--sp-16);}
     .impl-72 {
       font-family:var(--font-body);font-size:clamp(80px,12vw,120px);
@@ -1556,7 +1745,12 @@
     .cierre-partners__cell img[data-w="medium"]{max-height:54px;max-width:160px;}
     .cierre-partners__cell img[data-w="wide"]{max-height:42px;max-width:210px;}
     .cierre-partners__cell:hover img{opacity:1;transform:scale(1.04);}
-    .cierre-ctas{display:flex;gap:var(--sp-4);justify-content:center;flex-wrap:wrap;margin-bottom:var(--sp-5);}
+    .cierre-ctas{display:flex;gap:var(--sp-4);justify-content:center;flex-wrap:wrap;margin-bottom:var(--sp-6);}
+    .cierre-emotional{
+      font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);
+      color:var(--fg-2);font-weight:var(--fw-medium);letter-spacing:var(--tracking-snug);
+      font-style:italic;text-align:center;max-width:520px;margin:0 auto;line-height:1.5;
+    }
     .btn--large{padding:14px 28px;font-size:var(--fs-16);}
     .cierre-link{display:flex;justify-content:center;margin-bottom:var(--sp-10);}
     .cierre-link a{font-family:var(--font-body);font-size:var(--fs-14);color:var(--brand);text-decoration:underline;text-underline-offset:3px;}
@@ -1869,9 +2063,9 @@
     <button class="side-nav__dot"            data-target="hospitality-manager"  data-label="Hospitality Manager"  aria-label="Hospitality Manager"></button>
     <button class="side-nav__dot"            data-target="antes-del-servicio"   data-label="Antes del servicio"   aria-label="Antes del servicio"></button>
     <button class="side-nav__dot"            data-target="michelin"             data-label="Guía Michelin"         aria-label="Guía Michelin"></button>
+    <button class="side-nav__dot"            data-target="pagos"                data-label="Pagos"                 aria-label="Pagos"></button>
     <button class="side-nav__dot"            data-target="durante-el-servicio"  data-label="Durante el servicio"  aria-label="Durante el servicio"></button>
     <button class="side-nav__dot"            data-target="despues-del-servicio" data-label="Después del servicio" aria-label="Después del servicio"></button>
-    <button class="side-nav__dot"            data-target="resultados"           data-label="Resultados"            aria-label="Resultados"></button>
     <button class="side-nav__dot"            data-target="implementacion"       data-label="Implementación"        aria-label="Implementación"></button>
     <button class="side-nav__dot"            data-target="cierre"               data-label="Cierre"                aria-label="Cierre"></button>
   </nav>
@@ -1895,6 +2089,21 @@
           El sistema de reservas y hospitalidad para los mejores restaurantes.
         </h1>
 
+        <div class="apertura__proof reveal reveal--d2">
+          <span class="apertura__proof-item">+700 restaurantes en Argentina, Chile y la región.</span>
+        </div>
+
+        <div class="apertura__logos reveal reveal--d3" aria-label="Restaurantes que confían en Woki">
+          <div class="apertura__logo-slot"><img src="logos-partners/Trescha.png" alt="Trescha"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/lacabrera.png" alt="La Cabrera"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/madre.png" alt="Madre Rojas"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/La_Garde.png" alt="La Garde"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/anchoita.png" alt="Anchoita"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/gardiner.png" alt="Gardiner"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/ajo_negro.png" alt="Ajo Negro"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/ness.png" alt="Ness"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/La_Mar.png" alt="La Mar"></div>
+        </div>
 
       </div>
     </section>
@@ -1912,57 +2121,54 @@
           ¿Cuántos clientes salieron de tu restaurante encantados… y nunca más volvieron?
         </h2>
 
-        <!-- Dashboard mockup -->
-        <div class="problema__dashboard reveal reveal--d1">
-          <div class="db-header">
-            <span class="db-header__title">Panel de clientes — Woki</span>
-            <span class="db-header__period">Mayo 2025</span>
+        <!-- 3 stats que dimensionan el problema -->
+        <div class="kpi-row reveal reveal--d1">
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">5%</div>
+            <p class="kpi-item__text">Un aumento del 5% en la tasa de retención puede traducirse en hasta <strong>25–95% más de ganancias.</strong><sup>*1</sup></p>
           </div>
-          <div class="db-kpis">
-            <div class="db-kpi">
-              <div class="db-kpi__num">1.820</div>
-              <div class="db-kpi__label">Cubiertos / mes</div>
-              <div class="db-kpi__delta db-kpi__delta--up">↑ 8% vs abril</div>
-            </div>
-            <div class="db-kpi">
-              <div class="db-kpi__num">412</div>
-              <div class="db-kpi__label">Clientes nuevos</div>
-              <div class="db-kpi__delta db-kpi__delta--up">↑ 5% vs abril</div>
-            </div>
-            <div class="db-kpi">
-              <div class="db-kpi__num">618</div>
-              <div class="db-kpi__label">Clientes que volvieron</div>
-              <div class="db-kpi__delta db-kpi__delta--up">↑ 12% vs abril</div>
-            </div>
-            <div class="db-kpi">
-              <div class="db-kpi__num">34%</div>
-              <div class="db-kpi__label">Tasa de recurrencia</div>
-              <div class="db-kpi__delta db-kpi__delta--up">↑ 4pp vs abril</div>
-            </div>
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">51%</div>
+            <p class="kpi-item__text">En restaurantes de fine dining, el 51% de la facturación viene de <strong>clientes recurrentes.</strong><sup>*2</sup></p>
           </div>
-          <div class="db-body">
-            <div class="db-row">
-              <span class="db-row__label">Clientes nuevos</span>
-              <div class="db-bar-wrap"><div class="db-bar db-bar--new" style="width:55%"></div></div>
-              <span class="db-row__val">412</span>
-            </div>
-            <div class="db-row">
-              <span class="db-row__label">Volvieron</span>
-              <div class="db-bar-wrap"><div class="db-bar db-bar--rec" style="width:82%"></div></div>
-              <span class="db-row__val">618</span>
-            </div>
-            <div class="db-row">
-              <span class="db-row__label">No volvieron</span>
-              <div class="db-bar-wrap"><div class="db-bar db-bar--lost" style="width:100%"></div></div>
-              <span class="db-row__val">790</span>
-            </div>
+          <div class="kpi-item">
+            <div class="kpi-sep"></div>
+            <div class="kpi-item__num">67%</div>
+            <p class="kpi-item__text">Un cliente recurrente gasta en promedio <strong>67% más por visita</strong> que uno nuevo.<sup>*3</sup></p>
           </div>
         </div>
 
-        <!-- Cierre -->
-        <p class="problema__close reveal reveal--d2">
-          Con Woki, comunicate con tu cliente en el momento indicado para asegurarte de que vuelva&nbsp;— a través de automatizaciones y alertas.
+        <!-- Calculadora -->
+        <div class="calc-wrap reveal reveal--d2">
+          <h3 class="calc-title">¿Cuánto vale para tu restaurante que 5 clientes más de cada 100 vuelvan a visitarte?</h3>
+          <div class="calc-inputs" style="grid-template-columns:1fr 1fr;">
+            <div class="calc-field">
+              <label class="calc-label" for="calc-cubiertos">Cubiertos por mes</label>
+              <input type="number" id="calc-cubiertos" class="calc-input" value="1500" min="100" max="20000">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label" for="calc-ticket">Ticket promedio</label>
+              <input type="number" id="calc-ticket" class="calc-input" value="60000" min="1000" max="500000">
+            </div>
+          </div>
+          <div class="calc-output">
+            <p class="calc-output__label" id="calc-label-text">Con una mejora del <strong>5%</strong> en tu tasa de recurrencia, tu restaurante factura aproximadamente</p>
+            <div class="calc-output__num" id="calc-result">+$13.500.000</div>
+            <p class="calc-output__sub">al año sin sumar un solo cliente nuevo.**</p>
+          </div>
+        </div>
+
+        <!-- Cierre puente -->
+        <p class="problema__close reveal reveal--d3">
+          Woki te da las herramientas para que esto cambie. Empezando por conocer a tus clientes de verdad.
         </p>
+
+        <div class="results-disclaimers reveal reveal--d3">
+          <p class="disclaimer">*1 Bain &amp; Company, citado en Harvard Business Review. *2 National Restaurant Association. *3 Datos agregados de la industria gastronómica internacional. Estadísticas del rubro; los resultados reales dependen de la operación, segmento y plan de hospitalidad.</p>
+          <p class="disclaimer">** Estimación basada en datos agregados (NRA, Bain &amp; Company). Asume ticket promedio y cubiertos estables. No es una proyección comercial ni una promesa de resultado.</p>
+        </div>
 
       </div>
     </section>
@@ -1983,7 +2189,7 @@
           </div>
           <h2 class="hm-product-name">Hospitality<br>Manager</h2>
           <p class="hm-part-a-title reveal reveal--d1">
-            Pasá de números y estadísticas a conocimiento real sobre tus clientes.
+            El cerebro que convierte cada herramienta de Woki en una máquina hecha a medida de tu restaurante.
           </p>
         </div>
 
@@ -2227,19 +2433,19 @@
           <svg id="hm-svg" aria-hidden="true">
             <defs>
               <linearGradient id="hm-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#1AAFDE" stop-opacity=".7"/>
-                <stop offset="50%" stop-color="#B210FF" stop-opacity=".9"/>
-                <stop offset="100%" stop-color="#FFAD5C" stop-opacity=".7"/>
+                <stop offset="0%" stop-color="#4D9FE3" stop-opacity=".7"/>
+                <stop offset="50%" stop-color="#0066CC" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#4D9FE3" stop-opacity=".7"/>
               </linearGradient>
               <linearGradient id="hm-line-grad-bright" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#E8DDFF" stop-opacity="1"/>
+                <stop offset="50%" stop-color="#EEF4FC" stop-opacity="1"/>
                 <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
               </linearGradient>
               <marker id="arrow-hint" markerWidth="6" markerHeight="6"
                       refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
                 <path d="M0,0 L5,3 L0,6" fill="none"
-                      stroke="rgba(178,16,255,0.45)" stroke-width="0.8"/>
+                      stroke="rgba(0,102,204,0.5)" stroke-width="0.8"/>
               </marker>
             </defs>
           </svg>
@@ -2257,18 +2463,18 @@
     <section id="antes-del-servicio" class="section section--alt" data-index="3" aria-label="Antes del servicio">
       <div class="section__inner">
         <div class="section-header reveal">
-          <h2 class="section-title">Activás tu base con audiencias precisas.</h2>
-          <p class="section-subtitle">Tres formas de convertir tu base de datos en reservas reales.</p>
+          <h2 class="section-title">Activá los clientes que ya tenés.</h2>
+          <p class="section-subtitle">Tres formas de convertir tus clientes en visitas que se repiten.</p>
         </div>
 
         <div class="reveal reveal--d1">
-          <div class="tab-list" role="tablist" id="ads-tabs">
-            <button class="tab-btn is-active" role="tab" data-tab="perfil" aria-selected="true">Perfil del restaurante</button>
-            <button class="tab-btn" role="tab" data-tab="campanas" aria-selected="false">Campañas y email segmentado</button>
-            <button class="tab-btn" role="tab" data-tab="eventos" aria-selected="false">Eventos y experiencias</button>
-          </div>
 
-          <!-- Tab 1: Perfil del restaurante -->
+          <!-- Bloque 1: Perfil del restaurante -->
+          <div class="ads-block">
+            <div class="ads-block__header">
+              <span class="ads-block__num">01</span>
+              <h3 class="ads-block__title">Perfil del restaurante</h3>
+            </div>
           <div class="tab-panel is-active" data-panel="perfil">
             <div class="mare-showcase">
               <div class="mare-showcase__grid"></div>
@@ -2299,9 +2505,15 @@
               </div>
             </div>
           </div>
+          </div>
 
-          <!-- Tab 2: Campañas y email segmentado -->
-          <div class="tab-panel" data-panel="campanas">
+          <!-- Bloque 2: Campañas y email segmentado -->
+          <div class="ads-block">
+            <div class="ads-block__header">
+              <span class="ads-block__num">02</span>
+              <h3 class="ads-block__title">Campañas y email segmentado</h3>
+            </div>
+          <div class="tab-panel is-active" data-panel="campanas">
             <div class="campaign-panel">
               <div>
                 <div class="campaign-eyebrow">Campaña</div>
@@ -2333,9 +2545,15 @@
               </div>
             </div>
           </div>
+          </div>
 
-          <!-- Tab 3: Eventos y experiencias -->
-          <div class="tab-panel" data-panel="eventos">
+          <!-- Bloque 3: Eventos y experiencias -->
+          <div class="ads-block">
+            <div class="ads-block__header">
+              <span class="ads-block__num">03</span>
+              <h3 class="ads-block__title">Eventos y experiencias</h3>
+            </div>
+          <div class="tab-panel is-active" data-panel="eventos">
             <div class="events-grid">
 
               <div class="event-card">
@@ -2397,6 +2615,8 @@
 
             </div>
           </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -2408,7 +2628,7 @@
       <div class="section__inner">
         <div class="section-header reveal">
           <h2 class="section-title">Tomá reservas desde tu perfil en la Guía Michelin.</h2>
-          <p class="section-subtitle">Woki es el sistema integrado para que los restaurantes de la Guía Michelin reciban reservas directo en su panel.</p>
+          <p class="section-subtitle">El único sistema integrado con la Guía. Reservas directas, sin intermediarios, en tu panel de siempre.</p>
         </div>
 
         <div class="michelin-layout reveal reveal--d1">
@@ -2475,12 +2695,113 @@
     </section>
 
     <!-- ============================================================
+         SECCIÓN PAGOS — Pasarela hecha a medida
+         ============================================================ -->
+    <section id="pagos" class="section section--alt" data-index="6" aria-label="Pagos">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Cobrá lo que tu restaurante necesita, sin fricciones.</h2>
+          <p class="section-subtitle">Una pasarela de pagos hecha a medida para la gastronomía.</p>
+        </div>
+
+        <!-- Mockup: panel de cobros Woki -->
+        <div class="pagos-mock reveal reveal--d1">
+          <div class="pagos-mock__header">
+            <div class="pagos-mock__bar-dots">
+              <div class="pagos-mock__dot"></div>
+              <div class="pagos-mock__dot"></div>
+              <div class="pagos-mock__dot"></div>
+            </div>
+            <span class="pagos-mock__title">Panel Woki — cobros y garantías</span>
+            <span class="pagos-mock__period">Mayo 2026</span>
+          </div>
+          <div class="pagos-mock__body">
+            <div class="pagos-mock__row">
+              <div class="pagos-mock__icon"><i data-lucide="ticket"></i></div>
+              <div class="pagos-mock__col">
+                <div class="pagos-mock__concept">Anticipo · Cena maridaje · vie 30/05</div>
+                <div class="pagos-mock__sub">8 cubiertos · ARS 85.000 × 8</div>
+              </div>
+              <div class="pagos-mock__amount pagos-mock__amount--pos">+$680.000</div>
+              <span class="pagos-mock__status pagos-mock__status--ok">Cobrado</span>
+            </div>
+            <div class="pagos-mock__row">
+              <div class="pagos-mock__icon"><i data-lucide="credit-card"></i></div>
+              <div class="pagos-mock__col">
+                <div class="pagos-mock__concept">Garantía · Grupo de 12 · sáb 31/05 · 21:00</div>
+                <div class="pagos-mock__sub">Tarjeta en garantía · sin cargo si asisten</div>
+              </div>
+              <div class="pagos-mock__amount">$0</div>
+              <span class="pagos-mock__status pagos-mock__status--hold">En garantía</span>
+            </div>
+            <div class="pagos-mock__row">
+              <div class="pagos-mock__icon"><i data-lucide="alert-triangle"></i></div>
+              <div class="pagos-mock__col">
+                <div class="pagos-mock__concept">No-show · Reserva 4 personas · jue 29/05</div>
+                <div class="pagos-mock__sub">Penalidad automática aplicada</div>
+              </div>
+              <div class="pagos-mock__amount pagos-mock__amount--pos">+$40.000</div>
+              <span class="pagos-mock__status pagos-mock__status--ok">Cobrado</span>
+            </div>
+            <div class="pagos-mock__row">
+              <div class="pagos-mock__icon"><i data-lucide="globe"></i></div>
+              <div class="pagos-mock__col">
+                <div class="pagos-mock__concept">Reserva internacional · Hotel partner</div>
+                <div class="pagos-mock__sub">Tarjeta emitida en USA · proceso sin fricción</div>
+              </div>
+              <div class="pagos-mock__amount pagos-mock__amount--pos">+$220.000</div>
+              <span class="pagos-mock__status pagos-mock__status--ok">Cobrado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 use cases -->
+        <div class="pagos-cards reveal reveal--d2">
+          <div class="pagos-card">
+            <div class="pagos-card__icon"><i data-lucide="ticket"></i></div>
+            <h3 class="pagos-card__title">Anticipos para eventos y experiencias</h3>
+            <p class="pagos-card__desc">Cobrá la reserva como si fuera una entrada. Para tus menús degustación, maridajes y aperturas.</p>
+          </div>
+          <div class="pagos-card">
+            <div class="pagos-card__icon"><i data-lucide="credit-card"></i></div>
+            <h3 class="pagos-card__title">Garantías para grupos y horarios pico</h3>
+            <p class="pagos-card__desc">Pedí tarjeta en garantía configurable por tamaño, día, sector u horario.</p>
+          </div>
+          <div class="pagos-card">
+            <div class="pagos-card__icon"><i data-lucide="alert-triangle"></i></div>
+            <h3 class="pagos-card__title">Penalidades por no-show</h3>
+            <p class="pagos-card__desc">Cobrá automáticamente si la reserva no se presenta. El monto y la lógica los definís vos.</p>
+          </div>
+        </div>
+
+        <!-- Diferenciales -->
+        <div class="pagos-diff reveal reveal--d3">
+          <div class="pagos-diff__item">
+            <div class="pagos-diff__icon"><i data-lucide="globe-2"></i></div>
+            <div>
+              <h4 class="pagos-diff__title">Tarjetas internacionales sin fricción</h4>
+              <p class="pagos-diff__desc">Los turistas y huéspedes reservan y pagan desde cualquier país.</p>
+            </div>
+          </div>
+          <div class="pagos-diff__item">
+            <div class="pagos-diff__icon"><i data-lucide="check-circle-2"></i></div>
+            <div>
+              <h4 class="pagos-diff__title">+95% de cobrabilidad</h4>
+              <p class="pagos-diff__desc">La tasa más alta de LatAm, gracias a la pasarela hecha a medida.</p>
+            </div>
+          </div>
+        </div>
+        <p class="pagos-foot disclaimer">Pasarela desarrollada en alianza con Yuno.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
          BANNER INTEGRACIONES (post-Michelin)
          ============================================================ -->
     <section id="integraciones" class="integraciones-banner" aria-label="Integraciones">
       <div class="integraciones-banner__inner">
         <span class="integraciones-banner__eyebrow">Integraciones nativas</span>
-        <h3 class="integraciones-banner__title">Conectado con los sistemas que tu restaurante ya usa.</h3>
+        <h3 class="integraciones-banner__title">Integrá todas tus herramientas en una sola plataforma.</h3>
         <div class="integraciones-banner__track">
           <div class="integraciones-banner__row">
             <div class="integraciones-banner__slot"><img src="logos-integraciones/maxirest.png" alt="Maxirest"></div>
@@ -2742,7 +3063,7 @@
     <section id="despues-del-servicio" class="section" data-index="6" aria-label="Después del servicio">
       <div class="section__inner">
         <div class="section-header reveal">
-          <h2 class="section-title">Analizá las métricas operativas, de marketing y de reseñas de tu restaurante.</h2>
+          <h2 class="section-title">Cada turno te deja datos. Woki los convierte en decisiones.</h2>
           <p class="section-subtitle">Lo que aprendés de cada turno se vuelve la decisión del próximo.</p>
         </div>
 
@@ -2846,7 +3167,7 @@
                 <div class="ops-box">
                   <div class="ops-box__num">94 min</div>
                   <div class="ops-box__label">Permanencia prom.</div>
-                  <div class="ops-box__delta ops-box__delta--up">↑ 8 min</div>
+                  <div class="ops-box__delta ops-box__delta--flat">→ estable</div>
                 </div>
                 <div class="ops-box">
                   <div class="ops-box__num">$40.000</div>
@@ -2873,59 +3194,22 @@
           </div>
 
         </div>
+
+        <div class="monthly-report reveal reveal--d2">
+          <div class="monthly-report__icon"><i data-lucide="mail"></i></div>
+          <p class="monthly-report__text">Y todos los meses te llega al mail un resumen con lo más importante.<br><span>Para que conocer tu restaurante no sea una tarea más.</span></p>
+        </div>
       </div>
     </section>
 
     <!-- ============================================================
-         SECCIÓN 8 — RESULTADOS
+         BLOQUE PUENTE — Migración sin pérdidas
          ============================================================ -->
-    <section id="resultados" class="section section--alt" data-index="7" aria-label="Resultados">
-      <div class="section__inner">
-
-        <h2 class="results-hero-title reveal">Usá Woki Hospitality para hacer que tus clientes vuelvan.</h2>
-
-        <div class="kpi-row reveal reveal--d1">
-          <div class="kpi-item">
-            <div class="kpi-sep"></div>
-            <div class="kpi-item__num">5%</div>
-            <p class="kpi-item__text">Un aumento del 5% en la tasa de retención puede traducirse en hasta <strong>25–95% más de ganancias.</strong><sup>*1</sup></p>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-sep"></div>
-            <div class="kpi-item__num">51%</div>
-            <p class="kpi-item__text">En restaurantes de fine dining, el 51% de la facturación viene de <strong>clientes recurrentes.</strong><sup>*2</sup></p>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-sep"></div>
-            <div class="kpi-item__num">67%</div>
-            <p class="kpi-item__text">Un cliente recurrente gasta en promedio <strong>67% más por visita</strong> que uno nuevo.<sup>*3</sup></p>
-          </div>
-        </div>
-
-        <!-- Calculadora -->
-        <div class="calc-wrap reveal reveal--d2">
-          <h3 class="calc-title">¿Cuánto vale para tu restaurante que 5 clientes más de cada 100 vuelvan a visitarte?</h3>
-          <div class="calc-inputs" style="grid-template-columns:1fr 1fr;">
-            <div class="calc-field">
-              <label class="calc-label" for="calc-cubiertos">Cubiertos por mes</label>
-              <input type="number" id="calc-cubiertos" class="calc-input" value="1500" min="100" max="20000">
-            </div>
-            <div class="calc-field">
-              <label class="calc-label" for="calc-ticket">Ticket promedio</label>
-              <input type="number" id="calc-ticket" class="calc-input" value="60000" min="1000" max="500000">
-            </div>
-          </div>
-          <div class="calc-output">
-            <p class="calc-output__label" id="calc-label-text">Con una mejora del <strong>5%</strong> en tu tasa de recurrencia, tu restaurante factura aproximadamente</p>
-            <div class="calc-output__num" id="calc-result">+$13.500.000</div>
-            <p class="calc-output__sub">al año sin sumar un solo cliente nuevo.**</p>
-          </div>
-        </div>
-
-        <div class="results-disclaimers reveal reveal--d3">
-          <p class="disclaimer">*1 Bain &amp; Company, citado en Harvard Business Review. *2 National Restaurant Association. *3 Datos agregados de la industria gastronómica internacional. Estadísticas del rubro; los resultados reales dependen de la operación, segmento y plan de hospitalidad.</p>
-          <p class="disclaimer">** Estimación basada en datos agregados (NRA, Bain &amp; Company). Asume ticket promedio y cubiertos estables. No es una proyección comercial ni una promesa de resultado.</p>
-        </div>
+    <section class="bridge-block" aria-label="Migración">
+      <div class="bridge-block__inner">
+        <span class="bridge-block__eyebrow">Migración sin pérdidas</span>
+        <h3 class="bridge-block__title">Lo que ya hacés con tu sistema, en Woki funciona igual o mejor.</h3>
+        <p class="bridge-block__sub">Pero lo que cambia es todo lo demás: cómo conocés a tus clientes, cómo los recuperás, cómo planificás cada turno, cómo medís lo que pasa.</p>
       </div>
     </section>
 
@@ -2936,7 +3220,7 @@
       <div class="section__inner">
         <div class="impl-hero reveal">
           <div class="impl-72">72hs</div>
-          <p class="impl-hero-sub">Migrás tus datos, configuramos Woki y capacitamos a tu equipo.<br>Estás operativo en menos de 72 horas.</p>
+          <p class="impl-hero-sub">Lo hacemos nosotros. Vos te ocupás del restaurante.<br><span class="impl-hero-sub__small">Migración, configuración y capacitación incluidas.</span></p>
         </div>
 
         <div class="impl-steps reveal reveal--d1">
@@ -2994,8 +3278,10 @@
         </div>
 
         <div class="cierre-ctas reveal reveal--d2">
-          <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--primary btn--large">Sumate a Woki</a>
+          <a href="https://wa.me/5491176520777?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20Woki" target="_blank" rel="noopener" class="btn btn--primary btn--large">Agendá tu demo</a>
+          <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary btn--large">Hablanos por WhatsApp</a>
         </div>
+        <p class="cierre-emotional reveal reveal--d3">Marcá la diferencia con tu hospitalidad. Te acompañamos.</p>
       </div>
     </section>
 
@@ -3013,8 +3299,8 @@
        ---------------------------------------------------------------- */
     var SECTIONS = [
       'apertura','problema','hospitality-manager',
-      'antes-del-servicio','michelin','durante-el-servicio',
-      'despues-del-servicio','resultados','implementacion','cierre'
+      'antes-del-servicio','michelin','pagos','durante-el-servicio',
+      'despues-del-servicio','implementacion','cierre'
     ];
     var dots = document.querySelectorAll('.side-nav__dot');
     var currentIndex = 0, prog = false;
@@ -3294,23 +3580,6 @@
       });
 
       window.addEventListener('resize', drawLines);
-    }
-
-    /* ----------------------------------------------------------------
-       SECCIÓN 4 — TABS (Antes del servicio)
-       ---------------------------------------------------------------- */
-    var adsTabs = document.getElementById('ads-tabs');
-    if (adsTabs) {
-      adsTabs.querySelectorAll('.tab-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var target = btn.dataset.tab;
-          adsTabs.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
-          btn.classList.add('is-active'); btn.setAttribute('aria-selected','true');
-          document.querySelectorAll('[data-panel]').forEach(function(p){ p.classList.remove('is-active'); });
-          var panel = document.querySelector('[data-panel="'+target+'"]');
-          if (panel) panel.classList.add('is-active');
-        });
-      });
     }
 
     /* ----------------------------------------------------------------
