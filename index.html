@@ -2132,26 +2132,53 @@
       :root{--nav-h:52px;}
       .side-nav{display:none;}
       .top-nav{padding:0 16px;}
-      .section,.s-hm-dark{min-height:auto;justify-content:flex-start;}
-      .section__inner,.s-hm-dark .section__inner{padding:36px 24px;}
+
+      /* Anular min-height:100vh con selectores de igual o mayor specificity */
+      .section,
+      .s-hm,
+      .s-hm-dark,
+      .problema__wrap{min-height:auto;justify-content:flex-start;}
+      .section{padding-top:var(--nav-h);}
+
+      /* Paddings de section__inner — incluyo selectores específicos que ganan en cascade */
+      .section__inner,
+      .s-hm .section__inner,
+      .s-hm-dark .section__inner{padding:32px 22px;}
+
+      /* Problema wrap: padding compacto y gap menor */
+      .problema__wrap{padding:24px 18px;gap:var(--sp-5);}
+
       .hm-product-name{font-size:36px;}
-      .problema__close{margin-top:var(--sp-4);margin-bottom:0;}
-      .results-disclaimers{margin-top:var(--sp-4);}
+      .problema__close{margin-top:var(--sp-3);margin-bottom:0;}
+      .results-disclaimers{margin-top:var(--sp-3);}
 
       /* Apertura: proof más chico, slots más bajos, simétrico sin Ness */
+      .apertura__wrap{min-height:auto;padding:var(--sp-8) var(--sp-6) var(--sp-10);}
       .apertura__proof-item{font-size:14px;text-align:center;}
       .apertura__logo-slot{height:104px;}
       .apertura__logo-slot:nth-child(8){display:none;}
 
-      /* Mare callouts: solo título, compactos */
-      .mare-callout{padding:8px 12px;max-width:none;}
+      /* Mare showcase: stack vertical, mockup arriba + callouts abajo */
+      .mare-showcase{
+        flex-direction:column;align-items:center;
+        min-height:0;padding:var(--sp-4) 0;gap:var(--sp-4);
+      }
+      .mare-showcase__halo{display:none;}
+      .mare-showcase__grid{display:none;}
+      .mare-showcase__img-wrap{width:100%;max-width:360px;flex-shrink:0;}
+      .mare-showcase__img-wrap img{max-width:100%;height:auto;max-height:none;}
+
+      /* Mare callouts: row stack debajo del mockup, solo título */
+      .mare-callout{
+        position:static;margin:0;
+        padding:8px 12px;max-width:none;flex-shrink:0;
+        width:100%;
+      }
       .mare-callout__title{font-size:12px;margin-bottom:0;}
       .mare-callout__desc{display:none;}
 
-      /* Mare showcase: min-height libre y mockup full-width */
-      .mare-showcase{min-height:0;padding:var(--sp-4) 0;}
-      .mare-showcase__img-wrap{width:100%;}
-      .mare-showcase__img-wrap img{max-width:100%;height:auto;max-height:none;}
+      /* HM Núcleo: forzar items completos (no dimmed por hover state stale) */
+      .hm-diagram.has-hover .hm-item:not(.is-hovered){opacity:1;filter:none;}
 
       /* Campañas: email centrado y panel apilado */
       .campaign-panel{gap:var(--sp-5);}
