@@ -1,6 +1,13 @@
 # Handoff — Rediseño Woki Deck (mayo 2026)
 
-> Documento de cierre del ciclo de trabajo del 2026-05-16 al 2026-05-17. Recoge qué cambió, por qué, decisiones tomadas y deuda técnica conocida. Si volvés acá en 3 meses sin recordar nada, leer esto primero.
+> Documento de cierre del ciclo de trabajo del 2026-05-16 al 2026-05-18. Recoge qué cambió, por qué, decisiones tomadas y deuda técnica conocida. Si volvés acá en 3 meses sin recordar nada, leer esto primero.
+
+## Estado al cierre
+
+- **Branch**: `main`, working tree limpio, todo pusheado a `origin/main`.
+- **Deploy URL**: `woki-hospitality.vercel.app` (cambio de nombre solicitado al usuario en el dashboard de Vercel — el repo en GitHub sigue siendo `dauroguido/woki-deck`).
+- **Último commit**: `df572d9` (Cargar isologo oficial Woki B2B).
+- **Último deploy**: index.html actualizado en raíz (Vercel sirve desde acá ahora, no más rewrite a `woki-deck.html`).
 
 ## Por qué se hizo este ciclo
 
@@ -39,6 +46,8 @@ Side-nav refleja este orden (sin dot para Resultados, que se eliminó, ni para h
 | `83178ac` | Mockup HTML del perfil de restaurante (reemplaza `woki-mare.png`), reseñas, tabla card-list |
 | `0b4c56a` | Fixes mobile críticos: min-height:100vh fix con specificity correcta, items núcleo no dimmed |
 | `71fe90d` | Anchoita más grande (apertura+cierre) + overflow logos cierre mobile |
+| `54275af` | Limpieza repo: `archive/` con huérfanos, `vercel.json` fixed, `.gitignore`, README/HANDOFF/CLAUDE.md |
+| `df572d9` | Isologo oficial Woki B2B: `assets/logos/` con 4 SVGs + favicon + `og:image` |
 
 ## Decisiones clave (con racional)
 
@@ -58,6 +67,13 @@ Side-nav refleja este orden (sin dot para Resultados, que se eliminó, ni para h
 
 ### Paleta y branding
 - **Sec 3B Núcleo re-paletada** del gradient AI (cyan/magenta/naranja) al gradiente B2B oficial (`#202B3F → #0066CC`) + fondo Ink `#0E0F12`. La parte A (HM hero) y el guest center mantienen el AI gradient — son secciones donde el ángulo "Powered by AI" tiene sentido.
+- **Isologo oficial Woki B2B cargado** en `assets/logos/` con 4 variantes del SVG:
+  - `woki-b2b.svg` — versión completa con gradientes multi-stop por path
+  - `woki-b2b-gradient.svg` — gradiente clean (usado en `og:image`)
+  - `woki-b2b-solid.svg` — un solo color `#132F60` (usado como favicon, mask-icon y apple-touch-icon)
+  - `woki-b2b-white.svg` — versión blanca para fondos oscuros
+  Los meta tags del `<head>` apuntan a `solid` (favicon) y `gradient` (og:image).
+- **Dominio Vercel** cambiado a `woki-hospitality.vercel.app` (antes `woki-deck.vercel.app`). El proyecto se renombró en el dashboard de Vercel; el repo de GitHub sigue siendo `woki-deck`.
 
 ## Stack técnico
 
@@ -83,6 +99,7 @@ Ver [`CLAUDE.md`](./CLAUDE.md) para el detalle. Lo más importante:
 - **`scroll-behavior: smooth`** en el `<html>` puede entrar en conflicto con scripts que hacen `scrollIntoView` programático. En la última sesión vi rebotes raros cuando emulaba mobile, no en producción.
 - **Top-nav visible en mobile**: la `.top-nav` aparece en mobile con el logo Woki + botón "Escribinos". El CTA "Escribinos" del nav se oculta a 560, pero el logo sigue. Funciona pero ocupa 52px arriba. Se puede decidir ocultar más adelante.
 - **`woki-profile.png`** se usa en la sec HM parte A (perfil de María). Es la única imagen propia "pesada" (216KB) que queda en el repo. Si en el futuro se quiere optimizar peso, podría reemplazarse por SVG / mockup HTML como hicimos con Mare.
+- **`vercel.json` minimal**: hoy solo tiene `cleanUrls: true`. Antes tenía un rewrite `/` → `/woki-deck.html` que dejaba el deploy sirviendo la versión vieja del deck aunque hicieras push de `index.html`. Bug ya corregido en `54275af`. Si algún día agregás redirects, no reintroducir ese rewrite específico.
 
 ## Archive
 

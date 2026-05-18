@@ -4,7 +4,7 @@ Sales deck B2B de Woki — sistema de reservas y hospitalidad para los mejores r
 
 Sitio estático monolítico en HTML, CSS y JS inline. Sin build, sin dependencias de instalación local. Deployado en Vercel desde `main`.
 
-**URL:** woki-deck.vercel.app
+**URL:** woki-hospitality.vercel.app
 
 ## Estructura
 
@@ -12,6 +12,7 @@ Sitio estático monolítico en HTML, CSS y JS inline. Sin build, sin dependencia
 .
 ├── index.html              # El deck completo (HTML + CSS + JS inline)
 ├── vercel.json             # Config de Vercel (cleanUrls)
+├── assets/logos/           # Isologo oficial Woki B2B (4 variantes SVG)
 ├── logos-partners/         # Logos restaurantes (apertura + cierre)
 ├── logos-integraciones/    # Logos del banner de integraciones
 ├── woki-profile.png        # Foto del perfil de María (sec HM parte A)

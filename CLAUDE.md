@@ -14,6 +14,7 @@ Antes de hacer cambios no triviales, leer:
 
 ```
 index.html                  # Deck completo. ÚNICO archivo a editar para cambios.
+assets/logos/               # Isologo oficial Woki B2B (4 variantes SVG)
 logos-partners/             # Logos restaurantes (apertura + cierre)
 logos-integraciones/        # Logos integraciones (banner)
 woki-profile.png            # Foto del perfil de María (sec HM parte A)
@@ -23,6 +24,19 @@ HANDOFF.md                  # Contexto histórico del último ciclo
 README.md                   # Overview público del repo
 archive/                    # Versiones anteriores, no usar
 ```
+
+### Isologo Woki B2B (`assets/logos/`)
+
+Cuatro variantes del SVG oficial — elegir según contexto:
+
+| Archivo | Uso |
+|---|---|
+| `woki-b2b-solid.svg` | Favicon, mask-icon, apple-touch-icon. Un solo color `#132F60`, ideal para íconos chicos. |
+| `woki-b2b-gradient.svg` | `og:image` para previews en redes/WhatsApp. Gradiente azul oficial. |
+| `woki-b2b.svg` | Versión completa con gradientes multi-stop por path. Si necesitás el logo "rico" inline en una sección. |
+| `woki-b2b-white.svg` | Logo blanco para fondos oscuros (ej. footer dark, banner negro). |
+
+No regenerar los SVG: vienen del manual de marca B2B oficial. Si necesitás otro tamaño/color, exportar desde el manual antes de tocar estos.
 
 ## Convenciones que tenés que respetar
 
