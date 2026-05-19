@@ -48,6 +48,7 @@ Side-nav refleja este orden (sin dot para Resultados, que se eliminó, ni para h
 | `71fe90d` | Anchoita más grande (apertura+cierre) + overflow logos cierre mobile |
 | `54275af` | Limpieza repo: `archive/` con huérfanos, `vercel.json` fixed, `.gitignore`, README/HANDOFF/CLAUDE.md |
 | `df572d9` | Isologo oficial Woki B2B: `assets/logos/` con 4 SVGs + favicon + `og:image` |
+| (próximo) | Renovación grilla partners: -Trescha -Ness -Lagarde, +Zonda +Fogón +Mengano +La Parolaccia +Fabric Sushi +El Mercado (12 logos, 3×4 / 2×6) |
 
 ## Decisiones clave (con racional)
 
@@ -58,7 +59,7 @@ Side-nav refleja este orden (sin dot para Resultados, que se eliminó, ni para h
 - **Mockup del perfil del restaurante** rehecho como HTML+CSS inspirado en wokiapp.com (foto + nombre + rating + selector personas + tabs + promo). Antes era `woki-mare.png` (7.6MB) que se rompía visualmente en mobile.
 
 ### Responsive
-- **Ness oculto en mobile** en grilla apertura y cierre → 8 logos en 2×4 simétrico en lugar de 9 con hueco.
+- **Grilla partners en 12 logos** (post 2026-05-19): simetría perfecta en desktop (3×4) y mobile (2×6). Antes eran 9 y se ocultaba Ness en mobile — esa regla se eliminó.
 - **Permanencia (la métrica flat) oculta a 560** en ops-grid → 4 cajas en 2×2 simétrico.
 - **Una sola card de evento en mobile** ("Cena maridaje") — antes 3 ocupaban scroll vertical innecesario.
 - **Tabla métricas de marketing convertida a card-list en mobile** vía `data-label` attributes en `<td>` + CSS responsive. Sin scroll horizontal.

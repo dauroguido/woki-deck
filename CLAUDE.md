@@ -79,8 +79,9 @@ Precedente válido: `.cierre-partners__cell::after { display:none !important }` 
 ### 5. Reglas de "grilla simétrica"
 
 Si una grilla queda impar en mobile (2 columnas con un hueco), preferí **ocultar uno** antes que dejar el hueco. Precedente:
-- Apertura/cierre: 9 logos → ocultar Ness (`:nth-child(8) { display:none }`) en mobile → 8 en 2×4.
 - Ops-grid: 5 cajas → ocultar Permanencia (la flat, `:first-child { display:none }`) en `@560` → 4 en 2×2.
+
+La grilla de logos partners (apertura + cierre) tiene actualmente **12 logos**, que da simetría perfecta en desktop (3×4) y mobile (2×6) sin necesidad de ocultar nada. Si en el futuro sumás/sacás logos, mantené el conteo en múltiplo de 6 (12, 18, etc.) o aplicá la regla de ocultar el menos icónico en mobile.
 
 ### 6. Paleta B2B oficial
 
