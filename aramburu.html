@@ -1603,11 +1603,12 @@
     }
     .imA-gallery{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;height:70px;margin-top:4px;}
     .imA-gallery > div{background:linear-gradient(135deg,#3a3a3a,#1a1a1a);border-radius:2px;background-size:cover;background-position:center;}
-    .imA-gallery > div:nth-child(1){grid-row:span 2;background-image:linear-gradient(135deg,#444,#1a1a1a),url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=300&q=70&fit=crop');background-blend-mode:multiply;}
-    .imA-gallery > div:nth-child(2){background-image:url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&q=70&fit=crop');}
-    .imA-gallery > div:nth-child(3){background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=70&fit=crop');}
-    .imA-gallery > div:nth-child(4){background-image:url('https://images.unsplash.com/photo-1551218372-a8789b81b253?w=200&q=70&fit=crop');}
-    .imA-gallery > div:nth-child(5){background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=70&fit=crop');position:relative;}
+    /* Mockup A gallery: foto del chef (slot grande izq) + 4 platos/ambiente reales de Aramburu */
+    .imA-gallery > div:nth-child(1){grid-row:span 2;background:url('assets/aramburu-photos/03hero.jpg') center 20%/cover no-repeat;}
+    .imA-gallery > div:nth-child(2){background:url('assets/aramburu-photos/01.jpg') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(3){background:url('assets/aramburu-photos/08.jpg') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(4){background:url('assets/aramburu-photos/03.jpg') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(5){background:url('assets/aramburu-photos/09.jpg') center/cover no-repeat;position:relative;}
     .imA-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;margin-top:6px;}
     .imA-award{font-size:9px;}
     .imA-award-title{color:#E5C77B;font-weight:700;display:flex;align-items:center;gap:4px;font-size:9px;}
@@ -2820,12 +2821,11 @@
             <div class="michmock-breadcrumb">
               Restaurantes › Argentina › Buenos Aires › <strong>Aramburu</strong>
             </div>
-            <!-- Gallery: 3 fotos del perfil real de Aramburu en Michelin (referencias evocativas) -->
-            <!-- TODO: reemplazar con fotos reales de Aramburu si las consigue el cliente -->
+            <!-- Gallery: 3 platos reales del perfil de Aramburu en Michelin -->
             <div class="michmock-gallery">
-              <div style="background-image:url('https://images.unsplash.com/photo-1551218372-a8789b81b253?w=400&q=80&fit=crop&crop=center')"></div>
-              <div style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80&fit=crop&crop=center')"></div>
-              <div style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80&fit=crop&crop=center')"></div>
+              <div style="background-image:url('assets/aramburu-photos/01.jpg')"></div>
+              <div style="background-image:url('assets/aramburu-photos/03.jpg')"></div>
+              <div style="background-image:url('assets/aramburu-photos/08.jpg')"></div>
             </div>
             <!-- Info + CTA -->
             <div class="michmock-info">
