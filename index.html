@@ -1446,9 +1446,245 @@
     .michelin-res-dot--green{background:#138A36;}
     .michelin-res-dot--blue{background:var(--brand);}
     .michelin-res-text{font-family:var(--font-body);font-size:13px;color:var(--fg-1);line-height:1.4;}
+
+    /* Mockup Michelin Guide fiel — replica el layout real de guide.michelin.com */
+    .michmock-header{
+      background:#fff;border-bottom:1px solid #e5e5e5;
+      padding:10px 16px;display:flex;align-items:center;justify-content:space-between;
+    }
+    .michmock-brand{display:flex;align-items:baseline;gap:2px;font-family:var(--font-display);font-weight:900;letter-spacing:.02em;}
+    .michmock-brand-red{color:#C92020;font-size:14px;}
+    .michmock-brand-dark{color:#111;font-size:14px;}
+    .michmock-nav{display:flex;gap:14px;font-family:var(--font-body);font-size:11px;color:#444;}
+    .michmock-nav-item{cursor:default;}
+    .michmock-nav-item--active{color:#111;font-weight:600;border-bottom:2px solid #111;padding-bottom:2px;}
+    .michmock-breadcrumb{
+      padding:10px 16px;border-bottom:1px solid #f0f0f0;
+      font-family:var(--font-body);font-size:10.5px;color:#888;letter-spacing:.01em;
+    }
+    .michmock-breadcrumb strong{color:#111;font-weight:600;}
+    .michmock-gallery{display:grid;grid-template-columns:1fr 1fr 1fr;height:120px;}
+    .michmock-gallery > div{background-size:cover;background-position:center;}
+    .michmock-info{display:grid;grid-template-columns:1fr auto;gap:24px;padding:20px;align-items:start;}
+    .michmock-rest-name{font-family:var(--font-display);font-size:24px;font-weight:700;color:#111;margin:0 0 6px 0;letter-spacing:-.01em;line-height:1.1;}
+    .michmock-addr{font-family:var(--font-body);font-size:11.5px;color:#444;line-height:1.5;margin-bottom:10px;}
+    .michmock-price-cat{font-family:var(--font-body);font-size:11.5px;color:#444;margin-bottom:12px;border-top:1px solid #e8e8e8;padding-top:10px;}
+    .michmock-tag-pill{display:inline-block;background:#f3f3f3;border-radius:4px;padding:4px 10px;font-family:var(--font-body);font-size:11px;color:#444;margin-right:6px;vertical-align:middle;}
+    .michmock-fav{
+      display:inline-flex;align-items:center;gap:5px;border:1px solid #d8d8d8;border-radius:4px;
+      padding:5px 11px;font-family:var(--font-body);font-size:11px;color:#666;background:#fff;
+      vertical-align:middle;
+    }
+    .michmock-fav svg{width:11px;height:11px;}
+    .michmock-stars-row{display:flex;align-items:center;gap:10px;margin:18px 0 12px;padding-top:14px;border-top:1px solid #e8e8e8;}
+    .michmock-stars{display:inline-flex;gap:2px;color:#C92020;font-size:16px;line-height:1;}
+    .michmock-stars-label{font-family:var(--font-body);font-size:11px;color:#222;font-weight:600;letter-spacing:.01em;}
+    .michmock-desc{font-family:var(--font-body);font-size:11.5px;color:#333;line-height:1.65;margin-top:6px;}
+    .michmock-cta{
+      align-self:start;
+      background:#fff;border:1px solid #d8d8d8;border-radius:6px;padding:14px 16px;
+      display:flex;flex-direction:column;align-items:stretch;gap:10px;min-width:140px;
+    }
+    .michmock-cta__btn{
+      background:#C92020;color:#fff;border:none;border-radius:4px;
+      padding:11px 16px;font-family:var(--font-body);font-size:13px;font-weight:700;
+      letter-spacing:.02em;cursor:default;text-align:center;
+    }
+    .michmock-cta__sub{font-family:var(--font-body);font-size:10px;color:#888;text-align:center;line-height:1.5;}
+
+    /* Michmock mobile: stack vertical info + CTA */
+    @media (max-width: 768px){
+      .michmock-header{padding:8px 12px;}
+      .michmock-brand-red, .michmock-brand-dark{font-size:12px;}
+      .michmock-nav{font-size:9.5px;gap:10px;}
+      .michmock-breadcrumb{padding:8px 12px;font-size:9.5px;}
+      .michmock-gallery{height:90px;}
+      .michmock-info{grid-template-columns:1fr;gap:16px;padding:14px;}
+      .michmock-rest-name{font-size:20px;}
+      .michmock-addr, .michmock-price-cat{font-size:11px;}
+      .michmock-tag-pill, .michmock-fav{font-size:10px;padding:4px 9px;}
+      .michmock-stars-row{gap:8px;margin:14px 0 10px;padding-top:12px;}
+      .michmock-stars{font-size:14px;}
+      .michmock-stars-label{font-size:10.5px;}
+      .michmock-desc{font-size:11px;line-height:1.55;}
+      .michmock-cta{align-self:stretch;flex-direction:row;align-items:center;justify-content:space-between;padding:10px 14px;min-width:0;}
+      .michmock-cta__btn{padding:9px 18px;font-size:12px;}
+      .michmock-cta__sub{text-align:left;font-size:9.5px;}
+      .michmock-cta__sub br{display:none;}
+    }
+
     .michelin-close {
       font-family:var(--font-body);font-size:clamp(14px,1.6vw,18px);color:var(--fg-2);
       line-height:1.65;max-width:640px;margin:var(--sp-8) auto 0;text-align:center;
+    }
+
+    /* =====================================================================
+       SECCIÓN IDENTIDAD — Dos puntos donde la marca del restaurante toma protagonismo
+       ===================================================================== */
+    .identidad-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-6);
+      margin:var(--sp-10) 0 var(--sp-8);
+    }
+    .identidad-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
+      box-shadow:var(--shadow-md);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4);
+    }
+    .identidad-card__title{
+      font-family:var(--font-display);font-size:var(--fs-22);font-weight:var(--fw-bold);
+      color:var(--fg-1);margin:0;letter-spacing:-.01em;
+    }
+    .identidad-card__desc{
+      font-family:var(--font-body);font-size:14px;color:var(--fg-2);line-height:1.55;margin:0;
+    }
+    .identidad-mockup{
+      margin-top:var(--sp-3);border-radius:var(--r-md);overflow:hidden;
+      background:#0A0A0A;aspect-ratio:16/10;position:relative;
+    }
+    .identidad-mockup--widget{aspect-ratio:4/3;}
+
+    /* ----- Mockup A: Perfil personalizado del restaurante en Woki ----- */
+    .imA{
+      width:100%;height:100%;background:#0A0A0A;color:#fff;
+      font-family:var(--font-body);font-size:9px;
+      padding:14px 16px;display:flex;flex-direction:column;gap:8px;overflow:hidden;
+    }
+    .imA-head{display:flex;align-items:center;justify-content:space-between;}
+    .imA-wordmark{
+      font-family:var(--font-display);font-style:italic;font-weight:600;
+      font-size:14px;color:#fff;letter-spacing:.02em;line-height:1;
+    }
+    .imA-flag{font-size:10px;color:#bbb;}
+    .imA-title{
+      font-family:var(--font-display);font-size:18px;font-weight:700;
+      color:#fff;margin:4px 0 2px;letter-spacing:-.01em;
+    }
+    .imA-meta{display:flex;align-items:center;gap:6px;color:#aaa;font-size:8.5px;}
+    .imA-pill{
+      background:#E07A2C;color:#fff;border-radius:4px;padding:1px 5px;
+      font-weight:700;font-size:8px;
+    }
+    .imA-gallery{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;height:70px;margin-top:4px;}
+    .imA-gallery > div{background-size:cover;background-position:center;border-radius:2px;}
+    .imA-gallery > div:nth-child(1){grid-row:span 2;background:url('https://images.unsplash.com/photo-1551218372-a8789b81b253?w=300&q=70&fit=crop') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(2){background:url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=200&q=70&fit=crop') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(3){background:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=70&fit=crop') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(4){background:url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&q=70&fit=crop') center/cover no-repeat;}
+    .imA-gallery > div:nth-child(5){background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&q=70&fit=crop') center/cover no-repeat;position:relative;}
+    .imA-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;margin-top:6px;}
+    .imA-award{font-size:9px;}
+    .imA-award-title{color:#E5C77B;font-weight:700;display:flex;align-items:center;gap:4px;font-size:9px;}
+    .imA-award-desc{color:#888;font-size:8px;margin-top:2px;line-height:1.4;}
+    .imA-reserve{
+      background:transparent;border:1px solid #2a2a2a;border-radius:6px;
+      padding:6px 8px;min-width:120px;color:#fff;
+    }
+    .imA-reserve-title{font-family:var(--font-display);font-size:9px;color:#fff;font-weight:600;margin-bottom:4px;}
+    .imA-reserve-q{font-size:7.5px;color:#888;margin-bottom:4px;}
+    .imA-people{display:flex;gap:2px;}
+    .imA-people span{
+      width:14px;height:14px;border-radius:50%;border:1px solid #5a7a4a;
+      display:flex;align-items:center;justify-content:center;font-size:7.5px;color:#bbb;
+    }
+    .imA-people span.act{background:#5a7a4a;color:#fff;}
+
+    /* ----- Mockup B: Widget Woki embebido en sitio del restaurante ----- */
+    .imB{
+      width:100%;height:100%;background:#0A0A0A;color:#fff;
+      font-family:var(--font-body);font-size:11px;
+      padding:18px 22px;display:flex;flex-direction:column;gap:14px;overflow:hidden;
+    }
+    .imB-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a1a1a;padding-bottom:14px;}
+    .imB-burger{font-size:18px;color:#fff;letter-spacing:-2px;}
+    .imB-wordmark{
+      font-family:var(--font-display);font-style:italic;font-weight:600;
+      font-size:15px;color:#fff;letter-spacing:.02em;line-height:1;
+    }
+    .imB-book{
+      border:1px solid #fff;color:#fff;padding:6px 14px;border-radius:2px;
+      font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .imB-body{display:grid;grid-template-columns:1fr 1.4fr;gap:22px;align-items:start;flex:1;}
+    .imB-text-col{padding-top:8px;}
+    .imB-eyebrow{font-size:9px;color:#888;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+    .imB-headline{
+      font-family:var(--font-display);font-size:18px;font-weight:700;
+      color:#fff;letter-spacing:.06em;line-height:1.25;margin-bottom:14px;
+      text-transform:uppercase;
+    }
+    .imB-sub{font-size:11px;color:#bbb;line-height:1.55;margin-bottom:14px;font-style:italic;}
+    .imB-arrow{color:#E07A2C;font-size:11px;letter-spacing:.1em;font-weight:700;}
+    .imB-widget{
+      background:#141414;border:1px solid #2a2a2a;border-radius:8px;
+      padding:14px;display:flex;flex-direction:column;gap:8px;
+    }
+    .imB-w-row1{display:flex;gap:4px;justify-content:flex-start;margin-bottom:2px;}
+    .imB-w-row1 span{
+      width:20px;height:20px;border-radius:50%;border:1px solid #555;
+      display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;
+    }
+    .imB-w-row1 span.act{background:#0066CC;border-color:#0066CC;color:#fff;font-weight:600;}
+    .imB-w-label{font-size:9.5px;color:#888;margin-top:2px;}
+    .imB-w-month{font-size:11px;color:#fff;text-align:center;margin:2px 0 4px;font-weight:500;}
+    .imB-w-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:9.5px;color:#999;text-align:center;}
+    .imB-w-cal span{padding:3px 0;border-radius:3px;}
+    .imB-w-cal span.dis{color:#444;}
+    .imB-w-cal span.ok{color:#fff;position:relative;}
+    .imB-w-cal span.ok::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;background:#4a8a3a;border-radius:50%;}
+    .imB-w-cal span.sel{background:#fff;color:#0A0A0A;font-weight:700;}
+    .imB-w-times{display:flex;gap:5px;margin-top:4px;}
+    .imB-w-times span{
+      flex:1;border:1px solid #333;border-radius:4px;padding:5px 0;
+      font-size:10px;text-align:center;color:#ddd;
+    }
+    .imB-w-powered{
+      display:flex;align-items:center;justify-content:center;gap:4px;
+      font-size:9px;color:#666;margin-top:6px;
+    }
+    .imB-w-powered b{color:#F26B2C;font-weight:800;font-size:10px;letter-spacing:.04em;}
+
+    /* Identidad responsive */
+    @media (max-width: 900px){
+      .identidad-grid{grid-template-columns:1fr;gap:var(--sp-4);}
+    }
+    @media (max-width: 768px){
+      /* Mockup A mobile — más altura para que las fotos respiren */
+      .identidad-mockup{aspect-ratio:auto;}
+      .imA{font-size:11px;padding:18px 20px;gap:12px;height:auto;}
+      .imA-wordmark{font-size:16px;}
+      .imA-title{font-size:24px;margin:6px 0 4px;}
+      .imA-meta{font-size:10px;gap:8px;flex-wrap:wrap;}
+      .imA-pill{font-size:10px;padding:2px 7px;}
+      .imA-gallery{height:160px;gap:6px;margin-top:6px;}
+      .imA-row{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
+      .imA-award{font-size:12px;}
+      .imA-award-title{font-size:12px;}
+      .imA-award-desc{font-size:10.5px;}
+      .imA-reserve{padding:12px 14px;min-width:0;width:100%;}
+      .imA-reserve-title{font-size:12px;margin-bottom:6px;}
+      .imA-reserve-q{font-size:10px;margin-bottom:8px;}
+      .imA-people{justify-content:space-between;}
+      .imA-people span{width:30px;height:30px;font-size:12px;}
+
+      /* Mockup B mobile — stack vertical */
+      .identidad-mockup--widget{aspect-ratio:auto;}
+      .imB{font-size:12px;padding:16px 18px;gap:14px;height:auto;}
+      .imB-head{padding-bottom:12px;}
+      .imB-wordmark{font-size:15px;}
+      .imB-book{font-size:9px;padding:5px 10px;}
+      .imB-body{grid-template-columns:1fr;gap:16px;}
+      .imB-text-col{padding-top:0;}
+      .imB-eyebrow{font-size:10px;}
+      .imB-headline{font-size:20px;}
+      .imB-sub, .imB-arrow{font-size:12px;}
+      .imB-widget{padding:14px;}
+      .imB-w-row1 span{width:24px;height:24px;font-size:11px;}
+      .imB-w-label{font-size:11px;}
+      .imB-w-month{font-size:12px;}
+      .imB-w-cal{font-size:11px;gap:4px;}
+      .imB-w-cal span{padding:5px 0;}
+      .imB-w-times span{font-size:11px;padding:7px 0;}
+      .imB-w-powered{font-size:10px;}
+      .imB-w-powered b{font-size:11px;}
     }
 
     /* =====================================================================
@@ -2381,6 +2617,7 @@
     <button class="side-nav__dot"            data-target="hospitality-manager"  data-label="Hospitality Manager"  aria-label="Hospitality Manager"></button>
     <button class="side-nav__dot"            data-target="antes-del-servicio"   data-label="Antes del servicio"   aria-label="Antes del servicio"></button>
     <button class="side-nav__dot"            data-target="michelin"             data-label="Guía Michelin"         aria-label="Guía Michelin"></button>
+    <button class="side-nav__dot"            data-target="identidad"            data-label="Identidad"             aria-label="Identidad"></button>
     <button class="side-nav__dot"            data-target="pagos"                data-label="Pagos"                 aria-label="Pagos"></button>
     <button class="side-nav__dot"            data-target="durante-el-servicio"  data-label="Durante el servicio"  aria-label="Durante el servicio"></button>
     <button class="side-nav__dot"            data-target="despues-del-servicio" data-label="Después del servicio" aria-label="Después del servicio"></button>
@@ -2413,7 +2650,7 @@
 
         <div class="apertura__logos reveal reveal--d3" aria-label="Restaurantes que confían en Woki">
           <div class="apertura__logo-slot"><img src="logos-partners/anchoita.png" alt="Anchoita"></div>
-          <div class="apertura__logo-slot"><img src="logos-partners/lacabrera.png" alt="La Cabrera"></div>
+          <div class="apertura__logo-slot"><img src="logos-partners/anafe.png" alt="Anafe"></div>
           <div class="apertura__logo-slot"><img src="logos-partners/madre.png" alt="Madre Rojas"></div>
           <div class="apertura__logo-slot"><img src="logos-partners/laparolaccia.png" alt="La Parolaccia"></div>
           <div class="apertura__logo-slot"><img src="logos-partners/fabric_sushi.avif" alt="Fabric Sushi"></div>
@@ -2505,7 +2742,7 @@
         <div class="hm-product-hero reveal">
           <h2 class="hm-product-name">Hospitality<br>Manager</h2>
           <p class="hm-part-a-title reveal reveal--d1">
-            El cerebro que convierte cada herramienta de Woki en una máquina hecha a medida de tu restaurante.
+            Convierte a tu base de clientes en herramientas de fidelización, hospitalidad y marketing.
           </p>
         </div>
 
@@ -2780,87 +3017,15 @@
       <div class="section__inner">
         <div class="section-header reveal">
           <h2 class="section-title">Activá los clientes que ya tenés.</h2>
-          <p class="section-subtitle">Tres formas de convertir tus clientes en visitas que se repiten.</p>
+          <p class="section-subtitle"><strong>Dos formas</strong> de convertir tus clientes en visitas que se repiten.</p>
         </div>
 
         <div class="reveal reveal--d1">
 
-          <!-- Bloque 1: Perfil del restaurante -->
+          <!-- Bloque 1: Campañas y email segmentado (renumerado de 02 → 01) -->
           <div class="ads-block">
             <div class="ads-block__header">
               <span class="ads-block__num">01</span>
-              <h3 class="ads-block__title">Perfil del restaurante</h3>
-            </div>
-          <div class="tab-panel is-active" data-panel="perfil">
-            <div class="mare-showcase">
-              <div class="mare-showcase__halo"></div>
-              <div class="mare-showcase__img-wrap">
-                <div class="mare-mockup">
-                  <div class="mare-mockup__hero" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80&fit=crop')">
-                    <span class="mare-mockup__count">1/5</span>
-                  </div>
-                  <div class="mare-mockup__body">
-                    <h4 class="mare-mockup__name">Mare By Gekko</h4>
-                    <div class="mare-mockup__meta">
-                      <span class="mare-mockup__rating"><span class="mare-mockup__rating-num">★ 4.8</span> <span class="mare-mockup__rating-count">(49)</span></span>
-                      <span class="mare-mockup__loc"><i data-lucide="map-pin"></i> Jorge Luis Borges 2075</span>
-                    </div>
-                    <div class="mare-mockup__divider"></div>
-                    <p class="mare-mockup__section-title">Configurá tu reserva</p>
-                    <p class="mare-mockup__section-q">¿Cuántas personas?</p>
-                    <div class="mare-mockup__people">
-                      <span class="mare-mockup__person">1</span>
-                      <span class="mare-mockup__person">2</span>
-                      <span class="mare-mockup__person mare-mockup__person--active">3</span>
-                      <span class="mare-mockup__person">4</span>
-                      <span class="mare-mockup__person">5</span>
-                      <span class="mare-mockup__person">6</span>
-                    </div>
-                    <div class="mare-mockup__tabs">
-                      <span class="mare-mockup__tab mare-mockup__tab--active">Descuentos</span>
-                      <span class="mare-mockup__tab">Premios</span>
-                      <span class="mare-mockup__tab">Información</span>
-                      <span class="mare-mockup__tab">Giftcards</span>
-                    </div>
-                    <div class="mare-mockup__promo">
-                      <span class="mare-mockup__promo-icon"><i data-lucide="badge-percent"></i></span>
-                      <div class="mare-mockup__promo-text">
-                        <strong>Hasta 20% OFF en Ticket</strong>
-                        <span>Lunes a Jueves · 12:30 a 13:30hs</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mare-callout mare-callout--1">
-                <span class="mare-callout__icon"><i data-lucide="image"></i></span>
-                <div>
-                  <div class="mare-callout__title">Galería curada</div>
-                  <div class="mare-callout__desc">Tu identidad visual con la calidad de los mejores restaurantes.</div>
-                </div>
-              </div>
-              <div class="mare-callout mare-callout--2">
-                <span class="mare-callout__icon"><i data-lucide="tag"></i></span>
-                <div>
-                  <div class="mare-callout__title">Promos dinámicas</div>
-                  <div class="mare-callout__desc">Descuentos por horario que llenan tus mesas valle.</div>
-                </div>
-              </div>
-              <div class="mare-callout mare-callout--3">
-                <span class="mare-callout__icon"><i data-lucide="calendar-check-2"></i></span>
-                <div>
-                  <div class="mare-callout__title">Reserva en 1 click</div>
-                  <div class="mare-callout__desc">Conversión optimizada y datos enriquecidos en cada reserva.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-
-          <!-- Bloque 2: Campañas y email segmentado -->
-          <div class="ads-block">
-            <div class="ads-block__header">
-              <span class="ads-block__num">02</span>
               <h3 class="ads-block__title">Campañas y email segmentado</h3>
             </div>
           <div class="tab-panel is-active" data-panel="campanas">
@@ -2885,14 +3050,14 @@
               </div>
               <div class="email-preview">
                 <div class="email-preview__header">
-                  <div class="email-preview__avatar">C</div>
+                  <div class="email-preview__avatar">M</div>
                   <div class="email-preview__meta">
-                    <div class="email-preview__from"><strong>Casa Lucía</strong> &lt;reservas@casalucia.com.ar&gt;</div>
+                    <div class="email-preview__from"><strong>Mare By Gekko</strong> &lt;reservas@marebygekko.com.ar&gt;</div>
                     <div class="email-preview__to">Para: Martín García</div>
                   </div>
                 </div>
                 <div class="email-preview__body">
-                  <div class="email-preview__subject">Te extrañamos en Casa Lucía</div>
+                  <div class="email-preview__subject">Te extrañamos en Mare By Gekko</div>
                   <p class="email-preview__text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.</p>
                   <div class="email-preview__cta">Reservar con descuento</div>
                 </div>
@@ -2901,10 +3066,10 @@
           </div>
           </div>
 
-          <!-- Bloque 3: Eventos y experiencias -->
+          <!-- Bloque 2: Eventos y experiencias (renumerado de 03 → 02) -->
           <div class="ads-block">
             <div class="ads-block__header">
-              <span class="ads-block__num">03</span>
+              <span class="ads-block__num">02</span>
               <h3 class="ads-block__title">Eventos y experiencias</h3>
             </div>
           <div class="tab-panel is-active" data-panel="eventos">
@@ -2986,34 +3151,53 @@
         </div>
 
         <div class="michelin-layout reveal reveal--d1">
-          <!-- Mockup perfil Michelin -->
+          <!-- Mockup perfil Michelin Guide — replica el layout real de guide.michelin.com -->
           <div class="michelin-mock">
-            <div class="michelin-mock__header">
-              <!-- Estrella geométrica — sin logo real de Michelin -->
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                <polygon points="14,2 16.9,10 25.5,10 18.8,15.3 21.3,24 14,18.8 6.7,24 9.2,15.3 2.5,10 11.1,10" fill="#E63B2E"/>
-              </svg>
-              <span class="michelin-mock__guide-name">Guía Michelin</span>
-            </div>
-            <!-- Foto de ambiente -->
-            <div class="mich-photo">
-              <div class="mich-photo__overlay"></div>
-              <span class="mich-photo__tag">Buenos Aires · Argentina</span>
-            </div>
-            <div class="mich-body">
-              <div class="mich-stars-row">
-                <span class="mich-star-icon">★★</span>
-                <span class="mich-stars-label">2 Estrellas Michelin</span>
+            <!-- Header MICHELIN GUIDE -->
+            <div class="michmock-header">
+              <div class="michmock-brand">
+                <span class="michmock-brand-red">MICHELIN</span>
+                <span class="michmock-brand-dark">GUIDE</span>
               </div>
-              <p class="mich-rest-name">Casa Lucía</p>
-              <div class="mich-tags">
-                <span class="mich-tag">Cocina argentina contemporánea</span>
-                <span class="mich-tag">Fine dining</span>
-                <span class="mich-tag">Menú degustación</span>
+              <div class="michmock-nav" aria-hidden="true">
+                <span class="michmock-nav-item michmock-nav-item--active">Restaurantes</span>
+                <span class="michmock-nav-item">Hoteles</span>
+                <span class="michmock-nav-item">Magazine</span>
               </div>
-              <p class="mich-desc">Una propuesta de autor que reinventa los sabores del territorio con técnica impecable. Ambiente íntimo, servicio impecable y una bodega de referencia.</p>
-              <div class="mich-book">Reservar en Woki</div>
-              <p class="mich-book-sub">Reserva directa · Confirmación inmediata</p>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="michmock-breadcrumb">
+              Restaurantes › Argentina › Buenos Aires › <strong>Mare By Gekko</strong>
+            </div>
+            <!-- Gallery: 3 fotos genéricas fine dining -->
+            <div class="michmock-gallery">
+              <div style="background-image:url('https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=80&fit=crop&crop=center')"></div>
+              <div style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80&fit=crop&crop=center')"></div>
+              <div style="background-image:url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80&fit=crop&crop=center')"></div>
+            </div>
+            <!-- Info + CTA -->
+            <div class="michmock-info">
+              <div>
+                <h3 class="michmock-rest-name">Mare By Gekko</h3>
+                <p class="michmock-addr">Jorge Luis Borges 2075, Buenos Aires, C1425, Argentina</p>
+                <p class="michmock-price-cat">$$$$ · Contemporánea</p>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span class="michmock-tag-pill">Romántico</span>
+                  <span class="michmock-fav">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    Favorito
+                  </span>
+                </div>
+                <div class="michmock-stars-row">
+                  <span class="michmock-stars" aria-label="Dos estrellas Michelin">✿✿</span>
+                  <span class="michmock-stars-label">Dos Estrellas : una cocina excepcional</span>
+                </div>
+                <p class="michmock-desc">Una propuesta de autor que reinventa los sabores del territorio con técnica impecable. Ambiente íntimo, servicio atento y una bodega de referencia.</p>
+              </div>
+              <div class="michmock-cta">
+                <button class="michmock-cta__btn">Reservar</button>
+                <p class="michmock-cta__sub">Reserva directa<br>vía Woki</p>
+              </div>
             </div>
           </div>
 
@@ -3045,6 +3229,96 @@
         <p class="michelin-close reveal reveal--d2">
           Captás la demanda más calificada del mundo gastronómico, en el momento de máxima intención de reserva.
         </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN IDENTIDAD — Tu marca presente en todo momento
+         ============================================================ -->
+    <section id="identidad" class="section s-identidad" data-index="5" aria-label="Identidad">
+      <div class="section__inner">
+        <div class="section-header reveal">
+          <h2 class="section-title">Tu identidad presente en todo momento.</h2>
+          <p class="section-subtitle">Tu marca integrada a tu sistema de reserva en todos los perfiles online.</p>
+        </div>
+
+        <div class="identidad-grid reveal reveal--d1">
+          <!-- Perfil personalizado en Woki -->
+          <article class="identidad-card">
+            <h3 class="identidad-card__title">Perfil personalizado en Woki</h3>
+            <p class="identidad-card__desc">Tu marca toma el espacio entero. Paleta, tipografía y tono fieles a la identidad de tu restaurante — el comensal nunca siente que salió de tu mundo.</p>
+            <div class="identidad-mockup">
+              <div class="imA" aria-hidden="true">
+                <div class="imA-head">
+                  <span class="imA-wordmark">Mare By Gekko</span>
+                  <span class="imA-flag">🇦🇷 ES</span>
+                </div>
+                <h4 class="imA-title">Mare By Gekko</h4>
+                <div class="imA-meta">
+                  <span class="imA-pill">★ 4.6</span>
+                  <span>(💬 248)</span>
+                  <span>· Jorge Luis Borges 2075, Palermo</span>
+                </div>
+                <div class="imA-gallery">
+                  <div></div><div></div><div></div><div></div><div></div>
+                </div>
+                <div class="imA-row">
+                  <div class="imA-award">
+                    <div class="imA-award-title">🏆 Restaurante premiado</div>
+                    <div class="imA-award-desc">Michelin · Dos Estrellas</div>
+                  </div>
+                  <div class="imA-reserve">
+                    <div class="imA-reserve-title">Configura tu reserva</div>
+                    <div class="imA-reserve-q">¿Cuántas personas?</div>
+                    <div class="imA-people">
+                      <span>1</span><span>2</span><span class="act">3</span><span>4</span><span>5</span><span>6</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Widget Woki embebido en sitio web -->
+          <article class="identidad-card">
+            <h3 class="identidad-card__title">Tomá reservas desde tu sitio web</h3>
+            <p class="identidad-card__desc">El widget de Woki se embebe en tu propio sitio. Sin redirecciones, sin cambio de paleta — el flujo de reserva termina sin que el comensal se mueva del sitio.</p>
+            <div class="identidad-mockup identidad-mockup--widget">
+              <div class="imB" aria-hidden="true">
+                <div class="imB-head">
+                  <span class="imB-burger">≡</span>
+                  <span class="imB-wordmark">Mare By Gekko</span>
+                  <span class="imB-book">Book your table</span>
+                </div>
+                <div class="imB-body">
+                  <div class="imB-text-col">
+                    <div class="imB-eyebrow">Capítulo 06</div>
+                    <div class="imB-headline">Reservá tu mesa</div>
+                    <div class="imB-sub">Elegí día y horario.<br>Confirmás en un click.</div>
+                    <div class="imB-arrow">→ RESERVÁ ACÁ</div>
+                  </div>
+                  <div class="imB-widget">
+                    <div class="imB-w-label">¿Cuántas personas?</div>
+                    <div class="imB-w-row1">
+                      <span>1</span><span>2</span><span class="act">3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    </div>
+                    <div class="imB-w-month">‹  Mayo 2026  ›</div>
+                    <div class="imB-w-cal">
+                      <span class="ok">11</span><span class="ok">12</span><span class="ok">13</span><span class="ok">14</span><span class="ok">15</span><span class="ok">16</span><span class="ok">17</span>
+                      <span class="ok">18</span><span class="ok">19</span><span class="ok">20</span><span class="ok">21</span><span class="ok">22</span><span class="sel">23</span><span class="ok">24</span>
+                      <span class="ok">25</span><span class="ok">26</span><span class="ok">27</span><span class="ok">28</span><span class="ok">29</span><span class="ok">30</span><span class="ok">31</span>
+                    </div>
+                    <div class="imB-w-label">¿Qué horario?</div>
+                    <div class="imB-w-times">
+                      <span>20:00</span><span>20:30</span><span>21:00</span><span>21:30</span>
+                    </div>
+                    <div class="imB-w-powered">Powered by <b>WOKI</b></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -3616,7 +3890,7 @@
           </svg>
           <div class="cierre-partners__grid">
             <div class="cierre-partners__cell"><img src="logos-partners/anchoita.png" alt="Anchoita" data-w="oval"></div>
-            <div class="cierre-partners__cell"><img src="logos-partners/lacabrera.png" alt="La Cabrera" data-w="wide"></div>
+            <div class="cierre-partners__cell"><img src="logos-partners/anafe.png" alt="Anafe" data-w="medium"></div>
             <div class="cierre-partners__cell"><img src="logos-partners/madre.png" alt="Madre Rojas" data-w="wide"></div>
             <div class="cierre-partners__cell"><img src="logos-partners/laparolaccia.png" alt="La Parolaccia" data-w="medium"></div>
             <div class="cierre-partners__cell"><img src="logos-partners/fabric_sushi.avif" alt="Fabric Sushi" data-w="medium"></div>
@@ -3656,7 +3930,7 @@
        ---------------------------------------------------------------- */
     var SECTIONS = [
       'apertura','problema','hospitality-manager',
-      'antes-del-servicio','michelin','pagos','durante-el-servicio',
+      'antes-del-servicio','michelin','identidad','pagos','durante-el-servicio',
       'despues-del-servicio','implementacion','cierre'
     ];
     var dots = document.querySelectorAll('.side-nav__dot');
