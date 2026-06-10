@@ -7,7 +7,7 @@
   <meta property="og:title" content="Woki — El sistema de reservas y hospitalidad elegido por los mejores restaurantes">
   <meta property="og:description" content="+700 restaurantes · Reservas, hospitalidad, pagos y métricas en una sola plataforma · Alta en menos de 72hs">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="/assets/logos/woki-b2b-gradient.svg">
+  <meta property="og:image" content="assets/logos/woki-b2b-gradient.svg">
   <meta name="description" content="El sistema de reservas y hospitalidad elegido por los mejores restaurantes.">
 
   <!-- Favicon — isologo oficial Woki B2B -->
@@ -100,8 +100,22 @@
       transition:transform .3s ease;
     }
     .top-nav.is-hidden{transform:translateY(-100%);}
+    .top-nav__brand{display:flex;align-items:center;gap:14px;}
     .top-nav__logo{display:flex;align-items:center;height:30px;}
     .top-nav__logo svg{height:30px;width:auto;}
+    .top-nav__cobrand-sep{width:1px;height:22px;background:rgba(19,47,96,.18);}
+    .top-nav__cobrand{display:flex;align-items:center;height:36px;}
+    .top-nav__cobrand img{height:36px;width:auto;display:block;}
+    @media (max-width:768px){
+      .top-nav__brand{gap:10px;}
+      .top-nav__logo,.top-nav__logo svg{height:26px;}
+      .top-nav__cobrand,.top-nav__cobrand img{height:30px;}
+      .top-nav__cobrand-sep{height:18px;}
+    }
+    @media (max-width:380px){
+      .top-nav__logo,.top-nav__logo svg{height:22px;}
+      .top-nav__cobrand,.top-nav__cobrand img{height:26px;}
+    }
 
     /* =====================================================================
        BUTTONS
@@ -2571,6 +2585,7 @@
        STICKY TOP NAV
        ================================================================ -->
   <nav class="top-nav" role="navigation" aria-label="Navegación principal">
+    <div class="top-nav__brand">
     <a href="#apertura" class="top-nav__logo" aria-label="Woki — inicio">
       <svg id="woki-b2b-logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 202.48 54.72" aria-label="Woki" role="img">
         <defs>
@@ -2605,7 +2620,10 @@
         </g>
       </svg>
     </a>
-    <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary" id="nav-cta">Escríbenos</a>
+      <span class="top-nav__cobrand-sep" aria-hidden="true"></span>
+      <span class="top-nav__cobrand"><img src="/logos-integraciones/logo ahrcc.svg" alt="AHRCC — Asociación de Hoteles, Restaurantes, Confiterías y Cafés"></span>
+    </div>
+    <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary" id="nav-cta">Escribinos</a>
   </nav>
 
   <!-- ================================================================
@@ -3016,7 +3034,7 @@
     <section id="antes-del-servicio" class="section section--alt" data-index="3" aria-label="Antes del servicio">
       <div class="section__inner">
         <div class="section-header reveal">
-          <h2 class="section-title">Activa los clientes que ya tienes.</h2>
+          <h2 class="section-title">Activá los clientes que ya tenés.</h2>
           <p class="section-subtitle"><strong>Dos formas</strong> de convertir tus clientes en visitas que se repiten.</p>
         </div>
 
@@ -3058,7 +3076,7 @@
                 </div>
                 <div class="email-preview__body">
                   <div class="email-preview__subject">Te extrañamos en Mare By Gekko</div>
-                  <p class="email-preview__text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reserva con un 10% de descuento en tu próxima visita.</p>
+                  <p class="email-preview__text">Hola Martín, hace más de tres meses que no te vemos por acá. Esta temporada estrenamos tres incorporaciones al menú degustación que creemos que te van a encantar.<br><br>Reservá con un 10% de descuento en tu próxima visita.</p>
                   <div class="email-preview__cta">Reservar con descuento</div>
                 </div>
               </div>
@@ -3089,7 +3107,7 @@
                   <p class="event-card__name">Cena maridaje <span class="event-card__lang">(ES)</span></p>
                   <p class="event-card__date">Viernes 30 de mayo · 20:30hs</p>
                   <p class="event-card__desc">Una travesía por cinco tiempos donde cada plato dialoga con una selección de vinos de autor de bodegas boutique.</p>
-                  <p class="event-card__price">$ 85.000 <span class="event-card__price-unit">por persona</span></p>
+                  <p class="event-card__price">ARS 85.000 <span class="event-card__price-unit">por persona</span></p>
                   <div class="event-card__btn">Ver y reservar</div>
                 </div>
               </div>
@@ -3108,7 +3126,7 @@
                   <p class="event-card__name">Noche de cortes <span class="event-card__lang">(ES/EN)</span></p>
                   <p class="event-card__date">Sábado 7 de junio · 20:00hs</p>
                   <p class="event-card__desc">Los mejores cortes de la Patagonia argentina preparados al fuego, con acompañamientos de temporada y degustación de Malbec.</p>
-                  <p class="event-card__price">$ 95.000 <span class="event-card__price-unit">por persona</span></p>
+                  <p class="event-card__price">ARS 95.000 <span class="event-card__price-unit">por persona</span></p>
                   <div class="event-card__btn">Ver y reservar</div>
                 </div>
               </div>
@@ -3127,7 +3145,7 @@
                   <p class="event-card__name">Menú primavera <span class="event-card__lang">(ES)</span></p>
                   <p class="event-card__date">Todos los viernes de junio</p>
                   <p class="event-card__desc">Una propuesta de autor basada en productos de huerta propia y mercados locales. Menú de 4 tiempos que cambia cada semana.</p>
-                  <p class="event-card__price">$ 72.000 <span class="event-card__price-unit">por persona</span></p>
+                  <p class="event-card__price">ARS 72.000 <span class="event-card__price-unit">por persona</span></p>
                   <div class="event-card__btn">Ver y reservar</div>
                 </div>
               </div>
@@ -3146,7 +3164,7 @@
     <section id="michelin" class="section" data-index="4" aria-label="Guía Michelin">
       <div class="section__inner">
         <div class="section-header reveal">
-          <h2 class="section-title">Toma reservas desde tu perfil en la Guía Michelin.</h2>
+          <h2 class="section-title">Tomá reservas desde tu perfil en la Guía Michelin.</h2>
           <p class="section-subtitle">El único sistema integrado con la Guía. Reservas directas, sin intermediarios, en tu panel de siempre.</p>
         </div>
 
@@ -3281,7 +3299,7 @@
 
           <!-- Widget Woki embebido en sitio web -->
           <article class="identidad-card">
-            <h3 class="identidad-card__title">Toma reservas desde tu sitio web</h3>
+            <h3 class="identidad-card__title">Tomá reservas desde tu sitio web</h3>
             <p class="identidad-card__desc">El widget de Woki se embebe en tu propio sitio. Sin redirecciones, sin cambio de paleta — el flujo de reserva termina sin que el comensal se mueva del sitio.</p>
             <div class="identidad-mockup identidad-mockup--widget">
               <div class="imB" aria-hidden="true">
@@ -3293,9 +3311,9 @@
                 <div class="imB-body">
                   <div class="imB-text-col">
                     <div class="imB-eyebrow">Capítulo 06</div>
-                    <div class="imB-headline">Reserva tu mesa</div>
-                    <div class="imB-sub">Elige día y horario.<br>Confirma en un click.</div>
-                    <div class="imB-arrow">→ RESERVA ACÁ</div>
+                    <div class="imB-headline">Reservá tu mesa</div>
+                    <div class="imB-sub">Elegí día y horario.<br>Confirmás en un click.</div>
+                    <div class="imB-arrow">→ RESERVÁ ACÁ</div>
                   </div>
                   <div class="imB-widget">
                     <div class="imB-w-label">¿Cuántas personas?</div>
@@ -3328,7 +3346,7 @@
     <section id="pagos" class="section section--alt" data-index="6" aria-label="Pagos">
       <div class="section__inner">
         <div class="section-header reveal">
-          <h2 class="section-title">Cobra lo que tu restaurante necesita, sin fricciones.</h2>
+          <h2 class="section-title">Cobrá lo que tu restaurante necesita, sin fricciones.</h2>
           <p class="section-subtitle">Una pasarela de pagos hecha a medida para la gastronomía.</p>
         </div>
 
@@ -3348,7 +3366,7 @@
               <div class="pagos-mock__icon"><i data-lucide="ticket"></i></div>
               <div class="pagos-mock__col">
                 <div class="pagos-mock__concept">Anticipo · Cena maridaje · vie 30/05</div>
-                <div class="pagos-mock__sub">8 cubiertos · $ 85.000 × 8</div>
+                <div class="pagos-mock__sub">8 cubiertos · ARS 85.000 × 8</div>
               </div>
               <div class="pagos-mock__amount pagos-mock__amount--pos">+$680.000</div>
               <span class="pagos-mock__status pagos-mock__status--ok">Cobrado</span>
@@ -3388,7 +3406,7 @@
           <div class="pagos-card">
             <div class="pagos-card__icon"><i data-lucide="ticket"></i></div>
             <h3 class="pagos-card__title">Anticipos para eventos y experiencias</h3>
-            <p class="pagos-card__desc">Cobra la reserva como si fuera una entrada. Para tus menús degustación, maridajes y aperturas.</p>
+            <p class="pagos-card__desc">Cobrá la reserva como si fuera una entrada. Para tus menús degustación, maridajes y aperturas.</p>
           </div>
           <div class="pagos-card">
             <div class="pagos-card__icon"><i data-lucide="credit-card"></i></div>
@@ -3398,7 +3416,7 @@
           <div class="pagos-card">
             <div class="pagos-card__icon"><i data-lucide="alert-triangle"></i></div>
             <h3 class="pagos-card__title">Penalidades por no-show</h3>
-            <p class="pagos-card__desc">Cobra automáticamente si la reserva no se presenta. El monto y la lógica los defines tú.</p>
+            <p class="pagos-card__desc">Cobrá automáticamente si la reserva no se presenta. El monto y la lógica los definís vos.</p>
           </div>
         </div>
 
@@ -3692,7 +3710,7 @@
       <div class="section__inner">
         <div class="section-header reveal">
           <h2 class="section-title">Cada turno te deja datos. Woki los convierte en decisiones.</h2>
-          <p class="section-subtitle">Lo que aprendes de cada turno se vuelve la decisión del próximo.</p>
+          <p class="section-subtitle">Lo que aprendés de cada turno se vuelve la decisión del próximo.</p>
         </div>
 
         <div class="analytics-stack reveal reveal--d1">
@@ -3718,7 +3736,7 @@
                   <span class="review-mini__source">Google</span>
                   <div class="review-mini__right">
                     <div class="review-mini__stars">★★★★★</div>
-                    <div class="review-mini__text">"La atención fue increíble. El garzón sabía exactamente mis preferencias."</div>
+                    <div class="review-mini__text">"La atención fue increíble. El mozo sabía exactamente mis preferencias."</div>
                   </div>
                 </div>
                 <div class="review-mini">
@@ -3730,7 +3748,7 @@
                 </div>
                 <div class="ai-insight">
                   <span class="ai-insight__badge">IA</span>
-                  <p class="ai-insight__text">Las reseñas sobre el servicio mejoraron respecto al mes pasado. Los comentarios positivos subieron un 18%. La atención de los garzones fue el principal cambio.</p>
+                  <p class="ai-insight__text">Las reseñas sobre el servicio mejoraron respecto al mes pasado. Los comentarios positivos subieron un 18%. La atención de los camareros fue el principal cambio.</p>
                 </div>
               </div>
             </div>
@@ -3836,7 +3854,7 @@
     <section class="bridge-block" aria-label="Migración">
       <div class="bridge-block__inner">
         <span class="bridge-block__eyebrow">Migración sin pérdidas</span>
-        <h3 class="bridge-block__title">Lo que ya haces con tu sistema, en Woki funciona igual o mejor.</h3>
+        <h3 class="bridge-block__title">Lo que ya hacés con tu sistema, en Woki funciona igual o mejor.</h3>
         <p class="bridge-block__sub">Pero lo que cambia es todo lo demás: cómo conocés a tus clientes, cómo los recuperás, cómo planificás cada turno, cómo medís lo que pasa.</p>
       </div>
     </section>
@@ -3848,7 +3866,7 @@
       <div class="section__inner">
         <div class="impl-hero reveal">
           <div class="impl-72">72hs</div>
-          <p class="impl-hero-sub">Lo hacemos nosotros. Tú te ocupas del restaurante.<br><span class="impl-hero-sub__small">Migración, configuración y capacitación incluidas.</span></p>
+          <p class="impl-hero-sub">Lo hacemos nosotros. Vos te ocupás del restaurante.<br><span class="impl-hero-sub__small">Migración, configuración y capacitación incluidas.</span></p>
         </div>
 
         <div class="impl-steps reveal reveal--d1">
@@ -3909,10 +3927,10 @@
         </div>
 
         <div class="cierre-ctas reveal reveal--d2">
-          <a href="https://wa.me/5491176520777?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20Woki" target="_blank" rel="noopener" class="btn btn--primary btn--large">Agenda tu demo</a>
-          <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary btn--large">Háblanos por WhatsApp</a>
+          <a href="https://wa.me/5491176520777?text=Hola%2C%20quiero%20agendar%20una%20demo%20de%20Woki" target="_blank" rel="noopener" class="btn btn--primary btn--large">Agendá tu demo</a>
+          <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary btn--large">Hablanos por WhatsApp</a>
         </div>
-        <p class="cierre-emotional reveal reveal--d3">Marca la diferencia con tu hospitalidad. Te acompañamos.</p>
+        <p class="cierre-emotional reveal reveal--d3">Marcá la diferencia con tu hospitalidad. Te acompañamos.</p>
       </div>
     </section>
 
