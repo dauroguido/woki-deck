@@ -118,6 +118,10 @@
     .btn--primary:hover{background:var(--brand-hover);}
     .btn--secondary{background:#fff;color:var(--brand-dark);border:1.5px solid var(--brand-dark);padding:8px 20px;}
     .btn--secondary:hover{background:#EEF1F8;}
+    .btn--ghost{background:transparent;color:var(--brand-dark);border:none;padding:8px 12px;}
+    .btn--ghost:hover{background:var(--b2b-50);}
+    .btn--ghost svg{width:16px;height:16px;flex-shrink:0;}
+    .top-nav__actions{display:flex;align-items:center;gap:8px;}
 
     /* =====================================================================
        SIDE NAV
@@ -2334,16 +2338,27 @@
        PRINT
        ===================================================================== */
     @media print {
-      .top-nav,.side-nav{display:none!important;}
-      .section,.s-hm-dark{
-        page-break-after:always;break-after:page;min-height:100vh;padding-top:var(--sp-12);
+      @page{size:A4;margin:12mm;}
+      html,body{background:#fff!important;}
+      *,*::before,*::after{
+        -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+        animation:none!important;transition:none!important;
+      }
+      .top-nav,.side-nav,#nav-download,#nav-cta{display:none!important;}
+      .reveal{opacity:1!important;transform:none!important;}
+      .section,.s-hm,.s-hm-dark{
+        min-height:0!important;padding-top:0!important;
+        page-break-inside:avoid;break-inside:avoid;
+        page-break-after:always;break-after:page;
       }
       .section:last-child{page-break-after:avoid;break-after:avoid;}
-      *{animation:none!important;transition:none!important;}
-      body{background:#fff;}
-      .s-hm-dark{background:#0A0E17!important;}
-      .reveal{opacity:1!important;transform:none!important;}
+      .s-hm-dark{background:#0A0E17!important;color:#fff!important;}
+      .hm-diagram,.gc-split,.results-disclaimers,
+      .cierre-partners,.apertura__wrap,.problema__wrap{
+        page-break-inside:avoid;break-inside:avoid;
+      }
     }
+    body.is-printing .reveal{opacity:1!important;transform:none!important;}
 
     /* =====================================================================
        RESPONSIVE
@@ -2557,8 +2572,10 @@
       .cierre-partners__cell img[data-w="wide"]{max-height:36px;}
       .cierre-partners__cell img[data-w="oval"]{max-height:76px;}
 
-      /* Top-nav: si está apretado, esconder el CTA secundario del nav */
+      /* Top-nav: si está apretado, esconder el CTA secundario del nav y compactar el botón de descarga */
       .top-nav #nav-cta{display:none;}
+      .top-nav #nav-download span{display:none;}
+      .top-nav #nav-download{padding:8px;}
     }
   </style>
 
@@ -2605,7 +2622,17 @@
         </g>
       </svg>
     </a>
-    <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary" id="nav-cta">Escríbenos</a>
+    <div class="top-nav__actions">
+      <button type="button" class="btn btn--ghost" id="nav-download" aria-label="Descargar presentación en PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Descargar PDF</span>
+      </button>
+      <a href="https://wa.me/5491176520777" target="_blank" rel="noopener" class="btn btn--secondary" id="nav-cta">Escríbenos</a>
+    </div>
   </nav>
 
   <!-- ================================================================
@@ -4264,6 +4291,23 @@
       setTimeout(init, 80);
     }
 
+  })();
+
+  /* ================================================================
+     DESCARGAR PDF — window.print() con clase is-printing temporal
+     ================================================================ */
+  (function(){
+    var dl = document.getElementById('nav-download');
+    if (!dl) return;
+    dl.addEventListener('click', function(){
+      document.body.classList.add('is-printing');
+      var hidden = document.querySelectorAll('.reveal:not(.is-visible)');
+      for (var i = 0; i < hidden.length; i++) hidden[i].classList.add('is-visible');
+      setTimeout(function(){
+        window.print();
+        setTimeout(function(){ document.body.classList.remove('is-printing'); }, 300);
+      }, 80);
+    });
   })();
   </script>
 
