@@ -1562,15 +1562,12 @@
 
     /* ----- Mockup A: Perfil personalizado del restaurante en Woki ----- */
     .imA{
-      width:100%;height:100%;background:#0A0A0A;color:#fff;
+      width:100%;height:100%;background:#162333;color:#fff;
       font-family:var(--font-body);font-size:9px;
       padding:14px 16px;display:flex;flex-direction:column;gap:8px;overflow:hidden;
     }
     .imA-head{display:flex;align-items:center;justify-content:space-between;}
-    .imA-wordmark{
-      font-family:var(--font-display);font-style:italic;font-weight:600;
-      font-size:14px;color:#fff;letter-spacing:.02em;line-height:1;
-    }
+    .imA-logo{height:14px;width:auto;display:block;}
     .imA-flag{font-size:10px;color:#bbb;}
     .imA-title{
       font-family:var(--font-display);font-size:18px;font-weight:700;
@@ -1578,7 +1575,7 @@
     }
     .imA-meta{display:flex;align-items:center;gap:6px;color:#aaa;font-size:8.5px;}
     .imA-pill{
-      background:#E07A2C;color:#fff;border-radius:4px;padding:1px 5px;
+      background:#2C6CC0;color:#fff;border-radius:4px;padding:1px 5px;
       font-weight:700;font-size:8px;
     }
     .imA-gallery{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;height:70px;margin-top:4px;}
@@ -1588,35 +1585,29 @@
     .imA-gallery > div:nth-child(3){background:url('/assets/presencia-photos/698583406_18082361264618195_7806589542133912354_n.jpg') center/cover no-repeat;}
     .imA-gallery > div:nth-child(4){background:url('/assets/presencia-photos/708253189_18084301826618195_6021662975606398796_n.jpg') center/cover no-repeat;}
     .imA-gallery > div:nth-child(5){background:url('/assets/presencia-photos/709771067_18084136829618195_1045225843031853455_n.jpg') center/cover no-repeat;position:relative;}
-    .imA-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;margin-top:6px;}
-    .imA-award{font-size:9px;}
-    .imA-award-title{color:#E5C77B;font-weight:700;display:flex;align-items:center;gap:4px;font-size:9px;}
-    .imA-award-desc{color:#888;font-size:8px;margin-top:2px;line-height:1.4;}
+    .imA-row{display:flex;justify-content:flex-end;gap:8px;align-items:start;margin-top:6px;}
     .imA-reserve{
-      background:transparent;border:1px solid #2a2a2a;border-radius:6px;
+      background:transparent;border:1px solid rgba(255,255,255,.18);border-radius:6px;
       padding:6px 8px;min-width:120px;color:#fff;
     }
     .imA-reserve-title{font-family:var(--font-display);font-size:9px;color:#fff;font-weight:600;margin-bottom:4px;}
     .imA-reserve-q{font-size:7.5px;color:#888;margin-bottom:4px;}
     .imA-people{display:flex;gap:2px;}
     .imA-people span{
-      width:14px;height:14px;border-radius:50%;border:1px solid #5a7a4a;
-      display:flex;align-items:center;justify-content:center;font-size:7.5px;color:#bbb;
+      width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.4);
+      display:flex;align-items:center;justify-content:center;font-size:7.5px;color:#cfd8e6;
     }
-    .imA-people span.act{background:#5a7a4a;color:#fff;}
+    .imA-people span.act{background:#fff;color:#162333;border-color:#fff;}
 
     /* ----- Mockup B: Widget Woki embebido en sitio del restaurante ----- */
     .imB{
-      width:100%;height:100%;background:#0A0A0A;color:#fff;
+      width:100%;height:100%;background:#162333;color:#fff;
       font-family:var(--font-body);font-size:11px;
       padding:18px 22px;display:flex;flex-direction:column;gap:14px;overflow:hidden;
     }
-    .imB-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a1a1a;padding-bottom:14px;}
+    .imB-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:14px;}
     .imB-burger{font-size:18px;color:#fff;letter-spacing:-2px;}
-    .imB-wordmark{
-      font-family:var(--font-display);font-style:italic;font-weight:600;
-      font-size:15px;color:#fff;letter-spacing:.02em;line-height:1;
-    }
+    .imB-logo{height:16px;width:auto;display:block;}
     .imB-book{
       border:1px solid #fff;color:#fff;padding:6px 14px;border-radius:2px;
       font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
@@ -1630,15 +1621,15 @@
       text-transform:uppercase;
     }
     .imB-sub{font-size:11px;color:#bbb;line-height:1.55;margin-bottom:14px;font-style:italic;}
-    .imB-arrow{color:#E07A2C;font-size:11px;letter-spacing:.1em;font-weight:700;}
+    .imB-arrow{color:#fff;font-size:11px;letter-spacing:.1em;font-weight:700;}
     .imB-widget{
-      background:#141414;border:1px solid #2a2a2a;border-radius:8px;
+      background:#1d2d44;border:1px solid rgba(255,255,255,.14);border-radius:8px;
       padding:14px;display:flex;flex-direction:column;gap:8px;
     }
     .imB-w-row1{display:flex;gap:4px;justify-content:flex-start;margin-bottom:2px;}
     .imB-w-row1 span{
-      width:20px;height:20px;border-radius:50%;border:1px solid #555;
-      display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;
+      width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+      display:flex;align-items:center;justify-content:center;font-size:10px;color:#cfd8e6;
     }
     .imB-w-row1 span.act{background:#0066CC;border-color:#0066CC;color:#fff;font-weight:600;}
     .imB-w-label{font-size:9.5px;color:#888;margin-top:2px;}
@@ -1647,11 +1638,11 @@
     .imB-w-cal span{padding:3px 0;border-radius:3px;}
     .imB-w-cal span.dis{color:#444;}
     .imB-w-cal span.ok{color:#fff;position:relative;}
-    .imB-w-cal span.ok::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;background:#4a8a3a;border-radius:50%;}
-    .imB-w-cal span.sel{background:#fff;color:#0A0A0A;font-weight:700;}
+    .imB-w-cal span.ok::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;background:#6aa6e0;border-radius:50%;}
+    .imB-w-cal span.sel{background:#fff;color:#162333;font-weight:700;}
     .imB-w-times{display:flex;gap:5px;margin-top:4px;}
     .imB-w-times span{
-      flex:1;border:1px solid #333;border-radius:4px;padding:5px 0;
+      flex:1;border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:5px 0;
       font-size:10px;text-align:center;color:#ddd;
     }
     .imB-w-powered{
@@ -1668,15 +1659,12 @@
       /* Mockup A mobile — más altura para que las fotos respiren */
       .identidad-mockup{aspect-ratio:auto;}
       .imA{font-size:11px;padding:18px 20px;gap:12px;height:auto;}
-      .imA-wordmark{font-size:16px;}
+      .imA-logo{height:18px;}
       .imA-title{font-size:24px;margin:6px 0 4px;}
       .imA-meta{font-size:10px;gap:8px;flex-wrap:wrap;}
       .imA-pill{font-size:10px;padding:2px 7px;}
       .imA-gallery{height:160px;gap:6px;margin-top:6px;}
       .imA-row{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
-      .imA-award{font-size:12px;}
-      .imA-award-title{font-size:12px;}
-      .imA-award-desc{font-size:10.5px;}
       .imA-reserve{padding:12px 14px;min-width:0;width:100%;}
       .imA-reserve-title{font-size:12px;margin-bottom:6px;}
       .imA-reserve-q{font-size:10px;margin-bottom:8px;}
@@ -1687,7 +1675,7 @@
       .identidad-mockup--widget{aspect-ratio:auto;}
       .imB{font-size:12px;padding:16px 18px;gap:14px;height:auto;}
       .imB-head{padding-bottom:12px;}
-      .imB-wordmark{font-size:15px;}
+      .imB-logo{height:18px;}
       .imB-book{font-size:9px;padding:5px 10px;}
       .imB-body{grid-template-columns:1fr;gap:16px;}
       .imB-text-col{padding-top:0;}
@@ -3280,7 +3268,7 @@
             <div class="identidad-mockup">
               <div class="imA" aria-hidden="true">
                 <div class="imA-head">
-                  <span class="imA-wordmark">Presencia</span>
+                  <img class="imA-logo" src="/logos-partners/presencia-wordmark.png" alt="Presencia">
                   <span class="imA-flag">🇦🇷 ES</span>
                 </div>
                 <h4 class="imA-title">Presencia</h4>
@@ -3293,10 +3281,6 @@
                   <div></div><div></div><div></div><div></div><div></div>
                 </div>
                 <div class="imA-row">
-                  <div class="imA-award">
-                    <div class="imA-award-title">🏆 Restaurante premiado</div>
-                    <div class="imA-award-desc">Michelin · Dos Estrellas</div>
-                  </div>
                   <div class="imA-reserve">
                     <div class="imA-reserve-title">Configura tu reserva</div>
                     <div class="imA-reserve-q">¿Cuántas personas?</div>
@@ -3317,7 +3301,7 @@
               <div class="imB" aria-hidden="true">
                 <div class="imB-head">
                   <span class="imB-burger">≡</span>
-                  <span class="imB-wordmark">Presencia</span>
+                  <img class="imB-logo" src="/logos-partners/presencia-wordmark.png" alt="Presencia">
                   <span class="imB-book">Book your table</span>
                 </div>
                 <div class="imB-body">
