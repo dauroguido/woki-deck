@@ -2117,6 +2117,24 @@
     .cierre-partners__cell img[data-w="medium"]{max-height:54px;max-width:160px;}
     .cierre-partners__cell img[data-w="wide"]{max-height:42px;max-width:210px;}
     .cierre-partners__cell:hover img{opacity:1;transform:scale(1.04);}
+    .cierre-benefit{
+      max-width:640px;margin:0 auto var(--sp-8);
+      padding:var(--sp-6) var(--sp-8);
+      display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);
+      background:linear-gradient(180deg, #1A1410 0%, #221912 100%);
+      border-radius:16px;
+      box-shadow:0 0 0 1px rgba(184,148,90,.30) inset, 0 16px 40px -20px rgba(0,0,0,.5);
+    }
+    .cierre-benefit__eyebrow{
+      font-family:var(--font-body);font-size:var(--fs-12);font-weight:var(--fw-semibold);
+      letter-spacing:.08em;text-transform:uppercase;color:rgba(184,148,90,.85);
+    }
+    .cierre-benefit__offer{
+      font-family:var(--font-display);font-size:clamp(20px,2.4vw,26px);
+      font-weight:var(--fw-semibold);color:#fff;letter-spacing:var(--tracking-tight);
+      text-align:center;margin:0;
+    }
+    .cierre-benefit__plus{color:rgba(184,148,90,.85);font-weight:var(--fw-bold);margin:0 4px;}
     .cierre-ctas{display:flex;gap:var(--sp-4);justify-content:center;flex-wrap:wrap;margin-bottom:var(--sp-6);}
     .cierre-emotional{
       font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);
@@ -3951,6 +3969,11 @@
             <path d="M0,6 Q70,12 140,6 T280,6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
             <circle cx="140" cy="6" r="2" fill="currentColor"/>
           </svg>
+        </div>
+
+        <div class="cierre-benefit reveal reveal--d1">
+          <span class="cierre-benefit__eyebrow">Beneficio exclusivo para socios de AHRCC</span>
+          <p class="cierre-benefit__offer">30 días gratis <span class="cierre-benefit__plus">+</span> 3 meses al 50% off</p>
         </div>
 
         <div class="cierre-ctas reveal reveal--d2">
