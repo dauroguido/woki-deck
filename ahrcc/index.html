@@ -2370,23 +2370,88 @@
        PRINT
        ===================================================================== */
     @media print {
-      @page{size:A4;margin:12mm;}
+      @page{size:A4;margin:10mm 8mm;}
       html,body{background:#fff!important;}
       *,*::before,*::after{
         -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
         animation:none!important;transition:none!important;
       }
-      .top-nav,.side-nav,#nav-download,#nav-cta{display:none!important;}
       .reveal{opacity:1!important;transform:none!important;}
-      .section,.s-hm,.s-hm-dark{
-        min-height:0!important;padding-top:0!important;
-        page-break-inside:avoid;break-inside:avoid;
-        page-break-after:always;break-after:page;
+      .side-nav{display:none!important;}
+      .top-nav{
+        position:absolute!important;top:-9999px!important;left:0!important;
+        height:auto!important;width:auto!important;padding:0!important;
+        border:none!important;background:transparent!important;backdrop-filter:none!important;
       }
-      .section:last-child{page-break-after:avoid;break-after:avoid;}
+      .top-nav__actions{display:none!important;}
+      .section,.s-hm,.s-hm-dark{
+        min-height:0!important;padding-top:0!important;padding-bottom:0!important;
+        page-break-before:always;break-before:page;
+        page-break-after:auto;break-after:auto;
+        page-break-inside:auto;break-inside:auto;
+      }
+      #apertura{page-break-before:avoid!important;break-before:avoid!important;}
+      .section__inner,
+      .s-hm .section__inner,
+      .s-hm-dark .section__inner{padding:8mm 6mm!important;max-width:none!important;}
+      .s-apertura::after,.s-problema::before,
+      .s-hm-dark::before,.s-hm-dark::after{display:none!important;}
       .s-hm-dark{background:#0A0E17!important;color:#fff!important;}
-      .hm-diagram,.gc-split,.results-disclaimers,
-      .cierre-partners,.apertura__wrap,.problema__wrap{
+
+      .apertura__wrap{min-height:0!important;padding:0!important;gap:14px!important;}
+      .apertura__logo{width:200px!important;height:auto!important;margin:0 auto!important;display:block!important;}
+      .apertura__tagline{font-size:30px!important;line-height:1.15!important;max-width:600px!important;}
+      .apertura__proof-item{font-size:13px!important;}
+      .apertura__disclaimer{position:static!important;padding:0!important;margin-top:12px!important;}
+      .apertura__logos{gap:0!important;max-width:580px!important;margin:8px auto 0!important;}
+      .apertura__logo-slot{height:70px!important;padding:8px!important;}
+      .apertura__logo-slot img{max-height:38px!important;}
+      .apertura__logo-slot img[alt="Anchoita"]{max-height:58px!important;}
+
+      .problema__wrap{min-height:0!important;padding:0!important;gap:14px!important;}
+      .problema__question{font-size:22px!important;line-height:1.2!important;max-width:none!important;}
+      .problema__number{font-size:76px!important;line-height:1!important;}
+      .problema__stat-label{font-size:13px!important;}
+      .problema__close{font-size:13px!important;}
+      .problema__disclaimer{position:static!important;padding:0!important;margin-top:12px!important;}
+      .kpi-row{grid-template-columns:repeat(3,1fr)!important;gap:12px!important;}
+      .kpi-item__num{font-size:38px!important;}
+
+      .hm-product-name{font-size:42px!important;}
+
+      .hm-dark-title{font-size:28px!important;line-height:1.1!important;}
+      .hm-dark-sub{font-size:13px!important;margin-bottom:14px!important;}
+      .hm-diagram{
+        grid-template-columns:1fr 1fr!important;
+        min-height:0!important;gap:14px!important;align-items:start!important;
+      }
+      .hm-col--left .hm-items{align-items:stretch!important;}
+      .hm-col--left .hm-item{flex-direction:row!important;text-align:left!important;}
+      .hm-col--left .hm-item__body{align-items:flex-start!important;}
+      .hm-colhead--left,.hm-colhead--right{position:static!important;display:block!important;margin-bottom:6px!important;}
+      .hm-center{display:none!important;}
+      #hm-svg,.hm-tooltip{display:none!important;}
+
+      .hm-product-name,.hm-bridge-caption,.hm-core__metric strong,
+      .hm-hero-stat__text,.hm-stat__num,.hm-trans__label--ai,
+      .impl-72,.results-hero-title,.b2c-logo{
+        background:none!important;
+        -webkit-text-fill-color:currentColor!important;
+        color:var(--brand-dark)!important;
+      }
+      .hm-dark-eyebrow,.hm-dark-title .hm-dark-grad{
+        background:none!important;
+        -webkit-text-fill-color:currentColor!important;
+        color:#4D9FE3!important;
+      }
+
+      .gc-split{flex-direction:column!important;height:auto!important;}
+      .gc-split-left{width:100%!important;border-right:none!important;border-bottom:1px solid #2A2C34!important;}
+      .gcp-wrap{width:100%!important;}
+      .comparison{grid-template-columns:1fr!important;}
+
+      .kpi-item,.hm-item,.apertura__logo-slot,.cierre-partners__cell,
+      .review-mini{
         page-break-inside:avoid;break-inside:avoid;
       }
     }
