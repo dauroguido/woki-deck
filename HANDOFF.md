@@ -5,7 +5,7 @@
 ## Estado al cierre
 
 - **Branch**: `main`, working tree limpio, todo pusheado a `origin/main`.
-- **Deploy URL**: `woki-hospitality.vercel.app` (cambio de nombre solicitado al usuario en el dashboard de Vercel — el repo en GitHub sigue siendo `dauroguido/woki-deck`).
+- **Deploy URL**: `woki-deck.vercel.app` (el repo en GitHub es `dauroguido/woki-deck`).
 - **Último commit**: `df572d9` (Cargar isologo oficial Woki B2B).
 - **Último deploy**: index.html actualizado en raíz (Vercel sirve desde acá ahora, no más rewrite a `woki-deck.html`).
 
@@ -74,7 +74,7 @@ Side-nav refleja este orden (sin dot para Resultados, que se eliminó, ni para h
   - `woki-b2b-solid.svg` — un solo color `#132F60` (usado como favicon, mask-icon y apple-touch-icon)
   - `woki-b2b-white.svg` — versión blanca para fondos oscuros
   Los meta tags del `<head>` apuntan a `solid` (favicon) y `gradient` (og:image).
-- **Dominio Vercel** cambiado a `woki-hospitality.vercel.app` (antes `woki-deck.vercel.app`). El proyecto se renombró en el dashboard de Vercel; el repo de GitHub sigue siendo `woki-deck`.
+- **Dominio Vercel**: se evaluó renombrar el proyecto a `woki-hospitality.vercel.app`, pero el rename nunca se aplicó en el dashboard. El dominio productivo sigue siendo `woki-deck.vercel.app`, igual que el repo de GitHub (`dauroguido/woki-deck`).
 
 ## Stack técnico
 
