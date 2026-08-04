@@ -5,212 +5,234 @@
 <title>Woki — El sistema de hospitalidad de los mejores restaurantes</title>
 <meta name="description" content="El sistema de hospitalidad que usan +700 restaurantes de Argentina, Chile y la región. Beneficio exclusivo para restaurantes de Bigbox: 3 meses gratis.">
 <link rel="icon" type="image/svg+xml" href="/assets/logos/woki-b2b-solid.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.cdnfonts.com/css/mona-sans" rel="stylesheet">
 <style>
 /* =====================================================================
    Woki × Bigbox — one pager A4 + story 1080×1920
-   Toda medida está en rem. 1rem = 10px en A4, 13.6px en story,
-   así que los números de abajo se leen como px del A4.
+   Construido sobre el skill woki-design (colors_and_type.css). Todo hex,
+   radio y peso sale de ahí; no inventar valores nuevos.
+
+   Toda medida está en rem. 1rem = 10px en A4, 13.6px en story, así que
+   los números de abajo se leen como px del A4.
    ===================================================================== */
+
+/* Fuentes self-hosteadas. El CDN de cdnfonts solo registra weight 200 bajo
+   'Mona Sans', así que los bold caían silenciosamente a Figtree. Las TTF
+   variables del manual traen todo el rango y embeben limpio en el PDF. */
+@font-face{
+  font-family:'Figtree';
+  src:url('/assets/fonts/Figtree-Variable.ttf') format('truetype-variations');
+  font-weight:300 900;font-style:normal;font-display:block;
+}
+@font-face{
+  font-family:'Figtree';
+  src:url('/assets/fonts/Figtree-Italic-Variable.ttf') format('truetype-variations');
+  font-weight:300 900;font-style:italic;font-display:block;
+}
+@font-face{
+  font-family:'Mona Sans';
+  src:url('/assets/fonts/MonaSans-Variable.ttf') format('truetype-variations');
+  font-weight:200 900;font-stretch:75% 125%;font-style:normal;font-display:block;
+}
+
+:root{
+  --display:'Mona Sans','Figtree',-apple-system,BlinkMacSystemFont,sans-serif;
+  --body:'Figtree',-apple-system,BlinkMacSystemFont,sans-serif;
+
+  /* B2B */
+  --b2b-50:#EEF4FC; --b2b-500:#0066CC; --b2b-800:#132F60; --b2b-900:#202B3F;
+  /* Neutrales cálidos — el antídoto del manual contra la frialdad del B2B */
+  --bg-soft:#FAF7F4; --bg-muted:#F3EFEA; --surface:#FFFFFF; --border:#E8E3DD;
+  --fg-1:#212227; --fg-2:#3E3F45; --fg-3:#6B6C72;
+
+  --shadow-sm:0 .2rem .6rem rgba(14,15,18,.06), 0 .1rem .2rem rgba(14,15,18,.04);
+  --shadow-lg:0 2.4rem 4.8rem rgba(14,15,18,.22), 0 .4rem 1.2rem rgba(14,15,18,.12);
+}
+
 html{font-size:62.5%;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  font-family:'Figtree',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
-  background:#0B1220;-webkit-font-smoothing:antialiased;
-  display:flex;justify-content:center;
+  font-family:var(--body);background:var(--bg-muted);
+  -webkit-font-smoothing:antialiased;display:flex;justify-content:center;
 }
 
 .page{
   position:relative;overflow:hidden;flex:0 0 auto;
   width:210mm;height:297mm;
-  padding:3rem 5.6rem 0;
   display:flex;flex-direction:column;
-  background:
-    radial-gradient(88rem 60rem at 92% -14%, rgba(0,102,204,.60) 0%, rgba(0,102,204,0) 62%),
-    radial-gradient(70rem 52rem at -10% 100%, rgba(0,102,204,.26) 0%, rgba(0,102,204,0) 60%),
-    linear-gradient(60deg,#0B1120 0%, #142F5E 56%, #1A4A8F 100%);
+  background:var(--bg-soft);
 }
-.page::before{
-  content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(62rem 42rem at 18% 34%, rgba(120,180,255,.10) 0%, rgba(120,180,255,0) 70%);
+
+/* ── Zona 1 · Hero oscuro ─────────────────────────────────────────────
+   Gradiente oficial del manual: 60°, #202B3F → #0066CC. Sin radiales
+   encima: el manual prohíbe desviarse del ángulo y de los stops. */
+.hero{
+  background:linear-gradient(60deg,var(--b2b-900) 0%, var(--b2b-500) 100%);
+  padding:3.4rem 5.6rem 2.6rem;color:#fff;flex:0 0 auto;
 }
-.page>*{position:relative;z-index:1;}
+.hero__logo{height:3rem;display:block;}
 
-/* ── 1. Header ───────────────────────────────────────────────────── */
-.head__logo{height:3.4rem;display:block;}
-
-/* ── 2. Hero ─────────────────────────────────────────────────────── */
-.hero{margin-top:1.8rem;}
-.hero__row{display:flex;gap:3.2rem;align-items:flex-start;margin-top:1.8rem;}
-.hero__copy{flex:1 1 auto;min-width:0;}
+/* Jerarquía por brillo, no por color: sobre un gradiente que termina en
+   #0066CC el celeste de acento pierde contraste. La línea de setup va
+   atenuada y el remate en blanco puro. */
 h1{
-  font-family:'Mona-Sans','Figtree',sans-serif;font-weight:800;
-  font-size:4.6rem;line-height:1.06;letter-spacing:-.033em;color:#fff;
-  text-wrap:balance;
+  font-family:var(--display);font-weight:600;
+  font-size:4.2rem;line-height:1.06;letter-spacing:-.02em;
+  color:rgba(255,255,255,.72);margin-top:1.8rem;text-wrap:balance;
 }
-/* Cada variante tiene un largo de copy distinto y la columna es la misma:
-   el cuerpo del titular baja lo justo para que ninguna pase de tres líneas. */
-html[data-v="b"] h1{font-size:3.5rem;}
-html[data-v="c"] h1{font-size:3.1rem;}
-html[data-v="d"] h1{font-size:3.1rem;}
-h1 em{
-  font-style:normal;
-  background:linear-gradient(90deg,#6FBEFF,#B9DCFF);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.sub{
-  font-size:1.5rem;line-height:1.5;font-weight:500;
-  color:rgba(255,255,255,.80);
-}
-.sub b{color:#fff;font-weight:700;}
+h1 em{font-style:normal;color:#fff;}
+html[data-v="b"] h1{font-size:3.8rem;}
+html[data-v="c"] h1{font-size:3.6rem;}
+html[data-v="d"] h1{font-size:3.4rem;}
+
+.hero__row{display:flex;gap:3.4rem;align-items:flex-end;margin-top:1.8rem;}
+.hero__copy{flex:1 1 auto;min-width:0;}
+.sub{font-size:1.5rem;line-height:1.5;color:rgba(255,255,255,.80);}
+.sub b{color:#fff;font-weight:600;}
 .proof{
   display:inline-flex;align-items:center;gap:.9rem;margin-top:1.6rem;
-  padding:.8rem 1.6rem .8rem 1.2rem;border-radius:99rem;
-  background:rgba(255,255,255,.10);border:.1rem solid rgba(255,255,255,.22);
+  padding:.7rem 1.5rem .7rem 1.2rem;border-radius:99rem;
+  background:rgba(255,255,255,.12);border:.1rem solid rgba(255,255,255,.24);
 }
-.proof i{
-  width:.7rem;height:.7rem;border-radius:50%;background:#5BE49B;
-  box-shadow:0 0 0 .35rem rgba(91,228,155,.20);
+.proof svg{
+  width:1.4rem;height:1.4rem;flex:0 0 auto;stroke:#fff;stroke-width:2.4;
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
 }
-.proof span{font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:-.01em;}
-.proof span b{font-weight:800;}
+.proof span{font-size:1.3rem;font-weight:500;color:#fff;letter-spacing:-.01em;}
+.proof span b{font-weight:700;}
 
-/* La ficha se ancla abajo: lo que vende es el dato (visitas, gasto, la nota
-   del equipo), no la foto. El fade de arriba insinúa que la ficha sigue. */
-.hero__shot{flex:0 0 20.4rem;position:relative;}
+/* La ficha va recortada a propósito, anclada abajo: lo que vende es el dato
+   (47 visitas, gasto promedio, la nota del equipo), no la foto. Bordes duros
+   y sombra — el fade de la v1 se leía como error de render. */
+.hero__shot{flex:0 0 21rem;}
 .hero__shot img{
-  width:100%;height:15.4rem;object-fit:cover;object-position:center bottom;
-  display:block;border-radius:1.4rem;
-  -webkit-mask-image:linear-gradient(transparent 0, #000 26%);
-  mask-image:linear-gradient(transparent 0, #000 26%);
+  width:100%;height:16rem;object-fit:cover;object-position:center bottom;
+  display:block;border-radius:1.4rem;box-shadow:var(--shadow-lg);
 }
 .hero__cap{
-  margin-top:.4rem;font-size:1.05rem;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:rgba(255,255,255,.42);text-align:center;
+  margin-top:.9rem;font-size:1.05rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center;
 }
 
-/* ── 3. Cuatro tarjetas ──────────────────────────────────────────── */
-.props{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2rem;}
+/* ── Zona 2 · Cuerpo off-white ────────────────────────────────────────
+   space-between reparte el sobrante entre los tres bloques, así que el
+   mismo markup respira distinto en A4 y en story sin tocar medidas. */
+.body{
+  flex:1 1 auto;padding:2.6rem 5.6rem 2.4rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+
+.props{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
 .prop{
-  background:rgba(255,255,255,.08);border:.1rem solid rgba(255,255,255,.145);
-  border-radius:1.6rem;padding:1.5rem 1.6rem;
-  display:flex;gap:1.2rem;align-items:flex-start;
+  background:var(--surface);border:.1rem solid var(--border);
+  border-radius:1.4rem;padding:1.5rem;box-shadow:var(--shadow-sm);
+  display:flex;gap:1.3rem;align-items:flex-start;
 }
 .prop__ico{
-  flex:0 0 3.4rem;height:3.4rem;border-radius:1rem;
+  flex:0 0 3rem;height:3rem;border-radius:1rem;background:var(--b2b-50);
   display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(140deg,#0066CC,#5AA9FF);
 }
 .prop__ico svg{
-  width:1.8rem;height:1.8rem;stroke:#fff;stroke-width:2;fill:none;
-  stroke-linecap:round;stroke-linejoin:round;
+  width:1.7rem;height:1.7rem;stroke:var(--b2b-500);stroke-width:1.5;
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
 }
-.prop__pain{
-  font-size:1.15rem;font-weight:600;line-height:1.3;letter-spacing:.01em;
-  color:rgba(150,195,255,.72);
-}
+.prop__pain{font-size:1.25rem;font-weight:500;line-height:1.3;color:var(--fg-3);}
 .prop h3{
-  font-family:'Mona-Sans','Figtree',sans-serif;font-size:1.7rem;font-weight:700;
-  color:#fff;letter-spacing:-.018em;line-height:1.15;margin-top:.4rem;
+  font-size:1.6rem;font-weight:600;color:var(--fg-1);
+  letter-spacing:-.01em;line-height:1.2;margin-top:.4rem;
 }
-.prop p{margin-top:.5rem;font-size:1.35rem;line-height:1.4;color:rgba(255,255,255,.75);}
+.prop p{margin-top:.6rem;font-size:1.35rem;line-height:1.45;color:var(--fg-2);}
 
-/* ── 4. Prueba social ────────────────────────────────────────────── */
-.social{margin-top:1.6rem;}
+/* ── Prueba social ───────────────────────────────────────────────────
+   Los logos del repo son todos blancos sobre transparente. Invertidos dan
+   tinta casi negra sobre el off-white — el .86 evita el negro puro que el
+   manual prohíbe. */
 .social__title{
-  font-size:1.1rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);text-align:center;
+  font-size:1.1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--fg-3);text-align:center;
 }
 .logos{
-  display:flex;flex-wrap:wrap;justify-content:center;
-  column-gap:2.6rem;row-gap:1.2rem;margin-top:1.4rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.8rem 3rem;margin-top:1.6rem;align-items:center;
 }
-.logo{
-  flex:0 0 calc(20% - 2.1rem);height:3.4rem;
-  display:flex;align-items:center;justify-content:center;
-}
-.logo img{max-width:100%;opacity:.9;}
+.logo{height:4rem;display:flex;align-items:center;justify-content:center;}
+.logo img{max-width:100%;filter:invert(1);opacity:.86;}
+.logo img[data-w="crest"]{max-height:4rem;}
 .logo img[data-w="tall"] {max-height:3.4rem;}
 .logo img[data-w="mid"]  {max-height:2.4rem;}
 .logo img[data-w="wide"] {max-height:1.9rem;}
 .logo img[data-w="xwide"]{max-height:1.5rem;}
 
-.quote{display:none;margin-top:1.4rem;text-align:center;padding:0 4rem;}
-.quote p{font-size:1.5rem;line-height:1.45;color:#fff;font-weight:500;font-style:italic;}
-.quote footer{margin-top:.6rem;font-size:1.15rem;color:rgba(255,255,255,.55);font-weight:600;}
-body.has-quote .logos{row-gap:0;}
-body.has-quote .logo:nth-child(n+6){display:none;}
+.quote{display:none;margin-top:1.6rem;text-align:center;padding:0 6rem;}
+.quote p{font-size:1.5rem;line-height:1.5;color:var(--fg-1);font-style:italic;}
+.quote footer{margin-top:.8rem;font-size:1.15rem;color:var(--fg-3);font-weight:600;}
+body.has-quote .logo:nth-child(n+5){display:none;}
 body.has-quote .quote{display:block;}
 
-/* ── 5. Banda de credibilidad ────────────────────────────────────── */
-.band{
-  margin-top:1.8rem;display:grid;grid-template-columns:1fr 1fr 1fr;
-  background:rgba(255,255,255,.06);border:.1rem solid rgba(255,255,255,.13);
-  border-radius:1.6rem;padding:1.4rem 0;
-}
-.band__item{padding:0 2rem;}
-.band__item+.band__item{border-left:.1rem solid rgba(255,255,255,.14);}
+/* ── Banda de credibilidad ───────────────────────────────────────────── */
+.band{display:grid;grid-template-columns:1fr 1fr 1fr;}
+.band__item{padding:0 2.4rem;}
+.band__item:first-child{padding-left:0;}
+.band__item:last-child{padding-right:0;}
+.band__item+.band__item{border-left:.1rem solid var(--border);}
 .band__num{
-  /* Los números van en Figtree, nunca en Mona Sans (regla de marca B2B). */
-  font-size:3rem;font-weight:800;
-  color:#fff;letter-spacing:-.03em;line-height:1;
+  /* Figtree siempre para números: el manual prohíbe Mona Sans acá. */
+  font-size:2.8rem;font-weight:800;color:var(--b2b-800);
+  letter-spacing:-.02em;line-height:1;
 }
-.band__txt{margin-top:.6rem;font-size:1.25rem;line-height:1.35;color:rgba(255,255,255,.7);}
+.band__txt{margin-top:.7rem;font-size:1.25rem;line-height:1.4;color:var(--fg-3);}
 
-/* ── 6. Banda inferior clara ─────────────────────────────────────── */
+/* ── Zona 3 · Banda Bigbox blanca ────────────────────────────────────── */
 .cta{
-  margin:auto -5.6rem 0;padding:2rem 4.4rem;background:#fff;
-  display:flex;align-items:center;justify-content:space-between;gap:2.4rem;
+  flex:0 0 auto;background:var(--surface);border-top:.1rem solid var(--border);
+  padding:1.9rem 5.6rem;display:flex;align-items:center;
+  justify-content:space-between;gap:2.4rem;
 }
 .cta__offer{display:flex;align-items:center;gap:1.8rem;}
 .cta__offer>img{height:2.6rem;display:block;flex:0 0 auto;}
-.cta__bar{width:.2rem;height:5rem;background:#E4E8EE;border-radius:.2rem;flex:0 0 auto;}
+.cta__bar{width:.1rem;height:5rem;background:var(--border);flex:0 0 auto;}
 .cta__eb{
-  font-size:1.05rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  color:#0066CC;line-height:1.3;max-width:24rem;
+  font-size:1.05rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--b2b-500);line-height:1.35;max-width:23rem;
 }
 .cta__big{
-  font-family:'Mona-Sans','Figtree',sans-serif;font-size:2.8rem;font-weight:800;
-  color:#0066CC;letter-spacing:-.025em;line-height:1.05;margin-top:.4rem;white-space:nowrap;
+  /* Arranca con numeral → Figtree, no Mona Sans. */
+  font-size:2.8rem;font-weight:800;color:var(--b2b-800);
+  letter-spacing:-.02em;line-height:1.05;margin-top:.5rem;white-space:nowrap;
 }
-.cta__act{display:flex;align-items:center;gap:1.6rem;flex:0 0 auto;}
-.qr{display:flex;flex-direction:column;align-items:center;gap:.4rem;}
-.qr svg{width:7.2rem;height:7.2rem;display:block;shape-rendering:crispEdges;}
-.qr figcaption{font-size:.95rem;font-weight:600;color:#5A6478;letter-spacing:-.005em;}
-.cta__btncol{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;}
+.cta__act{display:flex;align-items:center;gap:1.8rem;flex:0 0 auto;}
+.qr{display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.qr svg{width:7rem;height:7rem;display:block;shape-rendering:crispEdges;}
+.qr figcaption{font-size:.95rem;font-weight:500;color:var(--fg-3);}
+.cta__btncol{display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;}
 .wpp{
-  display:flex;align-items:center;gap:.9rem;background:#0066CC;border-radius:1.1rem;
-  padding:1.2rem 1.8rem;text-decoration:none;
+  /* Primario del manual: #132F60 y rect redondeado (el pill es B2C). */
+  display:flex;align-items:center;gap:.9rem;background:var(--b2b-800);
+  border-radius:1.4rem;padding:1.2rem 1.8rem;text-decoration:none;
 }
 .wpp svg{width:2rem;height:2rem;fill:#fff;flex:0 0 auto;}
 .wpp b{
-  font-family:'Mona-Sans','Figtree',sans-serif;font-size:1.9rem;font-weight:700;
-  color:#fff;letter-spacing:-.015em;white-space:nowrap;
+  font-family:var(--display);font-size:1.8rem;font-weight:600;
+  color:#fff;letter-spacing:-.01em;white-space:nowrap;
 }
-.site{font-size:1.25rem;font-weight:600;color:#5A6478;letter-spacing:-.005em;padding-left:.2rem;}
+.site{font-size:1.25rem;font-weight:500;color:var(--fg-3);padding-left:.2rem;}
 .site a{color:inherit;text-decoration:none;}
 
-/* ── Story 1080×1920 ─────────────────────────────────────────────── */
-/* Todo escala solo porque las medidas están en rem: acá se mueve la raíz.
-   El story es proporcionalmente más alto que el A4, así que además de
-   escalar se reparte el aire sobrante en los márgenes entre bloques. */
+/* ── Story 1080×1920 ─────────────────────────────────────────────────
+   Mismo markup refluido, no un recorte: se mueve la raíz y el resto escala
+   solo porque todo está en rem. El space-between del cuerpo absorbe el alto
+   extra sin que haya que redefinir márgenes. */
 html.fmt-story{font-size:85%;}
-html.fmt-story .page{width:1080px;height:1920px;padding:5rem 5.6rem 0;}
-html.fmt-story .hero{margin-top:5.5rem;}
-html.fmt-story .hero__row{margin-top:2.4rem;gap:4rem;}
-/* Acá sobra alto, así que la ficha se ve bastante más que en el A4. */
-html.fmt-story .hero__shot{flex:0 0 24rem;}
-html.fmt-story .hero__shot img{height:21rem;}
-html.fmt-story .props{margin-top:5.5rem;gap:2rem;}
-html.fmt-story .prop{padding:2rem;}
-html.fmt-story .social{margin-top:5.5rem;}
-html.fmt-story .band{margin-top:4.5rem;padding:2.4rem 0;}
-html.fmt-story .cta{padding:2.8rem 4.4rem;}
+html.fmt-story .page{width:1080px;height:1920px;}
+html.fmt-story .hero{padding:6rem 5.6rem 5rem;}
+html.fmt-story h1{margin-top:3.4rem;}
+html.fmt-story .hero__row{margin-top:3.4rem;gap:4rem;}
+html.fmt-story .hero__shot{flex:0 0 25rem;}
+html.fmt-story .hero__shot img{height:19rem;}
+html.fmt-story .body{padding:5rem 5.6rem 4.6rem;}
+html.fmt-story .prop{padding:2.1rem;}
+html.fmt-story .cta{padding:3rem 5.6rem;}
 
-/* ── Print ───────────────────────────────────────────────────────── */
+/* ── Print ───────────────────────────────────────────────────────────── */
 @page{size:A4;margin:0;}
 @media print{
   html,body{background:#fff;}
@@ -224,105 +246,106 @@ html.fmt-story .cta{padding:2.8rem 4.4rem;}
 
 <div class="page">
 
-  <!-- 1 · Header -->
-  <header>
-    <img class="head__logo" src="/assets/logos/woki-b2b-white.svg" alt="Woki">
-  </header>
+  <!-- ══ Zona 1 · Hero ══ -->
+  <header class="hero">
+    <img class="hero__logo" src="/assets/logos/woki-b2b-white.svg" alt="Woki">
 
-  <!-- 2 · Hero -->
-  <section class="hero">
     <h1 id="headline">Tus clientes ya te eligieron.<br><em>Woki hace que vuelvan.</em></h1>
+
     <div class="hero__row">
       <div class="hero__copy">
         <p class="sub">El sistema de hospitalidad que usan <b>+700 restaurantes</b> de Argentina, Chile y la región para conocer a cada cliente, personalizar la atención y hacer que vuelva. Reservas, base de clientes, marketing y pagos en un solo lugar.</p>
-        <div class="proof"><i></i><span>Ya confían en Woki <b>+700 restaurantes</b></span></div>
+        <div class="proof"><svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></svg><span>Sin comisiones y <b>sin contratos</b></span></div>
       </div>
       <figure class="hero__shot">
         <img src="/woki-profile.png" alt="Ficha de cliente en Woki: visitas, gasto promedio, alergias y notas del equipo">
         <figcaption class="hero__cap">Ficha de cliente en Woki</figcaption>
       </figure>
     </div>
-  </section>
+  </header>
 
-  <!-- 3 · Cuatro tarjetas · dolor → qué permite Woki -->
-  <section class="props">
+  <!-- ══ Zona 2 · Cuerpo ══ -->
+  <main class="body">
 
-    <article class="prop">
-      <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
-      <div>
-        <p class="prop__pain">No sabés quién entró por la puerta.</p>
-        <h3>Conocé a cada cliente antes de que se siente</h3>
-        <p>Tu equipo arranca el turno sabiendo quién viene: visitas, preferencias, alergias y celebraciones.</p>
+    <!-- Cuatro tarjetas · dolor → qué permite Woki -->
+    <section class="props">
+
+      <article class="prop">
+        <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+        <div>
+          <p class="prop__pain">No sabés quién entró por la puerta.</p>
+          <h3>Conocé a cada cliente antes de que se siente</h3>
+          <p>Tu equipo arranca el turno sabiendo quién viene: visitas, preferencias y alergias.</p>
+        </div>
+      </article>
+
+      <article class="prop">
+        <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg></div>
+        <div>
+          <p class="prop__pain">Las reservas llegan por cinco lugares.</p>
+          <h3>Aprovechá todos los canales de reservas</h3>
+          <p>Instagram, Google, tu web y la Guía Michelin entran directo, sin comisiones.</p>
+        </div>
+      </article>
+
+      <article class="prop">
+        <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m12 7.4 1.25 2.6 2.85.4-2.05 2 .5 2.85-2.55-1.35-2.55 1.35.5-2.85-2.05-2 2.85-.4z"/></svg></div>
+        <div>
+          <p class="prop__pain">Las reseñas se leen de a una.</p>
+          <h3>Analizá todas tus reseñas con IA</h3>
+          <p>Woki las unifica, detecta patrones y te dice qué mejorar.</p>
+        </div>
+      </article>
+
+      <article class="prop">
+        <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
+        <div>
+          <p class="prop__pain">El cliente vino una vez y no volvió más.</p>
+          <h3>Hacelos volver, en automático</h3>
+          <p>Campañas de email y WhatsApp segmentadas, con el ingreso de cada envío medido.</p>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Prueba social -->
+    <section class="social">
+      <p class="social__title">Ya confían en Woki · +700 restaurantes en Argentina, Chile y la región</p>
+      <div class="logos">
+        <div class="logo"><img src="/logos-partners/Trescha.png"         alt="Trescha"            data-w="tall"></div>
+        <div class="logo"><img src="/logos-partners/lacabrera.png"       alt="La Cabrera"         data-w="mid"></div>
+        <div class="logo"><img src="/logos-partners/anchoita.png"        alt="Anchoíta"           data-w="crest"></div>
+        <div class="logo"><img src="/logos-partners/mercado_liniers.png" alt="Mercado de Liniers" data-w="wide"></div>
+        <div class="logo"><img src="/logos-partners/madre.png"           alt="Madre Rojas"        data-w="xwide"></div>
+        <div class="logo"><img src="/logos-partners/happening.png"       alt="Happening"          data-w="mid"></div>
+        <div class="logo"><img src="/logos-partners/fogon.png"           alt="Fogón"              data-w="tall"></div>
+        <div class="logo"><img src="/logos-partners/zonda.png"           alt="Zonda"              data-w="mid"></div>
       </div>
-    </article>
+      <blockquote class="quote">
+        <p>«Testimonio pendiente de aprobación.»</p>
+        <footer>Nombre Apellido · Dueño de Restaurante</footer>
+      </blockquote>
+    </section>
 
-    <article class="prop">
-      <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg></div>
-      <div>
-        <p class="prop__pain">Las reservas llegan por cinco lugares.</p>
-        <h3>Aprovechá todos los canales de reservas</h3>
-        <p>Instagram, Google, tu web y la Guía Michelin entran directo a tu sistema. Sin comisiones y con el dato del cliente.</p>
+    <!-- Banda de credibilidad -->
+    <section class="band">
+      <div class="band__item">
+        <div class="band__num">72 hs</div>
+        <p class="band__txt">De la primera reunión a estar tomando reservas. Migración y capacitación las hace Woki.</p>
       </div>
-    </article>
-
-    <article class="prop">
-      <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m12 7.4 1.25 2.6 2.85.4-2.05 2 .5 2.85-2.55-1.35-2.55 1.35.5-2.85-2.05-2 2.85-.4z"/></svg></div>
-      <div>
-        <p class="prop__pain">Las reseñas se leen de a una.</p>
-        <h3>Analizá todas tus reseñas con IA</h3>
-        <p>Woki unifica las reseñas de Google y de Woki, detecta patrones y te dice qué mejorar.</p>
+      <div class="band__item">
+        <div class="band__num">+90%</div>
+        <p class="band__txt">De cobrabilidad en garantías y anticipos: el no-show deja de ser plata perdida.</p>
       </div>
-    </article>
-
-    <article class="prop">
-      <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
-      <div>
-        <p class="prop__pain">El cliente vino una vez y no volvió más.</p>
-        <h3>Hacelos volver, en automático</h3>
-        <p>Campañas de email y WhatsApp segmentadas por comportamiento, con el ingreso que generó cada envío medido.</p>
+      <div class="band__item">
+        <div class="band__num">24/7</div>
+        <p class="band__txt">Soporte con gente que entiende de gastronomía. Un viernes a las 21 también.</p>
       </div>
-    </article>
+    </section>
 
-  </section>
+  </main>
 
-  <!-- 4 · Prueba social -->
-  <section class="social">
-    <p class="social__title">Ya confían en Woki · +700 restaurantes en Argentina, Chile y la región</p>
-    <div class="logos">
-      <div class="logo"><img src="/logos-partners/anchoita.png"        alt="Anchoíta"           data-w="tall"></div>
-      <div class="logo"><img src="/logos-partners/Trescha.png"         alt="Trescha"            data-w="tall"></div>
-      <div class="logo"><img src="/logos-partners/gardiner.png"        alt="Gardiner"           data-w="mid"></div>
-      <div class="logo"><img src="/logos-partners/happening.png"       alt="Happening"          data-w="mid"></div>
-      <div class="logo"><img src="/logos-partners/mercado_liniers.png" alt="Mercado de Liniers" data-w="xwide"></div>
-      <div class="logo"><img src="/logos-partners/lacabrera.png"       alt="La Cabrera"         data-w="wide"></div>
-      <div class="logo"><img src="/logos-partners/fabric_sushi.avif"   alt="Fabric Sushi"       data-w="mid"></div>
-      <div class="logo"><img src="/logos-partners/madre.png"           alt="Madre Rojas"        data-w="xwide"></div>
-      <div class="logo"><img src="/logos-partners/anafe.png"           alt="Anafe"              data-w="tall"></div>
-      <div class="logo"><img src="/logos-partners/Mengano.png"         alt="Mengano"            data-w="wide"></div>
-    </div>
-    <blockquote class="quote">
-      <p>«Testimonio pendiente de aprobación.»</p>
-      <footer>Nombre Apellido · Dueño de Restaurante</footer>
-    </blockquote>
-  </section>
-
-  <!-- 5 · Banda de credibilidad -->
-  <section class="band">
-    <div class="band__item">
-      <div class="band__num">72 hs</div>
-      <p class="band__txt">De la primera reunión a estar tomando reservas. Migración y capacitación las hace Woki.</p>
-    </div>
-    <div class="band__item">
-      <div class="band__num">+90%</div>
-      <p class="band__txt">De cobrabilidad en garantías y anticipos: el no-show deja de ser plata perdida.</p>
-    </div>
-    <div class="band__item">
-      <div class="band__num">24/7</div>
-      <p class="band__txt">Soporte con gente que entiende de gastronomía. Un viernes a las 21 también.</p>
-    </div>
-  </section>
-
-  <!-- 6 · Banda inferior · única aparición de Bigbox -->
+  <!-- ══ Zona 3 · Banda Bigbox · única aparición de Bigbox ══ -->
   <footer class="cta">
     <div class="cta__offer">
       <img src="/assets/logos/bigbox-negro.svg" alt="Bigbox">
