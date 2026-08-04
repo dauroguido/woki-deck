@@ -80,7 +80,7 @@ h1{
   color:rgba(255,255,255,.72);margin-top:1.8rem;text-wrap:balance;
 }
 h1 em{font-style:normal;color:#fff;}
-html[data-v="b"] h1{font-size:3.8rem;}
+html[data-v="b"] h1{font-size:3.5rem;}
 html[data-v="c"] h1{font-size:3.6rem;}
 html[data-v="d"] h1{font-size:3.4rem;}
 
@@ -100,13 +100,43 @@ html[data-v="d"] h1{font-size:3.4rem;}
 .proof span{font-size:1.3rem;font-weight:500;color:#fff;letter-spacing:-.01em;}
 .proof span b{font-weight:700;}
 
-/* La ficha va recortada a propósito, anclada abajo: lo que vende es el dato
-   (47 visitas, gasto promedio, la nota del equipo), no la foto. Bordes duros
-   y sombra — el fade de la v1 se leía como error de render. */
-.hero__shot{flex:0 0 21rem;}
-.hero__shot img{
-  width:100%;height:16rem;object-fit:cover;object-position:center bottom;
-  display:block;border-radius:1.4rem;box-shadow:var(--shadow-lg);
+/* El mockup es markup, no imagen: queda nítido en el PDF a cualquier tamaño,
+   el texto es seleccionable y escala solo en story porque todo está en rem.
+   Lo que tiene que probar es que el mail sale automático pero no lo parece:
+   el nombre, el motivo y la mesa favorita salen de la ficha del cliente. */
+.hero__shot{flex:0 0 22rem;}
+.mail{
+  background:var(--surface);border-radius:1.4rem;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.mail__bar{
+  background:var(--b2b-500);color:#fff;display:flex;align-items:center;gap:.6rem;
+  padding:.65rem 1.1rem;font-size:.95rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.mail__bar svg{
+  width:1.2rem;height:1.2rem;flex:0 0 auto;stroke:#fff;stroke-width:2;
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+}
+.mail__body{padding:1.1rem;}
+.mail__from{display:flex;align-items:center;gap:.7rem;}
+.mail__av{
+  width:2.2rem;height:2.2rem;border-radius:50%;background:var(--b2b-800);
+  color:#fff;font-size:1.05rem;font-weight:700;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+}
+.mail__from b{display:block;font-size:1.15rem;font-weight:600;color:var(--fg-1);line-height:1.2;}
+.mail__from span{display:block;font-size:1rem;color:var(--fg-3);line-height:1.3;}
+.mail__subj{
+  margin-top:.9rem;font-size:1.2rem;font-weight:700;color:var(--fg-1);
+  line-height:1.25;letter-spacing:-.01em;
+}
+.mail__txt{margin-top:.5rem;font-size:1.05rem;line-height:1.4;color:var(--fg-2);}
+.mail__txt b{font-weight:600;color:var(--fg-1);}
+.mail__btn{
+  display:block;margin-top:.9rem;text-align:center;
+  border:.1rem solid var(--b2b-800);border-radius:.8rem;padding:.55rem;
+  font-size:1.05rem;font-weight:600;color:var(--b2b-800);
 }
 .hero__cap{
   margin-top:.9rem;font-size:1.05rem;font-weight:600;letter-spacing:.08em;
@@ -135,10 +165,9 @@ html[data-v="d"] h1{font-size:3.4rem;}
   width:1.7rem;height:1.7rem;stroke:var(--b2b-500);stroke-width:1.5;
   fill:none;stroke-linecap:round;stroke-linejoin:round;
 }
-.prop__pain{font-size:1.25rem;font-weight:500;line-height:1.3;color:var(--fg-3);}
 .prop h3{
   font-size:1.6rem;font-weight:600;color:var(--fg-1);
-  letter-spacing:-.01em;line-height:1.2;margin-top:.4rem;
+  letter-spacing:-.01em;line-height:1.2;
 }
 .prop p{margin-top:.6rem;font-size:1.35rem;line-height:1.45;color:var(--fg-2);}
 
@@ -154,13 +183,16 @@ html[data-v="d"] h1{font-size:3.4rem;}
   display:grid;grid-template-columns:repeat(4,1fr);
   gap:1.8rem 3rem;margin-top:1.6rem;align-items:center;
 }
-.logo{height:4rem;display:flex;align-items:center;justify-content:center;}
-.logo img{max-width:100%;filter:invert(1);opacity:.86;}
-.logo img[data-w="crest"]{max-height:4rem;}
-.logo img[data-w="tall"] {max-height:3.4rem;}
-.logo img[data-w="mid"]  {max-height:2.4rem;}
-.logo img[data-w="wide"] {max-height:1.9rem;}
-.logo img[data-w="xwide"]{max-height:1.5rem;}
+/* Normalización óptica: los escudos altos y los wordmarks anchos nunca pesan
+   igual a la misma altura. El rango va de 5.2 a 2.4 (2.2×, antes 2.7×) para
+   emparejarlos sin que los anchos se coman la fila. */
+.logo{height:5.4rem;display:flex;align-items:center;justify-content:center;}
+.logo img{max-width:94%;filter:invert(1);opacity:.86;}
+.logo img[data-w="crest"]{max-height:5.2rem;}
+.logo img[data-w="tall"] {max-height:4.6rem;}
+.logo img[data-w="mid"]  {max-height:3.4rem;}
+.logo img[data-w="wide"] {max-height:2.8rem;}
+.logo img[data-w="xwide"]{max-height:2.4rem;}
 
 .quote{display:none;margin-top:1.6rem;text-align:center;padding:0 6rem;}
 .quote p{font-size:1.5rem;line-height:1.5;color:var(--fg-1);font-style:italic;}
@@ -227,7 +259,6 @@ html.fmt-story .hero{padding:6rem 5.6rem 5rem;}
 html.fmt-story h1{margin-top:3.4rem;}
 html.fmt-story .hero__row{margin-top:3.4rem;gap:4rem;}
 html.fmt-story .hero__shot{flex:0 0 25rem;}
-html.fmt-story .hero__shot img{height:19rem;}
 html.fmt-story .body{padding:5rem 5.6rem 4.6rem;}
 html.fmt-story .prop{padding:2.1rem;}
 html.fmt-story .cta{padding:3rem 5.6rem;}
@@ -258,8 +289,25 @@ html.fmt-story .cta{padding:3rem 5.6rem;}
         <div class="proof"><svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></svg><span>Sin comisiones y <b>sin contratos</b></span></div>
       </div>
       <figure class="hero__shot">
-        <img src="../../woki-profile.png" alt="Ficha de cliente en Woki: visitas, gasto promedio, alergias y notas del equipo">
-        <figcaption class="hero__cap">Ficha de cliente en Woki</figcaption>
+        <div class="mail">
+          <div class="mail__bar">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            Nuevo email
+          </div>
+          <div class="mail__body">
+            <div class="mail__from">
+              <span class="mail__av">T</span>
+              <div>
+                <b>Trescha</b>
+                <span>para Juana P.</span>
+              </div>
+            </div>
+            <p class="mail__subj">Juana, tu cumpleaños se festeja con nosotros</p>
+            <p class="mail__txt">Se viene tu cumple y nos encantaría celebrarlo con vos. Te guardamos <b>la mesa del ventanal</b>, tu favorita.</p>
+            <span class="mail__btn">Reservar mesa</span>
+          </div>
+        </div>
+        <figcaption class="hero__cap">Email automático de Woki</figcaption>
       </figure>
     </div>
   </header>
@@ -273,7 +321,6 @@ html.fmt-story .cta{padding:3rem 5.6rem;}
       <article class="prop">
         <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
         <div>
-          <p class="prop__pain">No sabés quién entró por la puerta.</p>
           <h3>Conocé a cada cliente antes de que se siente</h3>
           <p>Tu equipo arranca el turno sabiendo quién viene: visitas, preferencias y alergias.</p>
         </div>
@@ -282,7 +329,6 @@ html.fmt-story .cta{padding:3rem 5.6rem;}
       <article class="prop">
         <div class="prop__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/></svg></div>
         <div>
-          <p class="prop__pain">Las reservas llegan por cinco lugares.</p>
           <h3>Aprovechá todos los canales de reservas</h3>
           <p>Instagram, Google, tu web y la Guía Michelin entran directo, sin comisiones.</p>
         </div>
@@ -291,7 +337,6 @@ html.fmt-story .cta{padding:3rem 5.6rem;}
       <article class="prop">
         <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="m12 7.4 1.25 2.6 2.85.4-2.05 2 .5 2.85-2.55-1.35-2.55 1.35.5-2.85-2.05-2 2.85-.4z"/></svg></div>
         <div>
-          <p class="prop__pain">Las reseñas se leen de a una.</p>
           <h3>Analizá todas tus reseñas con IA</h3>
           <p>Woki las unifica, detecta patrones y te dice qué mejorar.</p>
         </div>
@@ -300,7 +345,6 @@ html.fmt-story .cta{padding:3rem 5.6rem;}
       <article class="prop">
         <div class="prop__ico"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div>
         <div>
-          <p class="prop__pain">El cliente vino una vez y no volvió más.</p>
           <h3>Hacelos volver, en automático</h3>
           <p>Campañas de email y WhatsApp segmentadas, con el ingreso de cada envío medido.</p>
         </div>
