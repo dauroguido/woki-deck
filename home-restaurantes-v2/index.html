@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Woki · Sistema de hospitalidad para restaurantes</title>
+<meta name="description" content="Reservas, base de clientes, campañas y datos en un solo sistema. Usado por +1.500 restaurantes en Argentina y Chile. Pedí una demo." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://restaurantes.wokiapp.com/" />
+<meta property="og:title" content="El sistema de hospitalidad que hace volver a tus clientes" />
+<meta property="og:description" content="Reservas, base de clientes, campañas y datos en un solo sistema. Usado por +1.500 restaurantes en Argentina y Chile. Pedí una demo." />
+<meta property="og:url" content="https://restaurantes.wokiapp.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://restaurantes.wokiapp.com/assets/og-home.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Woki","url":"https://restaurantes.wokiapp.com/","logo":"https://restaurantes.wokiapp.com/assets/woki-b2b.svg","foundingDate":"2020","areaServed":["AR","CL"],"description":"Woki es el sistema de hospitalidad que usan los mejores restaurantes de Argentina y Chile para conocer a sus clientes, personalizar la atención, activar su base y decidir con datos.","sameAs":["https://www.instagram.com/wokiapp","https://www.linkedin.com/company/wokiapp"]}
+</script>
+<style>
+@font-face { font-family: 'Figtree'; src: url(https://fonts.gstatic.com/s/figtree/v9/_Xms-HUzqDCFdgfMm4S9DaRvzig.woff2) format('woff2'); font-weight: 300 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Figtree'; src: url(https://fonts.gstatic.com/s/figtree/v9/_Xms-HUzqDCFdgfMm4q9DaRvziissg.woff2) format('woff2'); font-weight: 300 900; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Mona Sans'; src: url(https://fonts.gstatic.com/s/monasans/v4/o-0bIpQmx24alC5A4PNB6Ryti20_6n1iPHjc5a7du3mhPy0.woff2) format('woff2'); font-weight: 200 900; font-stretch: 100%; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Mona Sans'; src: url(https://fonts.gstatic.com/s/monasans/v4/o-0bIpQmx24alC5A4PNB6Ryti20_6n1iPHjc5aDdu3mhPy1Fig.woff2) format('woff2'); font-weight: 200 900; font-stretch: 100%; font-display: swap; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@keyframes woki-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes woki-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes woki-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #FFFFFF; color: #212227; font-family: 'Figtree', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+h1, h2, h3, h4, p { margin: 0; }
+a { color: #0066CC; text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, svg { max-width: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+input[type="range"] { accent-color: #0066CC; width: 100%; }
+[data-reveal][data-in] { animation: woki-rise 560ms cubic-bezier(0.2,0,0,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee], [data-float], [data-reveal][data-in] { animation: none !important; }
+}
+@media (max-width: 1000px) {
+  [data-nav] { display: none !important; }
+  [data-burger] { display: flex !important; }
+  [data-stack] { grid-template-columns: 1fr !important; gap: 28px !important; }
+  [data-trio] { grid-template-columns: 1fr !important; }
+  [data-copy-first] { order: -1 !important; }
+  [data-tilt] { transform: none !important; }
+  [data-hero-form] { display: none !important; }
+  [data-hero-cta] { display: flex !important; }
+}
+@media (max-width: 760px) {
+  h1 { font-size: 42px !important; line-height: 1.16 !important; }
+  h2 { font-size: 32px !important; line-height: 1.1 !important; }
+  h3 { font-size: 21px !important; }
+  section { padding-top: 68px !important; padding-bottom: 68px !important; }
+  [data-lede] { font-size: 17px !important; }
+  [data-quote] { font-size: 24px !important; line-height: 1.24 !important; }
+  [data-arrow] { transform: rotate(90deg); }
+  [data-panel-pad] { padding-left: 18px !important; padding-right: 18px !important; }
+  [data-big-number] { font-size: 36px !important; }
+  [data-row] { flex-direction: column !important; align-items: flex-start !important; gap: 18px !important; }
+  input[type="range"] { height: 34px !important; }
+  footer a { padding: 5px 0 !important; }
+}
+</style>
+</head>
+<body>
+<div style="background:#FFFFFF;overflow-x:hidden">
+
+<header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.86);backdrop-filter:blur(14px);border-bottom:1px solid #E8E3DD">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);height:72px;display:flex;align-items:center;gap:32px">
+    <a href="#hero" style="display:flex;align-items:center"><img src="./assets/woki-b2b.svg" alt="Woki" style="height:26px;display:block" /></a>
+    <nav data-nav="" style="display:flex;align-items:center;gap:26px;font-size:15px;font-weight:500">
+      <div style="position:relative" data-dropdown="producto">
+        <button type="button" style="display:flex;align-items:center;gap:6px;background:none;border:0;padding:0;font:500 15px 'Figtree',sans-serif;color:#212227;cursor:pointer">Soluciones
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <div data-menu="producto" style="position:absolute;top:100%;left:-12px;padding:8px;min-width:240px;background:#fff;border:1px solid #E8E3DD;border-radius:16px;box-shadow:0 14px 34px rgba(19,47,96,0.14);display:none">
+          <a href="#marketing" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Marketing</a>
+          <a href="#operacion" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Operaciones</a>
+          <a href="#comensal" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Hospitalidad</a>
+        </div>
+      </div>
+      <div style="position:relative" data-dropdown="negocio">
+        <button type="button" style="display:flex;align-items:center;gap:6px;background:none;border:0;padding:0;font:500 15px 'Figtree',sans-serif;color:#212227;cursor:pointer">Tipo de negocio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg>
+        </button>
+        <div data-menu="negocio" style="position:absolute;top:100%;left:-12px;padding:8px;min-width:240px;background:#fff;border:1px solid #E8E3DD;border-radius:16px;box-shadow:0 14px 34px rgba(19,47,96,0.14);display:none">
+          <a href="#demo" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Fine dining</a>
+          <a href="#demo" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Grupos y multi-local</a>
+          <a href="#demo" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Hoteles</a>
+          <a href="#demo" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Bodegas</a>
+          <a href="#demo" style="display:block;padding:10px 12px;border-radius:10px;color:#3E3F45;font-size:15px">Bares y nightlife</a>
+        </div>
+      </div>
+      <a href="#demo" style="color:#212227">Precios</a>
+      <button type="button" style="background:none;border:0;padding:0;font:500 15px 'Figtree',sans-serif;color:#212227;cursor:pointer">Prensa</button>
+    </nav>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:20px">
+      <a data-nav="" href="https://admin.wokiapp.com" style="font-size:15px;font-weight:500;color:#3E3F45">Ingresar</a>
+      <a href="#demo" style="background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:15px;padding:12px 20px;border-radius:14px;white-space:nowrap">Pedí una demo</a>
+      <button type="button" data-burger="" data-action="toggle-drawer" aria-label="Menú" style="display:none;align-items:center;justify-content:center;width:44px;height:44px;background:none;border:1px solid #E8E3DD;border-radius:12px;color:#212227;cursor:pointer;flex-shrink:0">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+    </div>
+  </div>
+  <div data-drawer="" style="border-top:1px solid #E8E3DD;background:#fff;padding:12px clamp(18px,5vw,32px) 24px;flex-direction:column;display:none">
+    <a href="#marketing" data-action="close-drawer" style="padding:14px 4px;font-size:17px;color:#212227;border-bottom:1px solid #F3EFEA">Marketing</a>
+    <a href="#operacion" data-action="close-drawer" style="padding:14px 4px;font-size:17px;color:#212227;border-bottom:1px solid #F3EFEA">Operaciones</a>
+    <a href="#comensal" data-action="close-drawer" style="padding:14px 4px;font-size:17px;color:#212227;border-bottom:1px solid #F3EFEA">Hospitalidad</a>
+    <a href="#demo" data-action="close-drawer" style="padding:14px 4px;font-size:17px;color:#3E3F45;border-bottom:1px solid #F3EFEA">Precios</a>
+    <button type="button" style="padding:14px 4px;background:none;border:0;border-bottom:1px solid #F3EFEA;text-align:left;font:400 17px 'Figtree',sans-serif;color:#3E3F45;cursor:pointer">Prensa</button>
+    <a href="https://admin.wokiapp.com" style="padding:14px 4px;font-size:17px;color:#3E3F45">Ingresar</a>
+  </div>
+</header>
+
+<!-- 01 · HERO -->
+<section id="hero" data-screen-label="01 Hero" style="position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF4FC 0%,#F7FAFE 62%,#FFFFFF 100%);padding:84px 0 84px">
+  <div style="position:absolute;inset:0;opacity:0.5;background-image:repeating-linear-gradient(60deg,rgba(19,47,96,0.07) 0 1px,transparent 1px 22px);pointer-events:none"></div>
+  <div style="position:absolute;top:-260px;right:-140px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(0,102,204,0.20) 0%,rgba(0,102,204,0) 68%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px)">
+    <div data-stack="" style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center">
+      <div>
+        <h1 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:64px;line-height:1.12;letter-spacing:-0.03em;color:#132F60;max-width:17ch">El sistema de hospitalidad que hace volver a tus clientes</h1>
+        <p data-lede="" style="margin-top:24px;font-size:21px;line-height:1.5;color:#3E3F45;max-width:46ch">Woki reúne reservas, base de clientes, campañas y datos en un solo lugar, y te muestra cuánto factura cada uno.</p>
+        <div data-hero-cta="" style="margin-top:32px;display:none;flex-direction:column">
+          <a href="#demo" style="background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:17px;padding:18px 24px;border-radius:16px;text-align:center;box-shadow:0 10px 24px rgba(19,47,96,0.24)">Pedí una demo de 30 minutos</a>
+        </div>
+      </div>
+      <div>
+        <div data-hero-form="" style="background:#fff;border:1px solid #D6E4F7;border-radius:24px;box-shadow:0 24px 60px rgba(19,47,96,0.14);padding:clamp(22px,3vw,32px);flex-direction:column;gap:18px;display:flex">
+          <div>
+            <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:27px;line-height:1.12;letter-spacing:-0.018em;color:#132F60">Pedí tu demo de 30 minutos</h2>
+            <p style="margin-top:8px;font-size:16px;color:#6B6C72">Te escribimos el mismo día hábil.</p>
+          </div>
+          <form data-nosubmit="" style="display:flex;flex-direction:column;gap:14px">
+            <div data-stack="" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label for="h2-nombre" style="font-size:14px;font-weight:600;color:#3E3F45">Nombre y apellido</label>
+                <input id="h2-nombre" type="text" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:13px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label for="h2-email" style="font-size:14px;font-weight:600;color:#3E3F45">Email</label>
+                <input id="h2-email" type="email" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:13px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+              </div>
+            </div>
+            <div data-stack="" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label for="h2-wa" style="font-size:14px;font-weight:600;color:#3E3F45">WhatsApp</label>
+                <input id="h2-wa" type="tel" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:13px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <label for="h2-resto" style="font-size:14px;font-weight:600;color:#3E3F45">Restaurante</label>
+                <input id="h2-resto" type="text" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:13px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+              </div>
+            </div>
+            <button type="submit" style="margin-top:2px;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;border:0;border-radius:16px;padding:17px 24px;font:600 17px 'Mona Sans',sans-serif;cursor:pointer;box-shadow:0 10px 24px rgba(19,47,96,0.22)">Pedí una demo</button>
+            <p style="font-size:14px;line-height:1.55;color:#6B6C72">Media hora y vas a saber si esto es para tu restaurante.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · PRUEBA SOCIAL -->
+<section data-screen-label="02 Prueba social" style="background:#fff;padding:76px 0;overflow:hidden">
+  <div data-reveal="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);text-align:center">
+    <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:34px;line-height:1.14;letter-spacing:-0.02em;color:#132F60">Los que ya trabajan así</h2>
+    <p data-lede="" style="margin:14px auto 0;font-size:18px;line-height:1.55;color:#6B6C72;max-width:60ch">+1.500 restaurantes en Argentina y Chile nos eligen. Entre ellos, más de 50 distinguidos por la Guía Michelin y The World's 50 Best.</p>
+  </div>
+  <div style="margin-top:40px;display:flex;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
+    <div data-marquee="" style="display:flex;flex-shrink:0;gap:16px;padding-right:16px;animation:woki-marquee 34s linear infinite;align-items:center">
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Trescha</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Anchoíta</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Happening</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Gardiner</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Tony Wu</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Trescha</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Anchoíta</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Happening</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Gardiner</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Tony Wu</span>
+    </div>
+    <div data-marquee="" style="display:flex;flex-shrink:0;gap:16px;padding-right:16px;animation:woki-marquee 34s linear infinite;align-items:center" aria-hidden="true">
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Trescha</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Anchoíta</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Happening</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Gardiner</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Tony Wu</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Trescha</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Anchoíta</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Happening</span>
+      <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Gardiner</span>
+      <span style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:999px;padding:12px 24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:19px;color:#132F60;white-space:nowrap">Tony Wu</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · CANALES -->
+<section id="canales" data-screen-label="03 Canales" style="background:#FAF7F4;padding:100px 0;border-top:1px solid #E8E3DD">
+  <div data-stack="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);display:grid;grid-template-columns:0.88fr 1.12fr;gap:60px;align-items:center">
+    <div data-reveal="">
+      <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:20ch">Aprovechá todos tus canales para vender más y nutrir tu base de clientes</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.65;color:#3E3F45;max-width:52ch">Instagram, Google, la Guía Michelin, Bigbox, el conserje de un hotel y tu propio perfil, con tus colores y tu dominio. Cada reserva entra a tu base con su historia, y en tus canales propios no pagás comisión.</p>
+      <a href="#demo" style="margin-top:26px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #132F60;border-radius:14px;padding:13px 20px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;color:#132F60">Activá tus canales
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+    <div data-reveal="" data-tilt="" style="transform:rotate(1deg);background:#fff;border:1px solid #E8E3DD;border-radius:24px;box-shadow:0 24px 56px rgba(19,47,96,0.14);overflow:hidden">
+      <div style="padding:10px 16px;background:#F3EFEA;border-bottom:1px solid #E8E3DD;display:flex;align-items:center;gap:10px">
+        <span style="width:9px;height:9px;border-radius:50%;background:#D6CFC5;flex-shrink:0"></span>
+        <span style="flex:1;background:#fff;border-radius:999px;padding:6px 12px;font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#6B6C72;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">tu-restaurante.wokiapp.com</span>
+      </div>
+      <div style="padding:22px 24px;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+        <span style="width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-family:'Mona Sans',sans-serif;font-weight:700;font-size:20px;color:#fff">TR</span>
+        <div style="flex:1;min-width:0">
+          <p style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:21px;letter-spacing:0.01em;color:#fff">Tu restaurante</p>
+          <p style="margin-top:3px;font-size:13px;color:rgba(255,255,255,0.72)">Tu perfil en Woki · tus colores, tu dominio</p>
+        </div>
+        <span style="background:#fff;color:#132F60;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700">Reservar</span>
+      </div>
+      <div data-panel-pad="" style="padding:20px 24px 8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+        <p style="font-size:13px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#9A9AA1">Reservas de marzo por canal</p>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#EEF4FC;color:#0A4FA0;border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg>
+          6 canales conectados</span>
+      </div>
+      <div data-panel-pad="" style="padding:12px 24px 24px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#0066CC;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Tu perfil y tus links</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">sin comisión</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:100%;height:8px;border-radius:999px;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%)"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">214</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#7FA8DF;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Instagram</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">botón de reserva</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:60%;height:8px;border-radius:999px;background:#A9C5EF"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">128</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#7FA8DF;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Google</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">Reserve with Google</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:45%;height:8px;border-radius:999px;background:#A9C5EF"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">96</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#7FA8DF;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Guía Michelin</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">vía Mozrest</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:19%;height:8px;border-radius:999px;background:#A9C5EF"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">41</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#7FA8DF;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Bigbox</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">experiencias</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:10%;height:8px;border-radius:999px;background:#A9C5EF"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">22</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="width:7px;height:7px;border-radius:999px;background:#7FA8DF;flex-shrink:0"></span>
+                <p style="font-size:14px;font-weight:600;color:#212227;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Concierge de hotel</p>
+                <p style="font-size:12px;color:#9A9AA1;white-space:nowrap">reserva asistida</p>
+              </div>
+              <div style="margin-top:8px;height:8px;border-radius:999px;background:#F0F2F6;overflow:hidden">
+                <div style="width:8%;height:8px;border-radius:999px;background:#A9C5EF"></div>
+              </div>
+            </div>
+            <p style="font-size:17px;font-weight:700;color:#132F60;white-space:nowrap">17</p>
+          </div>
+      </div>
+      <div data-panel-pad="" data-row="" style="padding:20px 24px;border-top:1px solid #E8E3DD;background:#F7FAFE;display:flex;justify-content:space-between;align-items:center;gap:16px">
+        <p style="font-size:14px;line-height:1.5;color:#3E3F45">Cada reserva entra a tu base con su canal de origen y su historia.</p>
+        <p style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:19px;color:#132F60;white-space:nowrap">518 en total</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · OPERACIÓN -->
+<section id="operacion" data-screen-label="04 Operación" style="background:#EEF4FC;padding:100px 0">
+  <div data-stack="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);display:grid;grid-template-columns:1.12fr 0.88fr;gap:60px;align-items:center">
+    <div data-reveal="" data-tilt="" style="transform:rotate(-1.1deg);background:#fff;border:1px solid #D6E4F7;border-radius:24px;box-shadow:0 24px 56px rgba(19,47,96,0.14);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid #E8E3DD;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+        <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:8px;padding:4px 9px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#0A4FA0">Ejemplo</span>
+        <p style="font-family:'Mona Sans',sans-serif;font-weight:600;font-size:17px;color:#132F60">Brief Pre-Turno · Viernes, turno noche</p>
+      </div>
+      <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px">
+        <p style="font-size:14px;color:#6B6C72">84 cubiertos proyectados · 31 reservas · 2 no-shows proyectados</p>
+        <div style="display:flex;gap:14px;background:#FBEAEA;border-radius:16px;padding:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C42525" stroke-width="1.9" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+          <div>
+            <p style="font-size:15px;font-weight:600;color:#212227">Mesa 12 · Grupo de 4 · 21:30</p>
+            <p style="margin-top:4px;font-size:14px;line-height:1.5;color:#3E3F45">Alergia severa al maní. Cargada por el restaurante el 12/03.</p>
+            <p style="margin-top:6px;font-size:14px;font-weight:600;color:#C42525">→ Avisar a cocina antes del pedido.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;background:#FBEAEA;border-radius:16px;padding:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C42525" stroke-width="1.9" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+          <div>
+            <p style="font-size:15px;font-weight:600;color:#212227">Mesa 7 · Grupo de 2 · 22:00</p>
+            <p style="margin-top:4px;font-size:14px;line-height:1.5;color:#3E3F45">De las últimas 4 reservas hizo 3 no-shows.</p>
+            <p style="margin-top:6px;font-size:14px;font-weight:600;color:#C42525">→ Confirmar por WhatsApp o pedir garantía.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;background:#F7FAFE;border:1px solid #D6E4F7;border-radius:16px;padding:16px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="1.9" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><path d="M11.5 2.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3 8.7l5.9-.9z"></path></svg>
+          <div>
+            <p style="font-size:15px;font-weight:600;color:#212227">Mesa 3 · Aniversario</p>
+            <p style="margin-top:4px;font-size:14px;line-height:1.5;color:#3E3F45">Es su octava visita. Última vez pidieron mesa cerca de la ventana.</p>
+            <p style="margin-top:6px;font-size:14px;font-weight:600;color:#0066CC">→ Ofrecer la misma ubicación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-reveal="" data-copy-first="">
+      <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:20ch">Recibí a cada cliente sabiendo quién es y qué necesita</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.65;color:#3E3F45;max-width:52ch">Antes de que abra el salón, tu equipo ya sabe quién viene: alergias, aniversarios, primeras visitas, riesgo de no-show. Cada aviso con su motivo y una recomendación de trato, mesa por mesa. Con garantías por no-show incluidas en los tres planes.</p>
+      <a href="#demo" style="margin-top:26px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #132F60;border-radius:14px;padding:13px 20px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;color:#132F60">Simplificá tu operación
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · COMENSAL -->
+<section id="comensal" data-screen-label="05 Datos del comensal" style="background:#fff;padding:100px 0">
+  <div data-stack="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);display:grid;grid-template-columns:0.88fr 1.12fr;gap:60px;align-items:center">
+    <div data-reveal="">
+      <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:20ch">Conocé a tus clientes: quién es cada uno, qué prefiere y cuánto gasta</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.65;color:#3E3F45;max-width:52ch">Woki limpia la base sola —normaliza los teléfonos, unifica los duplicados— y arma una ficha por persona con visitas, frecuencia, gasto y preferencias. Información ordenada y lista para usar, no una planilla de mil filas. Si venís de otro sistema, tu historial entra el primer día.</p>
+      <a href="#demo" style="margin-top:26px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #132F60;border-radius:14px;padding:13px 20px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;color:#132F60">Ordená tu base
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+    <div data-reveal="" data-tilt="" style="transform:rotate(-0.9deg);background:#fff;border:1px solid #E8E3DD;border-radius:24px;box-shadow:0 24px 56px rgba(19,47,96,0.14);overflow:hidden">
+      <div data-panel-pad="" style="padding:22px 24px;border-bottom:1px solid #E8E3DD;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+        <span style="width:52px;height:52px;border-radius:999px;background:#EEF4FC;border:1px solid #D6E4F7;display:flex;align-items:center;justify-content:center;font-family:'Mona Sans',sans-serif;font-weight:700;font-size:18px;color:#132F60">MF</span>
+        <div style="flex:1;min-width:0">
+          <p style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:20px;color:#132F60">María Fernández</p>
+          <p style="margin-top:3px;font-size:13px;color:#6B6C72">+54 9 11 5555-1234 · maria.f@mail.com</p>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#EEF4FC;color:#0A4FA0;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M11.5 2.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3 8.7l5.9-.9z"></path></svg>
+          Cliente frecuente</span>
+      </div>
+      <div data-panel-pad="" style="padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:linear-gradient(135deg,#EEF4FC 0%,#F7FAFE 100%);border:1px solid #D6E4F7;border-radius:18px;padding:16px 18px">
+          <p style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#0A4FA0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11.5 2.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3 8.7l5.9-.9z"></path></svg>
+            Resumen de Woki</p>
+          <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#212227">Viene cada cinco o seis semanas, casi siempre viernes a la noche y en mesa de dos. Pide celíaco y elige la ventana. Hace 24 días que no reserva: es el momento de invitarla.</p>
+        </div>
+        <div data-trio="" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+        <div style="background:#F7FAFE;border:1px solid #D6E4F7;border-radius:16px;padding:14px 16px">
+          <p style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#132F60">6</p>
+          <p style="margin-top:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#6B6C72">Visitas</p>
+        </div>
+        <div style="background:#F7FAFE;border:1px solid #D6E4F7;border-radius:16px;padding:14px 16px">
+          <p style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#132F60">cada 38 días</p>
+          <p style="margin-top:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#6B6C72">Frecuencia</p>
+        </div>
+        <div style="background:#F7FAFE;border:1px solid #D6E4F7;border-radius:16px;padding:14px 16px">
+          <p style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#132F60">$ 52.400</p>
+          <p style="margin-top:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#6B6C72">Gasto promedio</p>
+        </div>
+        <div style="background:#F7FAFE;border:1px solid #D6E4F7;border-radius:16px;padding:14px 16px">
+          <p style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#132F60">$ 314.400</p>
+          <p style="margin-top:4px;font-size:12px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:#6B6C72">Gasto total</p>
+        </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p style="font-size:12px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#9A9AA1">Preferencias y avisos</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:#FFF5DC;color:#6E4300;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"></path><path d="M12 9v4M12 17h.01"></path></svg>
+              Celíaca</span>
+            <span style="background:#F3EFEA;color:#3E3F45;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600">Mesa junto a la ventana</span>
+            <span style="background:#F3EFEA;color:#3E3F45;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600">Malbec</span>
+            <span style="background:#F3EFEA;color:#3E3F45;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600">Aniversario 12/04</span>
+          </div>
+        </div>
+      </div>
+      <div data-panel-pad="" data-row="" style="padding:18px 24px;border-top:1px solid #E8E3DD;background:#F7FAFE;display:flex;justify-content:space-between;align-items:center;gap:14px">
+        <p style="display:flex;align-items:center;gap:8px;font-size:14px;color:#3E3F45">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2.6" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg>
+          3 contactos duplicados unificados en esta ficha</p>
+        <p style="font-size:13px;color:#9A9AA1;white-space:nowrap">Historial importado el día 1</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · MARKETING -->
+<section id="marketing" data-screen-label="06 Marketing" style="background:#FAF7F4;padding:100px 0;border-top:1px solid #E8E3DD">
+  <div data-stack="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);display:grid;grid-template-columns:1.12fr 0.88fr;gap:60px;align-items:center">
+    <div data-reveal="" data-tilt="" style="transform:rotate(-1deg);background:#fff;border:1px solid #E8E3DD;border-radius:24px;box-shadow:0 24px 56px rgba(19,47,96,0.14);overflow:hidden">
+      <div data-panel-pad="" data-row="" style="padding:20px 24px;border-bottom:1px solid #E8E3DD;display:flex;justify-content:space-between;align-items:center;gap:14px">
+        <div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <span style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:8px;padding:4px 9px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#0A4FA0">Ejemplo</span>
+            <p style="font-family:'Mona Sans',sans-serif;font-weight:600;font-size:17px;color:#132F60">Cena de cierre de temporada</p>
+          </div>
+          <p style="margin-top:6px;font-size:13px;color:#9A9AA1">Enviada el 12/03 · email y WhatsApp · 640 clientes que se están enfriando</p>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:#E7F6EC;color:#1B6B3A;border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;white-space:nowrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg>
+          Enviada</span>
+      </div>
+      <div data-panel-pad="" style="padding:22px 24px;display:flex;flex-direction:column;gap:18px">
+        <div data-trio="" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+          <div style="border:1px solid #E8E3DD;border-radius:16px;padding:16px">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <p style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:#132F60">636</p>
+              <p style="font-size:14px;font-weight:600;color:#0066CC">99%</p>
+            </div>
+            <p style="margin-top:6px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#6B6C72">Entregados</p>
+            <p style="margin-top:3px;font-size:12px;color:#9A9AA1">de 640 enviados</p>
+          </div>
+          <div style="border:1px solid #E8E3DD;border-radius:16px;padding:16px">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <p style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:#132F60">346</p>
+              <p style="font-size:14px;font-weight:600;color:#0066CC">54%</p>
+            </div>
+            <p style="margin-top:6px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#6B6C72">Aperturas</p>
+            <p style="margin-top:3px;font-size:12px;color:#9A9AA1">212 personas únicas</p>
+          </div>
+          <div style="border:1px solid #E8E3DD;border-radius:16px;padding:16px">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <p style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:#132F60">118</p>
+              <p style="font-size:14px;font-weight:600;color:#0066CC">19%</p>
+            </div>
+            <p style="margin-top:6px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#6B6C72">Clics al link</p>
+            <p style="margin-top:3px;font-size:12px;color:#9A9AA1">de reserva</p>
+          </div>
+          <div style="border:1px solid #E8E3DD;border-radius:16px;padding:16px">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <p style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:#132F60">48</p>
+              <p style="font-size:14px;font-weight:600;color:#0066CC">7,5%</p>
+            </div>
+            <p style="margin-top:6px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#6B6C72">Reservas</p>
+            <p style="margin-top:3px;font-size:12px;color:#9A9AA1">44 se sentaron</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <p style="font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#9A9AA1">Del envío a la mesa</p>
+            <p style="font-size:13px;color:#6B6C72">110 cubiertos</p>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px;height:74px">
+            <div style="flex:1;height:100%;background:#EEF4FC;border-radius:12px 12px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:12px;font-weight:700;color:#0A4FA0">640</div>
+            <div style="flex:1;height:78%;background:#DCE8F9;border-radius:12px 12px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:12px;font-weight:700;color:#0A4FA0">346</div>
+            <div style="flex:1;height:52%;background:#A9C5EF;border-radius:12px 12px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:12px;font-weight:700;color:#143D7C">118</div>
+            <div style="flex:1;height:34%;background:#5C93DA;border-radius:12px 12px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:12px;font-weight:700;color:#fff">48</div>
+            <div style="flex:1;height:26%;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);border-radius:12px 12px 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;font-size:12px;font-weight:700;color:#fff">44</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <p style="flex:1;text-align:center;font-size:11px;color:#9A9AA1">Enviados</p>
+            <p style="flex:1;text-align:center;font-size:11px;color:#9A9AA1">Abiertos</p>
+            <p style="flex:1;text-align:center;font-size:11px;color:#9A9AA1">Clics</p>
+            <p style="flex:1;text-align:center;font-size:11px;color:#9A9AA1">Reservas</p>
+            <p style="flex:1;text-align:center;font-size:11px;color:#9A9AA1">Sentados</p>
+          </div>
+        </div>
+      </div>
+      <div data-panel-pad="" style="padding:24px;border-top:1px solid #E8E3DD;background:#F7FAFE;display:flex;flex-direction:column;gap:6px">
+        <p style="font-size:16px;font-weight:600;color:#3E3F45">Facturación atribuida</p>
+        <p data-big-number="" style="font-size:clamp(32px,4.4vw,46px);font-weight:700;letter-spacing:-0.03em;line-height:1.05;color:#132F60">$ 4.950.000</p>
+        <p style="font-size:13px;color:#9A9AA1">Sale del consumo real en el POS, no de una estimación</p>
+      </div>
+    </div>
+    <div data-reveal="" data-copy-first="">
+      <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:20ch">Activá tu base: los que ya te conocen son tu mejor canal de venta</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.65;color:#3E3F45;max-width:52ch">Mails y WhatsApps que salen solos en el momento justo: el cumpleaños, la primera visita, el fiel que hace dos meses no aparece. Woki los detecta y les escribe por vos. Y de paso te muestra cuánto facturó cada envío, con la comanda del POS vinculada a la reserva.</p>
+      <a href="#demo" style="margin-top:26px;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #132F60;border-radius:14px;padding:13px 20px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;color:#132F60">Activá tu base
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · CASOS -->
+<section id="clientes" data-screen-label="07 Casos" style="position:relative;overflow:hidden;background:#132F60;padding:96px 0">
+  <div style="position:absolute;top:-180px;left:-120px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(0,102,204,0.55) 0%,rgba(0,102,204,0) 68%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px)">
+    <div style="min-height:260px;display:flex;flex-direction:column;justify-content:center">
+      <span style="display:inline-flex;align-self:flex-start;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.24);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#fff">Clientes</span>
+      <p data-quote="" style="margin-top:24px;font-family:'Mona Sans',sans-serif;font-weight:500;font-size:32px;line-height:1.26;letter-spacing:-0.018em;color:#fff;max-width:34ch" data-out="casoTexto">Un solo envío de mail les generó 22 millones de facturación en la venta de un evento. Lo que antes dependía de unos pocos empleados de toda la vida, hoy está en el sistema.</p>
+      <p style="margin-top:22px;font-size:16px;font-weight:600;color:#A9C5EF" data-out="casoNombre">Happening y Gardiner</p>
+    </div>
+    <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap">
+      <p>Trescha · Estrella Michelin: sostiene con el Brief Pre-Turno el nivel que sus clientes esperan, y cobra garantías por no-show sin problema.</p>
+      <p>Happening y Gardiner: un solo envío de mail les generó 22 millones de facturación en la venta de un evento. Lo que antes dependía de unos pocos empleados de toda la vida, hoy está en el sistema.</p>
+      <p>Anchoíta: toma reservas una sola vez al año y ese día se satura. Eligió Woki por confiabilidad y por no perder su identidad de marca en ningún paso.</p>
+      <p>Tony Wu · Cantina China: mira el panel todas las semanas —qué turnos se repiten, en qué horarios hay más no-shows, de dónde vienen las reservas— y ajusta la operación con eso.</p>
+    </div>
+    <div style="margin-top:36px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.2);display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <button type="button" data-caso="0" style="background:none;border:1px solid rgba(255,255,255,0.32);border-radius:999px;padding:13px 18px;font:600 14px 'Mona Sans',sans-serif;cursor:pointer;color:rgba(255,255,255,0.72)">Trescha</button>
+      <button type="button" data-caso="1" style="background:#fff;border:1px solid #fff;border-radius:999px;padding:13px 18px;font:600 14px 'Mona Sans',sans-serif;cursor:pointer;color:#132F60">Happening y Gardiner</button>
+      <button type="button" data-caso="2" style="background:none;border:1px solid rgba(255,255,255,0.32);border-radius:999px;padding:13px 18px;font:600 14px 'Mona Sans',sans-serif;cursor:pointer;color:rgba(255,255,255,0.72)">Anchoíta</button>
+      <button type="button" data-caso="3" style="background:none;border:1px solid rgba(255,255,255,0.32);border-radius:999px;padding:13px 18px;font:600 14px 'Mona Sans',sans-serif;cursor:pointer;color:rgba(255,255,255,0.72)">Tony Wu</button>
+      <a href="#demo" style="margin-left:auto;padding:12px 0;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;color:#fff">Mirá todos los casos</a>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · LA CUENTA -->
+<section id="calculadora" data-screen-label="08 La cuenta" style="background:#EEF4FC;padding:100px 0">
+  <div data-stack="" style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);display:grid;grid-template-columns:0.88fr 1.12fr;gap:60px;align-items:center">
+    <div data-reveal="">
+      <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:20ch">Cuánto puede facturar tu base este año</h2>
+      <p style="margin-top:20px;font-size:17px;line-height:1.65;color:#3E3F45;max-width:52ch">Solo 1 de cada 10 clientes que visita un restaurante por primera vez vuelve una segunda vez, según los datos de reservas de Woki. Poné tus números y mirá lo que factura una visita más de esa décima parte.</p>
+      <a href="#demo" style="margin-top:26px;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;border-radius:14px;padding:14px 22px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;box-shadow:0 10px 24px rgba(19,47,96,0.22)">Quiero recuperar esos clientes
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
+    </div>
+    <div data-reveal="" style="background:#fff;border:1px solid #D6E4F7;border-radius:24px;box-shadow:0 24px 56px rgba(19,47,96,0.14)">
+      <div data-stack="" data-panel-pad="" style="padding:24px 28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;border-bottom:1px solid #E8E3DD">
+        <div>
+          <label for="calc2-nuevos" style="display:block;font-size:14px;font-weight:500;color:#6B6C72">Clientes nuevos por mes</label>
+          <p style="margin-top:6px;font-size:28px;font-weight:700;color:#132F60" data-out="nuevosLabel">600</p>
+          <input id="calc2-nuevos" type="range" min="50" max="3000" step="25" value="600" data-input="nuevos" style="margin-top:10px" />
+        </div>
+        <div>
+          <label for="calc2-ticket" style="display:block;font-size:14px;font-weight:500;color:#6B6C72">Ticket promedio por persona</label>
+          <p style="margin-top:6px;font-size:28px;font-weight:700;color:#132F60" data-out="ticketLabel">$ 45.000</p>
+          <input id="calc2-ticket" type="range" min="5000" max="200000" step="1000" value="45000" data-input="ticket" style="margin-top:10px" />
+        </div>
+      </div>
+      <div data-panel-pad="" style="padding:24px 28px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+          <span style="font-size:15px;color:#6B6C72">Clientes nuevos que conociste este año</span>
+          <span style="font-size:19px;font-weight:600;color:#212227;white-space:nowrap" data-out="anualLabel">7.200</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px;border-bottom:1px solid #E8E3DD">
+          <span style="font-size:15px;color:#6B6C72">Si 1 de cada 10 volviera una vez más</span>
+          <span style="font-size:19px;font-weight:600;color:#212227;white-space:nowrap" data-out="visitasLabel">720 visitas</span>
+        </div>
+        <div style="background:#EEF4FC;border-radius:18px;padding:18px 20px">
+          <p style="font-size:15px;color:#3E3F45">Lo que eso factura al año</p>
+          <p data-big-number="" style="margin-top:8px;font-size:46px;font-weight:700;letter-spacing:-0.03em;line-height:1.02;color:#132F60" data-out="facturacionLabel">$ 32.400.000</p>
+        </div>
+        <p style="font-size:12px;line-height:1.5;color:#9A9AA1">Aritmética simple sobre los números que cargaste. No es una proyección de resultados con Woki.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · MIGRACIÓN -->
+<section id="migracion" data-screen-label="09 Migración" style="background:#fff;padding:100px 0">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px)">
+    <div data-reveal="" data-row="" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:32px">
+      <div>
+        <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-0.024em;color:#132F60;max-width:22ch">Pasarse a Woki es sencillo, nos ocupamos nosotros</h2>
+        <p data-lede="" style="margin-top:16px;font-size:18px;color:#3E3F45">Migración, configuración y capacitación incluidas.</p>
+      </div>
+      <a href="#demo" style="background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:16px;padding:16px 24px;border-radius:14px;white-space:nowrap;box-shadow:0 10px 24px rgba(19,47,96,0.22)">Empezá esta semana</a>
+    </div>
+    <div data-trio="" data-reveal="" style="margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <div style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:20px;padding:26px">
+        <p style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #D6E4F7;color:#0066CC;font-size:15px;font-weight:700">01</p>
+        <h3 style="margin-top:16px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:21px;color:#132F60">Traemos tu historial</h3>
+        <p style="margin-top:8px;font-size:15px;line-height:1.6;color:#3E3F45">Si venís de Meitre, tus reservas y tus clientes históricos entran automático, con sus estadísticas.</p>
+      </div>
+      <div style="background:#EEF4FC;border:1px solid #D6E4F7;border-radius:20px;padding:26px">
+        <p style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #D6E4F7;color:#0066CC;font-size:15px;font-weight:700">02</p>
+        <h3 style="margin-top:16px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:21px;color:#132F60">Cargamos tu salón</h3>
+        <p style="margin-top:8px;font-size:15px;line-height:1.6;color:#3E3F45">Sectores, mesas, turnos, políticas y tus reglas. Configurado por nosotros, como trabaja tu restaurante.</p>
+      </div>
+      <div style="background:#FAF7F4;border:1px solid #E8E3DD;border-radius:20px;padding:26px">
+        <p style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #D6E4F7;color:#0066CC;font-size:15px;font-weight:700">03</p>
+        <h3 style="margin-top:16px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:21px;color:#132F60">Capacitamos a tu equipo</h3>
+        <p style="margin-top:8px;font-size:15px;line-height:1.6;color:#3E3F45">Onboarding por rol: operación, marketing y dueño. Cada uno aprende lo que va a usar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · CIERRE -->
+<section id="demo" data-screen-label="10 Cierre" style="position:relative;overflow:hidden;background:linear-gradient(60deg,#202B3F 0%,#0A4FA0 100%);padding:104px 0">
+  <div style="position:absolute;inset:0;opacity:0.35;background-image:repeating-linear-gradient(60deg,rgba(255,255,255,0.12) 0 1px,transparent 1px 24px);pointer-events:none"></div>
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px);text-align:center">
+    <h2 style="font-family:'Mona Sans',sans-serif;font-weight:700;font-size:50px;line-height:1.04;letter-spacing:-0.028em;color:#fff">Hablemos de tu restaurante</h2>
+    <form data-nosubmit="" style="max-width:520px;margin:36px auto 0;text-align:left;background:#fff;border-radius:24px;padding:clamp(20px,4vw,32px);display:flex;flex-direction:column;gap:16px;box-shadow:0 30px 70px rgba(6,17,40,0.34)">
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <label for="f2-nombre" style="font-size:14px;font-weight:600;color:#3E3F45">Nombre y apellido</label>
+        <input id="f2-nombre" type="text" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:14px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+      </div>
+      <div data-stack="" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <label for="f2-email" style="font-size:14px;font-weight:600;color:#3E3F45">Email</label>
+          <input id="f2-email" type="email" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:14px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <label for="f2-wa" style="font-size:14px;font-weight:600;color:#3E3F45">WhatsApp</label>
+          <input id="f2-wa" type="tel" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:14px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+        </div>
+      </div>
+      <div data-stack="" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <label for="f2-resto" style="font-size:14px;font-weight:600;color:#3E3F45">Restaurante</label>
+          <input id="f2-resto" type="text" required="required" style="border:1px solid #E8E3DD;border-radius:12px;padding:14px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <label for="f2-locales" style="font-size:14px;font-weight:600;color:#3E3F45">Cantidad de locales</label>
+          <select id="f2-locales" style="border:1px solid #E8E3DD;border-radius:12px;padding:14px;font:400 16px 'Figtree',sans-serif;color:#212227;background:#FBFCFE;min-width:0">
+            <option>1</option>
+            <option>2 a 5</option>
+            <option>más de 5</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" style="margin-top:4px;background:linear-gradient(60deg,#202B3F 0%,#0066CC 100%);color:#fff;border:0;border-radius:16px;padding:17px 24px;font:600 17px 'Mona Sans',sans-serif;cursor:pointer">Pedí una demo de 30 minutos</button>
+      <p style="font-size:14px;line-height:1.55;color:#6B6C72">Te escribimos el mismo día hábil. Si preferís, <a href="https://wa.link/cow5fz">escribinos por WhatsApp</a>.</p>
+    </form>
+  </div>
+</section>
+
+<footer style="background:#0E1830;padding:72px 0 40px">
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,32px)">
+    <div style="max-width:34ch">
+      <img src="./assets/woki-b2b-white.svg" alt="Woki" style="height:26px;width:auto" />
+      <p data-quote="" style="margin-top:24px;font-family:'Mona Sans',sans-serif;font-weight:600;font-size:27px;line-height:1.22;letter-spacing:-0.018em;color:#fff">Woki convierte hospitalidad en sistema. La buena comida te trae. La hospitalidad te hace volver.</p>
+    </div>
+    <div data-trio="" style="margin-top:56px;display:grid;grid-template-columns:repeat(5,1fr);gap:32px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:13px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Reservas y canales</p>
+        <a href="#canales" style="font-size:15px;color:rgba(255,255,255,0.78)">Reservas y lista de espera</a>
+        <a href="#canales" style="font-size:15px;color:rgba(255,255,255,0.78)">Instagram y Google</a>
+        <a href="#canales" style="font-size:15px;color:rgba(255,255,255,0.78)">Guía Michelin</a>
+        <a href="#canales" style="font-size:15px;color:rgba(255,255,255,0.78)">Bigbox y Concierge</a>
+        <a href="#canales" style="font-size:15px;color:rgba(255,255,255,0.78)">Experiencias y gift cards</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:13px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Operación</p>
+        <a href="#operacion" style="font-size:15px;color:rgba(255,255,255,0.78)">Brief Pre-Turno</a>
+        <a href="#operacion" style="font-size:15px;color:rgba(255,255,255,0.78)">Salón y mesas</a>
+        <a href="#operacion" style="font-size:15px;color:rgba(255,255,255,0.78)">Garantías y no-shows</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Reportes</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Reseñas con IA</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:13px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Clientes y marketing</p>
+        <a href="#comensal" style="font-size:15px;color:rgba(255,255,255,0.78)">Base de clientes</a>
+        <a href="#marketing" style="font-size:15px;color:rgba(255,255,255,0.78)">Campañas</a>
+        <a href="#marketing" style="font-size:15px;color:rgba(255,255,255,0.78)">Automatizaciones</a>
+        <a href="#marketing" style="font-size:15px;color:rgba(255,255,255,0.78)">Facturación atribuida</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Integraciones y POS</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:13px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Casos de uso</p>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Fine dining</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Grupos y multi-local</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Hoteles</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Bodegas</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Bares y nightlife</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:13px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Woki</p>
+        <a href="#clientes" style="font-size:15px;color:rgba(255,255,255,0.78)">Trescha</a>
+        <a href="#clientes" style="font-size:15px;color:rgba(255,255,255,0.78)">Happening y Gardiner</a>
+        <a href="#clientes" style="font-size:15px;color:rgba(255,255,255,0.78)">Anchoíta</a>
+        <a href="#clientes" style="font-size:15px;color:rgba(255,255,255,0.78)">Tony Wu</a>
+        <a href="#demo" style="font-size:15px;color:rgba(255,255,255,0.78)">Precios</a>
+        <a href="https://wokiapp.com" style="font-size:15px;color:rgba(255,255,255,0.78)">Woki para comensales</a>
+        <a href="/llms.txt" style="font-size:15px;color:rgba(255,255,255,0.78)">llms.txt</a>
+      </div>
+    </div>
+    <div style="margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px">
+      <p style="font-size:13px;color:rgba(255,255,255,0.5)">© 2026 Woki · Argentina y Chile</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5)">Términos · Privacidad</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.link/cow5fz" style="position:fixed;right:18px;bottom:18px;z-index:60;width:56px;height:56px;border-radius:999px;background:#132F60;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(19,47,96,0.32)" aria-label="Escribinos por WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.07-.3-.15-1.11-.41-2.12-1.31-.78-.7-1.31-1.56-1.46-1.86-.15-.3-.02-.47.13-.62.15-.15.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.63-.93-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.2 5.07 4.37 2.98 1.17 2.98.78 3.52.73.54-.05 1.75-.71 2-1.4.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35ZM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.18 4.22-9.4 9.42-9.4a9.36 9.36 0 0 1 9.4 9.41c0 5.19-4.22 9.41-9.41 9.41Zm8-17.42A11.28 11.28 0 0 0 12.03.75C5.8.75.75 5.8.75 12.02c0 1.99.52 3.93 1.5 5.64L.66 23.25l5.72-1.5a11.25 11.25 0 0 0 5.65 1.44h.01c6.22 0 11.28-5.06 11.28-11.28 0-3.01-1.17-5.85-3.3-7.97Z"></path></svg>
+</a>
+
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
