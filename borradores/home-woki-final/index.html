@@ -62,6 +62,9 @@ html[data-pendientes="off"] .falta__tag { display:none; }
   .cta-fila .btn { text-align:center; width:100%; }
   .hero-grilla { grid-template-columns:minmax(0,1fr) !important; }
   .pilar-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  /* En mobile el texto va SIEMPRE antes que la foto: anula el zig-zag de los pilares 2 y 4 */
+  .pilar-grilla > div { order:1 !important; }
+  .pilar-grilla > img { order:2 !important; }
   .marquesina__celda { width:124px; height:56px; padding:0 10px; }
   .marquesina__celda img { max-height:26px; }
   .casos-grilla { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 8px; -webkit-overflow-scrolling:touch; }
