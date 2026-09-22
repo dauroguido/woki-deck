@@ -40,6 +40,67 @@ a { color:inherit; text-decoration:none; }
 .form-card .hs-form-html { max-width:720px; margin-inline:auto; min-height:300px; }
 .form-card .hs-form-frame iframe { visibility:visible !important; min-height:inherit; display:block; }
 
+/* ---- Caja de imagen (hero + 4 pilares) ----
+   Hay dos juegos de imágenes: las horizontales para pantalla grande y las
+   verticales (1200x1400) para celular. El navegador elige solo cuál baja:
+   nunca descarga las dos. Ver los <picture> más abajo.
+   La tarjeta blanca (esquinas redondeadas + sombra) es la imagen misma, no el
+   contenedor. Así nunca quedan franjas blancas alrededor de la foto. */
+.caja-img { position:relative; width:100%; min-width:0; }
+.caja-img picture { display:block; width:100%; }
+.caja-img img { display:block; width:100%; height:auto; margin:0 auto;
+  border-radius:24px; background:#FFFFFF; box-shadow:0 30px 70px rgba(14,15,18,0.18); }
+/* En pantalla grande la imagen crece hasta donde la deje el ancho de su columna
+   O el alto de la pantalla, lo que se agote primero. Ancho y alto van los dos en
+   "auto" a propósito: es la única combinación con la que el navegador respeta
+   siempre la proporción original de la foto. Si se fija el alto a mano, Chrome
+   recorta el ancho pero NO devuelve el alto, y la imagen sale estirada. */
+@media (min-width:901px) {
+  .caja-img img { width:auto; height:auto; max-width:100%;
+    max-height:min(calc(100vh - 184px), 760px); }
+  /* El hero tiene más texto que los pilares (título, bajada y dos botones),
+     así que su imagen necesita ceder un poco de alto para entrar en la pantalla. */
+  #inicio .caja-img img { max-height:min(calc(100vh - 220px), 760px); }
+
+  /* ---- Una sección = una pantalla, también en computadora e iPad ----
+     min-height (y no height) para que si el texto creciera nunca se corte.
+     El contenido queda centrado verticalmente. */
+  #inicio, #pilar-1, #pilar-2, #pilar-3, #pilar-4 { display:flex; align-items:center; }
+  #inicio { min-height:calc(100vh - 69px); }
+  #pilar-1, #pilar-2, #pilar-3, #pilar-4 { min-height:100vh; }
+  .hero-grilla, .pilar-grilla { width:100%; }
+}
+
+/* ---- Testimonios ----
+   La tarjeta es display:block (no flex) porque va dentro de un layout de
+   columnas y break-inside:avoid sólo funciona bien con bloques. */
+.caso { display:block; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:20px;
+  padding:34px 32px 30px; margin:0 0 22px; box-shadow:0 12px 32px rgba(14,15,18,0.05); }
+/* Fila de arriba: comilla a la izquierda, logo del restaurante a la derecha.
+   Se reconoce la marca antes de leer la cita. */
+.caso__top { display:flex; align-items:center; justify-content:space-between;
+  gap:16px; min-height:38px; margin-bottom:12px; }
+/* La comilla es el ancla visual de la tarjeta: sin ella son cuatro bloques de
+   texto gris iguales. Va en azul clarito para que dé textura y no compita. */
+.caso__comilla { display:block; font-family:'Mona Sans',sans-serif; font-weight:700;
+  font-size:74px; line-height:0.52; color:#C3DAF6; }
+/* Ancho y alto en auto: es la única combinación con la que el navegador respeta
+   siempre la proporción original. Los logos tienen formatos muy distintos, así
+   que se normalizan por ALTO y se les pone un techo de ancho para los apaisados. */
+.caso__logo { display:block; width:auto; height:auto; max-height:34px; max-width:130px;
+  object-fit:contain; flex:none; }
+.caso__cita { font-size:18px; line-height:1.62; color:#212227; text-wrap:pretty; }
+.caso__pie { margin-top:24px; padding-top:20px; border-top:1px solid #E8E3DD;
+  display:flex; flex-direction:column; gap:3px; }
+.caso__marca { font-family:'Mona Sans',sans-serif; font-size:19px; font-weight:600;
+  letter-spacing:-0.01em; color:#212227; }
+.caso__persona { font-size:14px; color:#6B6C72; }
+/* Hueco marcado: dato que falta confirmar. Ocre a propósito, para que se vea
+   de lejos y nadie lo publique sin querer. */
+.hueco { display:inline-block; font-size:12px; line-height:1.3; font-weight:600;
+  color:#8A6212; background:#FDF3DC; border:1px dashed #D9A93B; border-radius:8px;
+  padding:6px 10px; }
+
 /* ---- Carrusel continuo de logos ---- */
 .marquesina { position:relative; width:100%; overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
@@ -65,11 +126,44 @@ a { color:inherit; text-decoration:none; }
   .pilar-grilla { grid-template-columns:minmax(0,1fr) !important; }
   /* En mobile el texto va SIEMPRE antes que la foto: anula el zig-zag de los pilares 2 y 4 */
   .pilar-grilla > div { order:1 !important; }
-  .pilar-grilla > img { order:2 !important; }
+  .pilar-grilla > .caja-img { order:2 !important; }
+
+  /* ---- Una sección = una pantalla ----
+     --hdr = alto de la barra fija de arriba; el contenido nunca queda debajo de ella.
+     La caja de imagen NO tiene medida propia: se estira y se come todo el espacio
+     que sobra en la pantalla. Así no queda aire muerto en ninguna sección. */
+  :root { --hdr:69px; }
+  #inicio, #pilar-1, #pilar-2, #pilar-3, #pilar-4 { display:flex; align-items:stretch; }
+  #inicio { min-height:calc(100vh - var(--hdr)); min-height:calc(100svh - var(--hdr)); }
+  #pilar-1, #pilar-2, #pilar-3, #pilar-4 { min-height:100vh; min-height:100svh; }
+  .hero-grilla, .pilar-grilla { width:100%; display:flex !important; flex-direction:column;
+    align-items:stretch !important; }
+  .hero-grilla { padding:8px 20px 16px !important; gap:16px !important; }
+  .pilar-grilla { padding:calc(var(--hdr) + 8px) 20px 16px !important; gap:16px !important; }
+  .hero-grilla > div, .pilar-grilla > div { flex:0 0 auto; }
+  .hero-grilla > div:last-child { flex:1 1 auto; min-height:0; display:flex; gap:0 !important; }
+  .hero-grilla > div:first-child { gap:16px !important; }
+  .pilar-grilla > .caja-img, .hero-grilla .caja-img { flex:1 1 auto; min-height:180px; width:100%; }
+  /* La caja es un hueco invisible: mide lo que sobra en la pantalla. La tarjeta
+     blanca con sombra y esquinas redondeadas ya no es la caja, es la imagen misma,
+     así que se ajusta exacta y nunca quedan franjas blancas alrededor.
+     La foto va fuera del flujo para que su alto natural no estire la sección. */
+  .caja-img { background:none; box-shadow:none; border-radius:0; overflow:visible; }
+  .caja-img picture { position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center; }
+  .caja-img img { width:auto; height:auto; max-width:100%; max-height:100%;
+    border-radius:22px; box-shadow:0 22px 50px rgba(14,15,18,0.18); }
   .marquesina__celda { width:146px; height:68px; padding:0 12px; }
   .marquesina__celda img { max-height:38px; }
-  .casos-grilla { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 8px; -webkit-overflow-scrolling:touch; }
-  .casos-grilla > * { flex:0 0 85%; scroll-snap-align:start; }
+  /* gap y padding-bottom propios: al pasar de grilla a carrusel las tarjetas se
+     quedaban sin separación y la sombra se cortaba contra el borde del scroll. */
+  /* align-items:flex-start = cada tarjeta mide lo que mide su cita. Si se estiran
+     todas al alto de la más larga, las cortas quedan con un hueco muerto adentro,
+     que es justamente lo que se veía mal. */
+  .casos-grilla { display:flex !important; align-items:flex-start; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 24px; -webkit-overflow-scrolling:touch; }
+  .casos-grilla > * { flex:0 0 85%; scroll-snap-align:start; margin-bottom:0 !important; }
+  .caso { padding:28px 24px 26px; }
+  .caso__cita { font-size:17px; }
   .casos-encabezado { align-items:flex-start !important; }
   .footer-grilla { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
 }
@@ -84,7 +178,7 @@ a { color:inherit; text-decoration:none; }
 
   <!-- ============ HEADER ============ -->
   <header style="position:sticky; top:0; z-index:40; background:rgba(255,255,255,0.82); backdrop-filter:blur(14px); border-bottom:1px solid #E8E3DD;">
-    <div style="max-width:1200px; margin:0 auto; padding:14px clamp(20px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+    <div style="max-width:1340px; margin:0 auto; padding:14px clamp(20px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
       <a href="#inicio" aria-label="Woki — inicio" style="display:block; flex:none;"><img src="/borradores/home-woki-final/img/woki-b2b.svg" alt="Woki" style="height:26px; width:auto; display:block;"></a>
 
       <nav class="nav-desktop" style="display:flex; align-items:center; gap:28px;" aria-label="Principal">
@@ -112,11 +206,9 @@ a { color:inherit; text-decoration:none; }
 
   <!-- ============ HERO ============ -->
   <section id="inicio" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
-    <div class="hero-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(48px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:clamp(32px,4vw,52px); align-items:center;">
+    <div class="hero-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(36px,4.5vw,60px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(360px,1fr) minmax(0,1.45fr); gap:clamp(28px,3vw,44px); align-items:center;">
 
       <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
-        <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#6B6C72;">Sistema de hospitalidad</span>
-
         <h1 style="font-family:'Mona Sans',sans-serif; font-size:clamp(40px,5.2vw,64px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; color:#212227; text-wrap:balance;">La reserva es solo el comienzo</h1>
 
         <h2 style="font-family:'Figtree',sans-serif; font-size:clamp(17px,1.5vw,20px); line-height:1.5; font-weight:400; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Woki conecta reservas, base de clientes, herramientas de marketing y operación para que puedas brindar una mejor atención, hacer que más clientes vuelvan y entender qué pasa en tu restaurante</h2>
@@ -125,11 +217,13 @@ a { color:inherit; text-decoration:none; }
           <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 26px; border-radius:14px; white-space:nowrap;">Agendá una demo de 30 minutos</a>
           <a href="#pilar-1" class="link-sec" style="font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#132F60; display:inline-flex; align-items:center; gap:7px; padding:14px 0; white-space:nowrap;">Recorré el producto <span aria-hidden="true">&rarr;</span></a>
         </div>
-        <p style="font-size:14px; color:#6B6C72;">Sobre tu operación y con tus datos. Sin compromiso.</p>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
-        <img src="/borradores/home-woki-final/img/hero-home.webp" alt="Campaña automática de Woki para recuperar clientes dormidos, sobre el salón de un restaurante" style="display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 24px 60px rgba(14,15,18,0.16);">
+        <div class="caja-img"><picture>
+          <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/hero-home-mobile.webp" width="1200" height="1400">
+          <img src="/borradores/home-woki-final/img/hero-home.webp" alt="Campaña automática de Woki para recuperar clientes dormidos, sobre el salón de un restaurante">
+        </picture></div>
       </div>
 
     </div>
@@ -138,7 +232,7 @@ a { color:inherit; text-decoration:none; }
   <!-- ============ BANNER DE LOGOS ============ -->
   <section style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
     <div style="padding:clamp(32px,4vw,48px) 0; display:flex; flex-direction:column; gap:22px; align-items:center;">
-      <p style="max-width:1200px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">El sistema de hospitalidad de los mejores restaurantes</p>
+      <p style="max-width:1340px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">El sistema de hospitalidad de los mejores restaurantes</p>
 
       <div class="marquesina" aria-label="Algunos restaurantes que usan Woki">
         <div class="marquesina__pista">
@@ -181,106 +275,139 @@ a { color:inherit; text-decoration:none; }
 
   <!-- ============ PILAR 1 · OPERACIÓN ============ -->
   <section id="pilar-1" style="background:#FAF7F4;">
-    <div class="pilar-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(32px,5vw,64px); align-items:center;">
+    <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(340px,1fr) minmax(0,1.6fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Operación</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Maximizá la ocupación y simplificá cada servicio</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Aprovechá al máximo la capacidad de tu salón con IA y gestioná tus reservas con una interfaz eficiente para controlar, hacer cambios y recibir comensales durante el servicio.</p>
         <a href="operacion.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Reservas y operación <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <img src="/borradores/home-woki-final/img/vp1-guest-center.webp" alt="Guest Center de Woki en tablet y celular, sobre el salón de un restaurante" style="display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
+      <div class="caja-img"><picture>
+        <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp1-guest-center-mobile.webp" width="1200" height="1400">
+        <img src="/borradores/home-woki-final/img/vp1-guest-center.webp" alt="Guest Center de Woki en tablet y celular, sobre el salón de un restaurante">
+      </picture></div>
     </div>
   </section>
 
   <!-- ============ PILAR 2 · RECURRENCIA ============ -->
   <section id="pilar-2" style="background:#FFFFFF; border-top:1px solid #E8E3DD; border-bottom:1px solid #E8E3DD;">
-    <div class="pilar-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(32px,5vw,64px); align-items:center;">
+    <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Marketing</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Hacé que tus clientes vuelvan más y tus canales conviertan mejor</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Automatizá campañas personalizadas para hablarle al cliente indicado en el momento justo, comunicá en segundos tus eventos, experiencias y promociones, y descubrí las mejores audiencias con la ayuda de la IA.</p>
         <a href="marketing.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Marketing y campañas <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <img src="/borradores/home-woki-final/img/vp2-automatizacion.webp" alt="Automatización de Woki que recupera clientes: el mail en el celular y los resultados" style="order:1; display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
+      <div class="caja-img" style="order:1;"><picture>
+        <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp2-automatizacion-mobile.webp" width="1200" height="1400">
+        <img src="/borradores/home-woki-final/img/vp2-automatizacion.webp" alt="Automatización de Woki que recupera clientes: el mail en el celular y los resultados">
+      </picture></div>
     </div>
   </section>
 
   <!-- ============ PILAR 3 · ATENCIÓN ============ -->
   <section id="pilar-3" style="background:#FAF7F4;">
-    <div class="pilar-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(32px,5vw,64px); align-items:center;">
+    <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(340px,1fr) minmax(0,1.6fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Hospitalidad</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Brindá una atención personalizada y fidelizá a tus clientes</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Reconocé a tus clientes antes de que lleguen, con su información más importante en las etiquetas generadas con IA, y brindá una atención personalizada y de calidad para fidelizarlos, sin importar quién esté trabajando.</p>
         <a href="hospitalidad.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Base de clientes <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <img src="/borradores/home-woki-final/img/vp3-tarjeta-cliente.webp" alt="Ficha de cliente de Woki con etiquetas, visitas y cubierto medio" style="display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
+      <div class="caja-img"><picture>
+        <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp3-tarjeta-cliente-mobile.webp" width="1200" height="1400">
+        <img src="/borradores/home-woki-final/img/vp3-tarjeta-cliente.webp" alt="Ficha de cliente de Woki con etiquetas, visitas y cubierto medio">
+      </picture></div>
     </div>
   </section>
 
   <!-- ============ PILAR 4 · DATOS ============ -->
   <section id="pilar-4" style="background:#FFFFFF; border-top:1px solid #E8E3DD;">
-    <div class="pilar-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(32px,5vw,64px); align-items:center;">
+    <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Datos</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Entendé qué pasa en tu restaurante y tomá mejores decisiones</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Usá el chatbot de Woki Copilot para analizar tu rendimiento operativo, de marketing, tus reseñas online y la fidelización de tus clientes, detectar oportunidades de mejora y tomar decisiones basadas en datos.</p>
         <a href="datos.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Métricas y reseñas <span aria-hidden="true">&rarr;</span></a>
       </div>
-      <img src="/borradores/home-woki-final/img/vp4-diagnostico.webp" alt="Diagnóstico mensual de Woki respondiendo sobre el rendimiento del mes contra restaurantes similares" style="order:1; display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
+      <div class="caja-img" style="order:1;"><picture>
+        <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp4-diagnostico-mobile.webp" width="1200" height="1400">
+        <img src="/borradores/home-woki-final/img/vp4-diagnostico.webp" alt="Diagnóstico mensual de Woki respondiendo sobre el rendimiento del mes contra restaurantes similares">
+      </picture></div>
     </div>
   </section>
 
   <!-- ============ CASOS DE ÉXITO (placeholder) ============ -->
-  <section style="background:#FFFFFF; border-top:1px solid #E8E3DD;">
-    <div style="max-width:1200px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:36px;">
+  <!-- Fondo crema a propósito: las tarjetas son blancas y necesitan despegarse.
+       Antes era al revés (sección blanca, tarjetas crema) y no se distinguían. -->
+  <section style="background:#FAF7F4; border-top:1px solid #E8E3DD; border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(56px,7vw,96px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:36px;">
       <div class="casos-encabezado" style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px;">
         <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
           <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:20ch;">Restaurantes que ya trabajan así</h2>
         </div>
       </div>
 
-      <div class="casos-grilla" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px;">
-
-        <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
-          <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Woki nos permite crear un brief detallado para preparar el servicio y dar siempre la mejor atención posible. Además tenemos un perfil personalizado para comunicar de forma clara nuestros eventos y las distintas experiencias.»</p>
-          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
-            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Trescha</span>
-            <span style="font-size:14px; color:#6B6C72;">Tomás Treschanski · Chef y dueño</span>
+      <!-- Dos columnas tipo muro, NO una grilla 2x2. Las citas tienen largos muy
+           distintos: con grilla las tarjetas se igualaban a la más alta y dejaban
+           un hueco muerto adentro. Así cada tarjeta mide exactamente lo que su
+           texto necesita. En celular esto lo pisa el carrusel del @media. -->
+      <div class="casos-grilla" style="columns:2; column-gap:22px;">
+        <article class="caso" style="break-inside:avoid;">
+          <div class="caso__top">
+            <span class="caso__comilla" aria-hidden="true">&#8220;</span>
+            <img class="caso__logo" src="/borradores/home-woki-final/img/logos/trescha.webp" alt="" aria-hidden="true">
+          </div>
+          <p class="caso__cita">Woki nos permite crear un brief detallado para preparar el servicio y dar siempre la mejor atención posible. Además tenemos un perfil personalizado para comunicar de forma clara nuestros eventos y las distintas experiencias.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Trescha</span>
+            <span class="caso__persona">Tomás Treschanski · Chef y dueño</span>
           </div>
         </article>
 
-        <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
-          <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Cuando contratamos Woki fue para gestionar las reservas. Hoy en día lo usamos para campañas de marketing, generar informes y mantener una identidad de marca consistente en todos los locales.»</p>
-          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
-            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Grupo Fabric</span>
-            <span style="font-size:14px; color:#6B6C72;">Gaspard Hambuckers · CEO</span>
+        <article class="caso" style="break-inside:avoid;">
+          <div class="caso__top">
+            <span class="caso__comilla" aria-hidden="true">&#8220;</span>
+            <img class="caso__logo" src="/borradores/home-woki-final/img/logos/fabric-sushi.webp" alt="" aria-hidden="true">
+          </div>
+          <p class="caso__cita">Cuando contratamos Woki fue para gestionar las reservas. Hoy en día lo usamos para campañas de marketing, generar informes y mantener una identidad de marca consistente en todos los locales.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Grupo Fabric</span>
+            <span class="caso__persona">Gaspard Hambuckers · CEO</span>
           </div>
         </article>
 
-        <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
-          <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«La mayoría de nuestros clientes son recurrentes. Woki nos permite recibir y atender de forma personalizada a cada reserva, conocer la fidelización y salud de nuestra base de comensales y hacer un seguimiento de nuestra reputación con las reseñas online.»</p>
-          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
-            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Gardiner</span>
-            <span style="font-size:14px; color:#6B6C72;">Lucas Brucco · Dueño</span>
+        <article class="caso" style="break-inside:avoid;">
+          <div class="caso__top">
+            <span class="caso__comilla" aria-hidden="true">&#8220;</span>
+            <img class="caso__logo" src="/borradores/home-woki-final/img/logos/gardiner.webp" alt="" aria-hidden="true">
+          </div>
+          <p class="caso__cita">La mayoría de nuestros clientes son recurrentes. Woki nos permite recibir y atender de forma personalizada a cada reserva, conocer la fidelización y salud de nuestra base de comensales y hacer un seguimiento de nuestra reputación con las reseñas online.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Gardiner</span>
+            <span class="caso__persona">Lucas Brucco · Dueño</span>
           </div>
         </article>
 
-        <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
-          <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Woki nos permitió unificar en una sola plataforma lo que antes hacíamos en dos. Además mejoró la forma en que comunicamos nuestra propuesta y las distintas experiencias que ofrece la bodega.»</p>
-          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
-            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Bodega Lagarde</span>
-            <span style="font-size:14px; color:#6B6C72;">Elena · Gerente</span>
+        <article class="caso" style="break-inside:avoid;">
+          <div class="caso__top">
+            <span class="caso__comilla" aria-hidden="true">&#8220;</span>
+            <!-- No tenemos el logo de Bodega Lagarde en ninguna carpeta del proyecto. -->
+            <span class="hueco">Falta logo<br>Bodega Lagarde</span>
+          </div>
+          <p class="caso__cita">Woki nos permitió unificar en una sola plataforma lo que antes hacíamos en dos. Además mejoró la forma en que comunicamos nuestra propuesta y las distintas experiencias que ofrece la bodega.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Bodega Lagarde</span>
+            <span class="caso__persona">Elena · Gerente</span>
           </div>
         </article>
-
       </div>
     </div>
   </section>
 
   <!-- ============ CIERRE ============ -->
   <section id="cierre" style="background:#FFFFFF; padding:clamp(40px,5vw,72px) clamp(20px,4vw,40px);">
-    <div style="max-width:1200px; margin:0 auto; background:linear-gradient(60deg, #202B3F 0%, #0066CC 100%); border-radius:32px; padding:clamp(40px,6vw,80px) clamp(24px,5vw,72px); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
+    <div style="max-width:1340px; margin:0 auto; background:linear-gradient(60deg, #202B3F 0%, #0066CC 100%); border-radius:32px; padding:clamp(40px,6vw,80px) clamp(24px,5vw,72px); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
       <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; color:#FFFFFF; max-width:20ch; text-wrap:balance;">Convertí cada reserva en un cliente que vuelve</h2>
       <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.5; color:#FFFFFF; max-width:56ch; text-wrap:pretty;">Descubrí en una demo de 30 minutos cómo podés mejorar la atención, automatizar las campañas de marketing y medir los resultados en tu restaurante.</p>
 
@@ -300,7 +427,7 @@ a { color:inherit; text-decoration:none; }
 
   <!-- ============ FOOTER ============ -->
   <footer style="background:#FFFFFF; border-top:1px solid #E8E3DD;">
-    <div style="max-width:1200px; margin:0 auto; padding:clamp(48px,6vw,72px) clamp(20px,4vw,40px) 28px;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(48px,6vw,72px) clamp(20px,4vw,40px) 28px;">
 
       <div class="footer-grilla" style="display:grid; grid-template-columns:1.4fr repeat(4,minmax(0,1fr)); gap:clamp(24px,4vw,48px);">
 
