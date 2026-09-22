@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-pendientes="on">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,15 +18,6 @@ h1,h2,h3,h4,p,ul { margin:0; }
 ul { padding:0; list-style:none; }
 a { color:inherit; text-decoration:none; }
 
-/* ---- Marcado de pendientes (ocre) ---- */
-.falta { position:relative; border:1.5px dotted #C99A2E; border-radius:10px; background:rgba(201,154,46,0.06); }
-.falta__tag { display:inline-block; font-family:'Figtree',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A6410; background:#F6EBD2; border:1px solid #E3CE9B; padding:3px 7px; border-radius:5px; }
-html[data-pendientes="off"] .falta { border-color:transparent; background:transparent; }
-html[data-pendientes="off"] .falta__tag { display:none; }
-
-.aviso { position:relative; z-index:60; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px; padding:8px 20px; background:#2A2213; color:#F6EBD2; font-size:13px; }
-.aviso button { font:inherit; font-weight:600; color:#2A2213; background:#F6EBD2; border:0; padding:5px 12px; border-radius:8px; cursor:pointer; }
-
 /* ---- Nav ---- */
 .nav-link { font-size:15px; font-weight:500; color:#3E3F45; }
 .nav-link:hover { color:#132F60; }
@@ -39,6 +30,16 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 .btn:hover { filter:brightness(1.08); }
 .link-sec:hover { text-decoration:underline; }
 
+/* ---- Formulario HubSpot ----
+   1) min-height sostiene el alto mientras carga y si nunca llega el mensaje de alto de HubSpot.
+   2) HubSpot deja el iframe oculto hasta recibir ese mensaje: forzar visibility es seguro.
+   3) min-height:inherit en el iframe porque HubSpot le pone height:100% y Safari/iPhone
+      trata como indefinido un alto de padre derivado de min-height, y lo colapsa a cero. */
+.form-card { width:100%; max-width:560px; margin:10px auto 0; text-align:left; background:#FFFFFF; border-radius:22px; box-shadow:0 24px 60px rgba(14,15,18,0.22); padding:clamp(20px,3vw,32px); }
+.form-card .hs-form-frame { min-height:380px; }
+.form-card .hs-form-html { max-width:720px; margin-inline:auto; min-height:300px; }
+.form-card .hs-form-frame iframe { visibility:visible !important; min-height:inherit; display:block; }
+
 /* ---- Carrusel continuo de logos ---- */
 .marquesina { position:relative; width:100%; overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 10%,#000 90%,transparent 100%);
@@ -46,8 +47,8 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 .marquesina__pista { display:flex; width:max-content; animation:desliza 52s linear infinite; }
 .marquesina:hover .marquesina__pista { animation-play-state:paused; }
 .marquesina__grupo { display:flex; align-items:center; flex:none; }
-.marquesina__celda { flex:none; display:flex; align-items:center; justify-content:center; width:clamp(128px,12vw,168px); height:64px; padding:0 14px; }
-.marquesina__celda img { max-width:100%; max-height:34px; width:auto; height:auto; object-fit:contain; opacity:.6; filter:grayscale(1); }
+.marquesina__celda { flex:none; display:flex; align-items:center; justify-content:center; width:clamp(150px,13.5vw,192px); height:76px; padding:0 16px; }
+.marquesina__celda img { max-width:100%; max-height:46px; width:auto; height:auto; object-fit:contain; }
 @keyframes desliza { from { transform:translateX(0); } to { transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce) { .marquesina__pista { animation:none; } }
 
@@ -65,8 +66,8 @@ html[data-pendientes="off"] .falta__tag { display:none; }
   /* En mobile el texto va SIEMPRE antes que la foto: anula el zig-zag de los pilares 2 y 4 */
   .pilar-grilla > div { order:1 !important; }
   .pilar-grilla > img { order:2 !important; }
-  .marquesina__celda { width:124px; height:56px; padding:0 10px; }
-  .marquesina__celda img { max-height:26px; }
+  .marquesina__celda { width:146px; height:68px; padding:0 12px; }
+  .marquesina__celda img { max-height:38px; }
   .casos-grilla { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 8px; -webkit-overflow-scrolling:touch; }
   .casos-grilla > * { flex:0 0 85%; scroll-snap-align:start; }
   .casos-encabezado { align-items:flex-start !important; }
@@ -79,11 +80,6 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 </head>
 <body>
 
-<div class="aviso">
-  <span>Borrador. Lo marcado en ocre es contenido que todavía falta definir.</span>
-  <button type="button" id="btn-pendientes" aria-pressed="true">Ocultar pendientes</button>
-</div>
-
 <div style="width:100%; background:#FAF7F4; font-family:'Figtree',sans-serif; color:#212227;">
 
   <!-- ============ HEADER ============ -->
@@ -95,11 +91,10 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <div class="tiene-menu">
           <a href="#" class="nav-link" style="display:flex; align-items:center; gap:5px;">Producto<span style="display:inline-block; width:7px; height:7px; border-right:1.6px solid #9A9AA1; border-bottom:1.6px solid #9A9AA1; transform:translateY(-2px) rotate(45deg);"></span></a>
           <ul class="submenu">
-            <li><a href="#pilar-1">Reservas y operación</a></li>
-            <li><a href="#pilar-3">Base de clientes</a></li>
-            <li><a href="#pilar-2">Marketing y campañas</a></li>
-            <li><a href="#pilar-4">Métricas y reseñas</a></li>
-            <li><a href="#pilar-2">Canales e integraciones</a></li>
+            <li><a href="operacion.html">Operación</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="hospitalidad.html">Hospitalidad</a></li>
+            <li><a href="datos.html">Datos</a></li>
           </ul>
         </div>
         <a href="#" class="nav-link">Pricing</a>
@@ -117,7 +112,7 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 
   <!-- ============ HERO ============ -->
   <section id="inicio" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
-    <div class="hero-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(48px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:clamp(32px,4vw,52px); align-items:center;">
+    <div class="hero-grilla" style="max-width:1200px; margin:0 auto; padding:clamp(48px,7vw,96px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); gap:clamp(32px,4vw,52px); align-items:center;">
 
       <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#6B6C72;">Sistema de hospitalidad</span>
@@ -127,10 +122,10 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <h2 style="font-family:'Figtree',sans-serif; font-size:clamp(17px,1.5vw,20px); line-height:1.5; font-weight:400; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Woki conecta reservas, base de clientes, herramientas de marketing y operación para que puedas brindar una mejor atención, hacer que más clientes vuelvan y entender qué pasa en tu restaurante</h2>
 
         <div class="cta-fila" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:8px;">
-          <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 28px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
-          <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#132F60; background:#FFFFFF; border:1px solid #132F60; padding:14px 26px; border-radius:14px; white-space:nowrap;">Hablar con un asesor</a>
+          <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 26px; border-radius:14px; white-space:nowrap;">Agendá una demo de 30 minutos</a>
+          <a href="#pilar-1" class="link-sec" style="font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#132F60; display:inline-flex; align-items:center; gap:7px; padding:14px 0; white-space:nowrap;">Recorré el producto <span aria-hidden="true">&rarr;</span></a>
         </div>
-        <p style="font-size:14px; color:#6B6C72;">Demo de 30 minutos sobre tu operación. Sin compromiso.</p>
+        <p style="font-size:14px; color:#6B6C72;">Sobre tu operación y con tus datos. Sin compromiso.</p>
       </div>
 
       <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
@@ -143,7 +138,7 @@ html[data-pendientes="off"] .falta__tag { display:none; }
   <!-- ============ BANNER DE LOGOS ============ -->
   <section style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
     <div style="padding:clamp(32px,4vw,48px) 0; display:flex; flex-direction:column; gap:22px; align-items:center;">
-      <p style="max-width:1200px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">+1.500 restaurantes en Argentina y Chile · +50 distinguidos por la Guía Michelin y The World's 50 Best</p>
+      <p style="max-width:1200px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">El sistema de hospitalidad de los mejores restaurantes</p>
 
       <div class="marquesina" aria-label="Algunos restaurantes que usan Woki">
         <div class="marquesina__pista">
@@ -191,6 +186,7 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Operación</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Maximizá la ocupación y simplificá cada servicio</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Aprovechá al máximo la capacidad de tu salón con IA y gestioná tus reservas con una interfaz eficiente para controlar, hacer cambios y recibir comensales durante el servicio.</p>
+        <a href="operacion.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Reservas y operación <span aria-hidden="true">&rarr;</span></a>
       </div>
       <img src="/borradores/home-woki-final/img/vp1-guest-center.webp" alt="Guest Center de Woki en tablet y celular, sobre el salón de un restaurante" style="display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
     </div>
@@ -203,6 +199,7 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Marketing</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Hacé que tus clientes vuelvan más y tus canales conviertan mejor</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Automatizá campañas personalizadas para hablarle al cliente indicado en el momento justo, comunicá en segundos tus eventos, experiencias y promociones, y descubrí las mejores audiencias con la ayuda de la IA.</p>
+        <a href="marketing.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Marketing y campañas <span aria-hidden="true">&rarr;</span></a>
       </div>
       <img src="/borradores/home-woki-final/img/vp2-automatizacion.webp" alt="Automatización de Woki que recupera clientes: el mail en el celular y los resultados" style="order:1; display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
     </div>
@@ -215,6 +212,7 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Hospitalidad</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Brindá una atención personalizada y fidelizá a tus clientes</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Reconocé a tus clientes antes de que lleguen, con su información más importante en las etiquetas generadas con IA, y brindá una atención personalizada y de calidad para fidelizarlos, sin importar quién esté trabajando.</p>
+        <a href="hospitalidad.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Base de clientes <span aria-hidden="true">&rarr;</span></a>
       </div>
       <img src="/borradores/home-woki-final/img/vp3-tarjeta-cliente.webp" alt="Ficha de cliente de Woki con etiquetas, visitas y cubierto medio" style="display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
     </div>
@@ -226,7 +224,8 @@ html[data-pendientes="off"] .falta__tag { display:none; }
       <div style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Datos</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Entendé qué pasa en tu restaurante y tomá mejores decisiones</h2>
-        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Usá el chatbot de <span class="falta" style="padding:1px 5px;">Woki Copilot</span> para analizar tu rendimiento operativo, de marketing, tus reseñas online y la fidelización de tus clientes, detectar oportunidades de mejora y tomar decisiones basadas en datos.</p>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Usá el chatbot de Woki Copilot para analizar tu rendimiento operativo, de marketing, tus reseñas online y la fidelización de tus clientes, detectar oportunidades de mejora y tomar decisiones basadas en datos.</p>
+        <a href="datos.html" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Métricas y reseñas <span aria-hidden="true">&rarr;</span></a>
       </div>
       <img src="/borradores/home-woki-final/img/vp4-diagnostico.webp" alt="Diagnóstico mensual de Woki respondiendo sobre el rendimiento del mes contra restaurantes similares" style="order:1; display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 70px rgba(14,15,18,0.18);">
     </div>
@@ -245,45 +244,33 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 
         <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
           <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Woki nos permite crear un brief detallado para preparar el servicio y dar siempre la mejor atención posible. Además tenemos un perfil personalizado para comunicar de forma clara nuestros eventos y las distintas experiencias.»</p>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span class="falta" style="flex:none; width:52px; height:52px; border-radius:50%; background:#F3EFEA; display:flex; align-items:center; justify-content:center; font-family:'Figtree',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8A6410; text-align:center;">Foto</span>
-            <span style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-              <span style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#212227;">Tomás Treschanski</span>
-              <span style="font-size:13px; color:#6B6C72;">Chef y dueño · Trescha</span>
-            </span>
+          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
+            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Trescha</span>
+            <span style="font-size:14px; color:#6B6C72;">Tomás Treschanski · Chef y dueño</span>
           </div>
         </article>
 
         <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
           <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Cuando contratamos Woki fue para gestionar las reservas. Hoy en día lo usamos para campañas de marketing, generar informes y mantener una identidad de marca consistente en todos los locales.»</p>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span class="falta" style="flex:none; width:52px; height:52px; border-radius:50%; background:#F3EFEA; display:flex; align-items:center; justify-content:center; font-family:'Figtree',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8A6410; text-align:center;">Foto</span>
-            <span style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-              <span style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#212227;">Gaspard Hambuckers</span>
-              <span style="font-size:13px; color:#6B6C72;">CEO · Grupo Fabric</span>
-            </span>
+          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
+            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Grupo Fabric</span>
+            <span style="font-size:14px; color:#6B6C72;">Gaspard Hambuckers · CEO</span>
           </div>
         </article>
 
         <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
           <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«La mayoría de nuestros clientes son recurrentes. Woki nos permite recibir y atender de forma personalizada a cada reserva, conocer la fidelización y salud de nuestra base de comensales y hacer un seguimiento de nuestra reputación con las reseñas online.»</p>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span class="falta" style="flex:none; width:52px; height:52px; border-radius:50%; background:#F3EFEA; display:flex; align-items:center; justify-content:center; font-family:'Figtree',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8A6410; text-align:center;">Foto</span>
-            <span style="display:flex; flex-direction:column; gap:2px; min-width:0;">
-              <span style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#212227;">Lucas Brucco</span>
-              <span style="font-size:13px; color:#6B6C72;">Dueño · Gardiner</span>
-            </span>
+          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
+            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Gardiner</span>
+            <span style="font-size:14px; color:#6B6C72;">Lucas Brucco · Dueño</span>
           </div>
         </article>
 
         <article style="background:#FAF7F4; border:1px solid #E8E3DD; border-radius:18px; padding:30px 28px; display:flex; flex-direction:column; gap:20px;">
           <p style="font-size:17px; line-height:1.55; color:#3E3F45; text-wrap:pretty; flex:1;">«Woki nos permitió unificar en una sola plataforma lo que antes hacíamos en dos. Además mejoró la forma en que comunicamos nuestra propuesta y las distintas experiencias que ofrece la bodega.»</p>
-          <div style="display:flex; align-items:center; gap:14px;">
-            <span class="falta" style="flex:none; width:52px; height:52px; border-radius:50%; background:#F3EFEA; display:flex; align-items:center; justify-content:center; font-family:'Figtree',sans-serif; font-size:9px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:#8A6410; text-align:center;">Foto</span>
-            <span style="display:flex; flex-direction:column; gap:7px; min-width:0;">
-              <span style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#212227;">Elena <span class="falta" style="padding:1px 5px; font-weight:400;">apellido</span></span>
-              <span style="font-size:13px; color:#6B6C72;">Gerente · <span class="falta" style="padding:1px 5px;">Bodega Lagarde</span></span>
-            </span>
+          <div style="display:flex; flex-direction:column; gap:3px; padding-top:18px; border-top:1px solid #E8E3DD;">
+            <span style="font-family:'Mona Sans',sans-serif; font-size:21px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Bodega Lagarde</span>
+            <span style="font-size:14px; color:#6B6C72;">Elena · Gerente</span>
           </div>
         </article>
 
@@ -294,12 +281,19 @@ html[data-pendientes="off"] .falta__tag { display:none; }
   <!-- ============ CIERRE ============ -->
   <section id="cierre" style="background:#FFFFFF; padding:clamp(40px,5vw,72px) clamp(20px,4vw,40px);">
     <div style="max-width:1200px; margin:0 auto; background:linear-gradient(60deg, #202B3F 0%, #0066CC 100%); border-radius:32px; padding:clamp(40px,6vw,80px) clamp(24px,5vw,72px); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
-      <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; color:#FFFFFF; max-width:18ch; text-wrap:balance;">Que tu restaurante atienda como tu mejor anfitrión</h2>
-      <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.5; color:#FFFFFF; max-width:52ch; text-wrap:pretty;">Te mostramos Woki funcionando con tu operación y migramos tu historial de reservas y clientes.</p>
-      <div class="cta-fila" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:10px;">
-        <a href="#" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#132F60; background:#FFFFFF; padding:15px 30px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
-        <a href="#" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; border:1px solid rgba(255,255,255,0.6); padding:14px 28px; border-radius:14px; white-space:nowrap;">Hablar con un asesor</a>
+      <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(30px,4vw,48px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; color:#FFFFFF; max-width:20ch; text-wrap:balance;">Convertí cada reserva en un cliente que vuelve</h2>
+      <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.5; color:#FFFFFF; max-width:56ch; text-wrap:pretty;">Descubrí en una demo de 30 minutos cómo podés mejorar la atención, automatizar las campañas de marketing y medir los resultados en tu restaurante.</p>
+
+      <div class="form-card">
+        <div class="hs-form-frame"
+             data-region="na1"
+             data-form-id="db50a227-13fe-4066-a6de-c2c76f5a93dc"
+             data-portal-id="48425921"></div>
       </div>
+      <noscript>
+        <p style="font-size:15px; color:#FFFFFF;">Para completar el formulario necesitás tener JavaScript activado. También podés escribirnos a <a href="mailto:hola@wokiapp.com" style="text-decoration:underline;">hola@wokiapp.com</a>.</p>
+      </noscript>
+
       <p style="font-size:14px; color:#FFFFFF; opacity:0.85; margin-top:4px;">Te escribimos dentro de las 24 horas hábiles.</p>
     </div>
   </section>
@@ -318,11 +312,10 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
           <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Producto</span>
           <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
-            <li><a href="#pilar-1">Reservas y operación</a></li>
-            <li><a href="#pilar-3">Base de clientes</a></li>
-            <li><a href="#pilar-2">Marketing y campañas</a></li>
-            <li><a href="#pilar-4">Métricas y reseñas</a></li>
-            <li><a href="#pilar-2">Canales e integraciones</a></li>
+            <li><a href="operacion.html">Operación</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="hospitalidad.html">Hospitalidad</a></li>
+            <li><a href="datos.html">Datos</a></li>
             <li><a href="#">Planes y precios</a></li>
           </ul>
         </div>
@@ -350,8 +343,8 @@ html[data-pendientes="off"] .falta__tag { display:none; }
         <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
           <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Seguinos</span>
           <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
-            <li><a href="#" class="falta" style="padding:1px 6px;">Instagram</a></li>
-            <li><a href="#" class="falta" style="padding:1px 6px;">LinkedIn</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
           </ul>
         </div>
 
@@ -371,16 +364,22 @@ html[data-pendientes="off"] .falta__tag { display:none; }
 
 </div>
 
+<script src="https://js.hsforms.net/forms/embed/48425921.js" defer></script>
 <script>
+/* HubSpot avisa el alto real del formulario cambiando el style del contenedor.
+   Lo copiamos a min-height para que el alto no se pierda en mobile. */
 (function () {
-  var html = document.documentElement;
-  var btn = document.getElementById('btn-pendientes');
-  btn.addEventListener('click', function () {
-    var on = html.getAttribute('data-pendientes') === 'on';
-    html.setAttribute('data-pendientes', on ? 'off' : 'on');
-    btn.setAttribute('aria-pressed', String(!on));
-    btn.textContent = on ? 'Mostrar pendientes' : 'Ocultar pendientes';
-  });
+  var cajaForm = document.querySelector('.form-card .hs-form-frame');
+  if (!cajaForm || !window.MutationObserver) return;
+  var ultimoAlto = null;
+  new MutationObserver(function () {
+    var alto = parseFloat(cajaForm.style.height);
+    if (!(alto > 60)) return;
+    var px = Math.ceil(alto) + 'px';
+    if (px === ultimoAlto) return;
+    ultimoAlto = px;
+    cajaForm.style.minHeight = px;
+  }).observe(cajaForm, { attributes: true, attributeFilter: ['style'] });
 })();
 </script>
 
