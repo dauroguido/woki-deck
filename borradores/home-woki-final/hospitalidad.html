@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hospitalidad | Woki</title>
+<meta name="description" content="Usá todo lo que sabés de cada comensal para dar una atención personalizada y de calidad, sin importar quién esté trabajando ese turno.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="fonts/Figtree-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/MonaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family:'Figtree'; src:url('fonts/Figtree-Variable.woff2') format('woff2-variations'); font-weight:300 900; font-display:swap; }
+@font-face { font-family:'Mona Sans'; src:url('fonts/MonaSans-Variable.woff2') format('woff2-variations'); font-weight:200 900; font-stretch:75% 125%; font-display:swap; }
+
+:root { --alto-header:69px; --alto-subnav:47px; }
+*,*::before,*::after { box-sizing:border-box; }
+html,body { margin:0; padding:0; background:#FAF7F4; color:#212227; font-family:'Figtree',-apple-system,sans-serif; -webkit-font-smoothing:antialiased; scroll-behavior:smooth; }
+html { overflow-x:hidden; }
+h1,h2,h3,h4,p,ul { margin:0; }
+ul { padding:0; list-style:none; }
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; }
+
+/* ---- Nav ---- */
+.nav-link { font-size:15px; font-weight:500; color:#3E3F45; }
+.nav-link:hover { color:#132F60; }
+.tiene-menu { position:relative; }
+.submenu { position:absolute; top:100%; left:-16px; min-width:250px; padding:10px; margin-top:10px; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:16px; box-shadow:0 18px 40px rgba(14,15,18,0.12); opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .16s ease, transform .16s ease, visibility .16s; }
+.tiene-menu:hover .submenu, .tiene-menu:focus-within .submenu { opacity:1; visibility:visible; transform:translateY(0); }
+.submenu li a { display:block; padding:9px 12px; border-radius:10px; font-size:15px; color:#3E3F45; }
+.submenu li a:hover { background:#F4F7FC; color:#132F60; }
+.submenu li a[aria-current="page"] { background:#F4F7FC; color:#132F60; font-weight:600; }
+
+.btn:hover { filter:brightness(1.08); }
+.link-sec:hover { text-decoration:underline; }
+
+/* ---- Subnav de la página ---- */
+.subnav { position:sticky; top:var(--alto-header); z-index:20; background:rgba(255,255,255,0.92); backdrop-filter:blur(14px); border-bottom:1px solid #E8E3DD; }
+[data-feature] { scroll-margin-top:calc(var(--alto-header) + var(--alto-subnav) + 8px); }
+.subnav__pista { position:relative; max-width:1340px; margin:0 auto; padding:0 clamp(20px,4vw,40px); display:flex; align-items:center; gap:24px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+.subnav__pista::-webkit-scrollbar { display:none; }
+.subnav__rotulo { flex:none; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1; padding:14px 0; }
+.subnav a { flex:none; scroll-snap-align:center; font-size:15px; font-weight:600; color:#3E3F45; padding:14px 0; border-bottom:2px solid transparent; white-space:nowrap; transition:color .18s ease, border-color .18s ease; }
+
+/* ---- Punteo de características ---- */
+.punteo { display:flex; flex-direction:column; gap:10px; max-width:44ch; margin-top:2px; }
+.punteo li { position:relative; padding-left:19px; font-size:15px; line-height:1.5; color:#3E3F45; }
+.punteo li::before { content:""; position:absolute; left:0; top:7px; width:7px; height:7px; background:#0066CC; border-radius:2px; }
+
+/* ---- Referencia cruzada a otro pilar ---- */
+.cruce { font-size:14px; line-height:1.5; color:#6B6C72; background:rgba(0,102,204,0.05); border-left:2px solid #0066CC; padding:11px 14px; border-radius:0 10px 10px 0; max-width:44ch; }
+.cruce a { color:#0066CC; font-weight:600; }
+.cruce a:hover { text-decoration:underline; }
+
+/* ---- Huecos pendientes (ocre) ---- */
+.falta { color:#8A6410; background:#F6EBD2; border:1px solid #E3CE9B; border-radius:6px; padding:0 5px; }
+.falta__tag { display:inline-block; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#8A6410; background:#F6EBD2; border:1px solid #E3CE9B; border-radius:5px; padding:2px 6px; vertical-align:middle; }
+.hueco { aspect-ratio:16/11; background:#F6EBD2; border:1px dashed #C9A04E; border-radius:24px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; padding:24px; }
+.hueco--hero { aspect-ratio:4/3; border-radius:24px; }
+.hueco__rotulo { font-size:11px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#8A6410; }
+.hueco__spec { font-size:14px; line-height:1.5; color:#8A6410; max-width:30ch; }
+html[data-pendientes="off"] .falta__tag { display:none; }
+html[data-pendientes="off"] .falta { background:none; border-color:transparent; color:inherit; padding:0; }
+#toggle-pendientes { position:fixed; right:14px; bottom:14px; z-index:60; font-family:'Figtree',sans-serif; font-size:12px; font-weight:600; color:#8A6410; background:#F6EBD2; border:1px solid #E3CE9B; border-radius:999px; padding:9px 14px; cursor:pointer; box-shadow:0 6px 18px rgba(14,15,18,0.14); }
+
+/* ---- Tira de logos de canal / integración ---- */
+.tira-logos { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.tira-logos span { display:flex; align-items:center; justify-content:center; height:74px; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:14px; padding:12px; }
+.tira-logos img { max-height:34px; width:auto; object-fit:contain; }
+
+/* ---- Tira de tarjetas que se desliza (experiencias) ---- */
+.tira-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.tira-cards img { display:block; width:100%; height:auto; border-radius:18px; background:#FFFFFF; box-shadow:0 12px 32px rgba(14,15,18,0.10); }
+
+/* ---- Caja de imagen: mismo tratamiento y tamaño que la home ----
+   La tarjeta blanca (esquinas redondeadas + sombra) es la imagen misma, no el
+   contenedor, así nunca quedan franjas blancas alrededor de la foto. Ancho y
+   alto en "auto" en pantalla grande: es la única combinación con la que el
+   navegador respeta siempre la proporción original. */
+.caja-img { position:relative; width:100%; min-width:0; }
+.caja-img picture { display:block; width:100%; }
+.caja-img img { display:block; width:100%; height:auto; margin:0 auto; border:0;
+  border-radius:24px; background:#FFFFFF; box-shadow:0 30px 70px rgba(14,15,18,0.18); }
+@media (min-width:901px) {
+  .caja-img img { width:auto; height:auto; max-width:100%;
+    max-height:min(calc(100vh - 184px), 760px); }
+}
+
+/* ---- Testimonios: mismas medidas que la home ---- */
+.caso { display:flex; flex-direction:column; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:20px; padding:34px 32px 30px; box-shadow:0 12px 32px rgba(14,15,18,0.05); min-width:0; }
+.caso__top { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:38px; margin-bottom:12px; }
+.caso__comilla { display:block; font-family:'Mona Sans',sans-serif; font-weight:700; font-size:74px; line-height:0.52; color:#C3DAF6; }
+.caso__logo { display:block; width:auto; height:auto; max-height:34px; max-width:130px; object-fit:contain; flex:none; }
+.caso__cita { font-size:18px; line-height:1.62; color:#212227; text-wrap:pretty; }
+.caso__pie { margin-top:auto; padding-top:20px; border-top:1px solid #E8E3DD; display:flex; flex-direction:column; gap:3px; }
+.caso__marca { font-family:'Mona Sans',sans-serif; font-size:19px; font-weight:600; letter-spacing:-0.01em; color:#212227; }
+.caso__persona { font-size:14px; color:#6B6C72; }
+
+/* ---- Mobile ---- */
+.hamburguesa { display:flex; flex-direction:column; gap:5px; padding:4px; background:none; border:0; cursor:pointer; }
+.hamburguesa span { display:block; width:22px; height:1.5px; background:#0E0F12; }
+
+@media (max-width:900px) {
+  .nav-desktop { display:none !important; }
+  .barra-mobile { display:flex !important; }
+  .cta-fila { flex-direction:column !important; align-items:stretch !important; }
+  .cta-fila .btn { text-align:center; width:100%; }
+  .hero-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  .fila-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  /* En mobile el texto va SIEMPRE antes que la imagen: anula el zig-zag */
+  .fila-texto { order:1 !important; }
+  .fila-visual { order:2 !important; }
+  .problema-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  .cruzados-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  .footer-grilla { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .subnav__rotulo { display:none; }
+  .subnav__pista { gap:20px; padding:0 20px; }
+  .subnav a { padding:13px 0; }
+  .tira-cards { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -20px; padding:0 20px 6px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+  .tira-cards::-webkit-scrollbar { display:none; }
+  .tira-cards > * { flex:0 0 72%; scroll-snap-align:start; }
+  .footer-grilla a { display:inline-flex; align-items:center; min-height:44px; }
+  /* Misma sombra y mismo radio que la home en celular */
+  .caja-img img { border-radius:22px; box-shadow:0 22px 50px rgba(14,15,18,0.18); }
+  .caso { padding:26px 22px 24px; }
+  .caso__cita { font-size:17px; }
+  .caso__comilla { font-size:64px; }
+}
+@media (max-width:560px) {
+  .footer-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  .tira-logos { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .tira-logos span { height:64px; }
+}
+</style>
+</head>
+<body>
+
+<div style="width:100%; background:#FAF7F4; font-family:'Figtree',sans-serif; color:#212227;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky; top:0; z-index:40; background:rgba(255,255,255,0.82); backdrop-filter:blur(14px); border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:14px clamp(20px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="index.html" aria-label="Woki — inicio" style="display:block; flex:none;"><img src="img/woki-b2b.svg" alt="Woki" style="height:26px; width:auto; display:block;"></a>
+
+      <nav class="nav-desktop" style="display:flex; align-items:center; gap:28px;" aria-label="Principal">
+        <div class="tiene-menu">
+          <a href="#" class="nav-link" style="display:flex; align-items:center; gap:5px;">Producto<span style="display:inline-block; width:7px; height:7px; border-right:1.6px solid #9A9AA1; border-bottom:1.6px solid #9A9AA1; transform:translateY(-2px) rotate(45deg);"></span></a>
+          <ul class="submenu">
+            <li><a href="operacion.html">Operación</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="hospitalidad.html" aria-current="page">Hospitalidad</a></li>
+            <li><a href="datos.html">Datos</a></li>
+          </ul>
+        </div>
+        <a href="#" class="nav-link">Pricing</a>
+        <a href="#" class="nav-link">Sobre nosotros</a>
+        <a href="#" class="nav-link">Ingresar</a>
+        <a href="index.html#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 18px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
+      </nav>
+
+      <div class="barra-mobile" style="display:none; align-items:center; gap:14px;">
+        <a href="index.html#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:14px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 16px; border-radius:12px; white-space:nowrap;">Agendá tu demo</a>
+        <button class="hamburguesa" type="button" aria-label="Abrir menú"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="inicio" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div class="hero-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(36px,4.5vw,60px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(360px,1fr) minmax(0,1.45fr); gap:clamp(28px,3vw,44px); align-items:center;">
+
+      <div style="display:flex; flex-direction:column; gap:18px; min-width:0;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#6B6C72;">
+          <a href="index.html">Producto</a>
+          <span style="color:#C9C4BC;">/</span>
+          <span style="color:#0066CC;">Hospitalidad</span>
+        </div>
+
+        <h1 style="font-family:'Mona Sans',sans-serif; font-size:clamp(36px,4.6vw,58px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; color:#212227; text-wrap:balance;">Hospitalidad potenciada con IA</h1>
+
+        <p style="font-size:clamp(17px,1.5vw,20px); line-height:1.5; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Utilizá todo lo que sabés sobre tus clientes para dar una atención personalizada y de calidad sin importar quién esté trabajando, logrando mayor fidelización y recurrencia de comensales.</p>
+
+        <div class="cta-fila" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:4px;">
+          <a href="index.html#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 28px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
+          <a href="#func-01" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#132F60; background:#FFFFFF; border:1px solid #132F60; padding:14px 26px; border-radius:14px; white-space:nowrap;">Ver las funcionalidades</a>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; min-width:0;">
+        <div class="caja-img"><picture>
+          <source media="(max-width:900px)" srcset="img/vp3-tarjeta-cliente-mobile.webp" width="1200" height="1400">
+          <img src="img/vp3-tarjeta-cliente.webp" width="1400" height="804" alt="Tarjeta de un cliente en Woki con sus etiquetas, sus visitas y su gasto promedio" loading="lazy">
+        </picture></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SUBNAV ============ -->
+  <div class="subnav" id="subnav">
+    <div class="subnav__pista">
+      <span class="subnav__rotulo">En esta página</span>
+      <a data-spy="func-01" href="#func-01">Ficha de cliente</a>
+      <a data-spy="func-02" href="#func-02">Brief Pre-Turno</a>
+      <a data-spy="func-03" href="#func-03">Etiquetas</a>
+      <a data-spy="func-04" href="#func-04">Encuestas</a>
+      <a data-spy="func-05" href="#func-05">Consumo</a>
+    </div>
+  </div>
+
+  <section id="func-01" data-feature="ficha-cliente" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div class="fila-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(340px,1fr) minmax(0,1.6fr); gap:clamp(28px,3vw,44px); align-items:center;">
+      <div class="fila-texto" style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Un perfil completo de cada comensal, sin cargarlo</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Cada visita genera información relevante que Woki carga automáticamente en el perfil del cliente y convierte, con IA, en señales importantes para tu equipo.</p>
+        <ul class="punteo">
+          <li>Visitas, frecuencia, última visita y gasto promedio</li>
+          <li>Resumen y etiquetas con IA de cada cliente</li>
+          <li>Sin duplicados ni información falsa</li>
+        </ul>
+      </div>
+      <div class="fila-visual" style="display:flex; flex-direction:column; min-width:0;">
+        <div class="caja-img"><img src="img/ficha-cliente-maria-garcia.webp" width="846" height="1104" alt="Ficha de cliente de Woki con los datos, las visitas y las preferencias de una comensal" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="func-02" data-feature="brief-pre-turno" style="background:#FAF7F4; border-bottom:1px solid #E8E3DD;">
+    <div class="fila-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
+      <div class="fila-texto" style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Brief detallado, sin esfuerzo</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Generá el brief del turno para conocer los clientes más importantes que van a asistir, las reservas con alergias y restricciones para la cocina y las notas internas del equipo.</p>
+        <ul class="punteo">
+          <li>Investigá clientes con IA</li>
+          <li>Convertí las notas del cliente en etiquetas</li>
+          <li>Compartilo por link con tu equipo</li>
+        </ul>
+      </div>
+      <div class="fila-visual" style="order:1; display:flex; flex-direction:column; min-width:0;">
+        <div class="caja-img"><img src="img/brief-preservicio-alto.png" width="820" height="824" alt="Brief Pre-Turno de Woki con la proyección del turno y los avisos críticos de cada mesa" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="func-03" data-feature="etiquetas-senales" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div class="fila-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(340px,1fr) minmax(0,1.6fr); gap:clamp(28px,3vw,44px); align-items:center;">
+      <div class="fila-texto" style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Etiquetas personalizables para clientes</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Creá etiquetas y asignalas a clientes para recordar información importante, destacar clientes VIP o relaciones relevantes con la marca.</p>
+        <ul class="punteo">
+          <li>Asignalas al cliente o a una reserva puntual</li>
+          <li>Definí color, texto y logo</li>
+        </ul>
+      </div>
+      <div class="fila-visual" style="display:flex; flex-direction:column; min-width:0;">
+        <div class="hueco">
+          <span class="hueco__rotulo">Captura pendiente</span>
+          <span class="hueco__spec">Biblioteca de etiquetas de un restaurante en Woki, con etiquetas de alergia, de cliente VIP y de relación con la marca, cada una con su color y su ícono.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="func-04" data-feature="encuestas-percepcion" style="background:#FAF7F4; border-bottom:1px solid #E8E3DD;">
+    <div class="fila-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
+      <div class="fila-texto" style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Conocé cómo te perciben tus clientes</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Personalizá encuestas que se envían después de la visita para conocer su percepción sobre la atención, tu nueva carta o cualquier otro aspecto de tu restaurante.</p>
+        <ul class="punteo">
+          <li>Encuestas estándar como NPS o CSAT</li>
+          <li>Woki crea informes de las respuestas</li>
+          <li>Definí qué tipo de respuesta buscás</li>
+        </ul>
+      </div>
+      <div class="fila-visual" style="order:1; display:flex; flex-direction:column; min-width:0;">
+        <div class="hueco">
+          <span class="hueco__rotulo">Captura pendiente</span>
+          <span class="hueco__spec">Informe de respuestas de una encuesta post visita en Woki, con el NPS del período graficado y las respuestas abiertas agrupadas por tema.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="func-05" data-feature="historial-consumo" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div class="fila-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(340px,1fr) minmax(0,1.6fr); gap:clamp(28px,3vw,44px); align-items:center;">
+      <div class="fila-texto" style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Ponele cara al consumo con tu POS</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Integrá Woki con tu POS para vincular el perfil de tus clientes con su consumo y sus preferencias, sin cargar la misma información en dos sistemas.</p>
+        <ul class="punteo">
+          <li>Qué platos y bebidas suele pedir</li>
+          <li>Gasto histórico y de cada visita</li>
+        </ul>
+      </div>
+      <div class="fila-visual" style="display:flex; flex-direction:column; min-width:0;">
+        <div class="tira-logos">
+          <span><img src="img/integracion-fudo.jpeg" width="170" height="170" alt="Logo de Fudo, sistema de punto de venta integrado con Woki" loading="lazy"></span>
+          <span><img src="img/integracion-maxirest.png" width="170" height="170" alt="Logo de Maxirest, sistema de punto de venta integrado con Woki" loading="lazy"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIOS (idénticos en las cuatro páginas) ============ -->
+  <section style="background:#FAF7F4; border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:clamp(24px,3.5vw,40px);">
+      <div style="display:flex; flex-direction:column; gap:14px; max-width:640px; min-width:0;">
+        <span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Clientes</span>
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.2vw,38px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Lo que dicen los que ya trabajan con Woki</h2>
+      </div>
+      <div class="cruzados-grilla" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; align-items:stretch;">
+        <article class="caso">
+          <div class="caso__top">
+            <span aria-hidden="true" class="caso__comilla">&#8220;</span>
+            <img src="img/logos/trescha.webp" width="260" height="68" alt="Logo de Trescha, restaurante cliente de Woki" loading="lazy" class="caso__logo">
+          </div>
+          <p class="caso__cita">Woki nos permite crear un brief detallado para preparar el servicio y dar siempre la mejor atención posible. Además tenemos un perfil personalizado para comunicar de forma clara nuestros eventos y las distintas experiencias.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Trescha</span>
+            <span class="caso__persona">Tomás Treschanski &middot; Chef y dueño</span>
+          </div>
+        </article>
+        <article class="caso">
+          <div class="caso__top">
+            <span aria-hidden="true" class="caso__comilla">&#8220;</span>
+            <img src="img/logos/fabric-sushi.webp" width="260" height="68" alt="Logo de Grupo Fabric, cliente de Woki" loading="lazy" class="caso__logo">
+          </div>
+          <p class="caso__cita">Cuando contratamos Woki fue para gestionar las reservas. Hoy en día lo usamos para campañas de marketing, generar informes y mantener una identidad de marca consistente en todos los locales.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Grupo Fabric</span>
+            <span class="caso__persona">Gaspard Hambuckers &middot; CEO</span>
+          </div>
+        </article>
+        <article class="caso">
+          <div class="caso__top">
+            <span aria-hidden="true" class="caso__comilla">&#8220;</span>
+            <img src="img/logos/gardiner.webp" width="260" height="68" alt="Logo de Gardiner, restaurante cliente de Woki" loading="lazy" class="caso__logo">
+          </div>
+          <p class="caso__cita">La mayoría de nuestros clientes son recurrentes. Woki nos permite recibir y atender de forma personalizada a cada reserva, conocer la fidelización y salud de nuestra base de comensales y hacer un seguimiento de nuestra reputación con las reseñas online.</p>
+          <div class="caso__pie">
+            <span class="caso__marca">Gardiner</span>
+            <span class="caso__persona">Lucas Brucco &middot; Dueño</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PUESTA EN MARCHA (idéntica en las cuatro páginas) ============ -->
+  <section style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:clamp(24px,3.5vw,40px);">
+      <div style="display:flex; flex-direction:column; gap:14px; max-width:640px; min-width:0;">
+        <span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Puesta en marcha</span>
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.2vw,38px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch; text-wrap:balance;">Empezá a trabajar con Woki sin esfuerzo</h2>
+      </div>
+      <div class="cruzados-grilla" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+        <div style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:26px 24px; display:flex; flex-direction:column; gap:10px; min-width:0;">
+          <h3 style="font-family:'Mona Sans',sans-serif; font-size:19px; line-height:1.2; letter-spacing:-0.01em; font-weight:600; color:#212227;">Conservá tu base de clientes</h3>
+          <p style="font-size:15px; line-height:1.55; color:#6B6C72;">Tu historial de reservas, tus clientes y sus respectivas etiquetas y comentarios se importan y se conservan.</p>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:26px 24px; display:flex; flex-direction:column; gap:10px; min-width:0;">
+          <h3 style="font-family:'Mona Sans',sans-serif; font-size:19px; line-height:1.2; letter-spacing:-0.01em; font-weight:600; color:#212227;">Capacitación personalizada</h3>
+          <p style="font-size:15px; line-height:1.55; color:#6B6C72;">Nos ocupamos de capacitar a todo tu equipo y de asegurar que Woki se adapte a la operativa de tu restaurante.</p>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:26px 24px; display:flex; flex-direction:column; gap:10px; min-width:0;">
+          <h3 style="font-family:'Mona Sans',sans-serif; font-size:19px; line-height:1.2; letter-spacing:-0.01em; font-weight:600; color:#212227;">Asistencia y soporte</h3>
+          <p style="font-size:15px; line-height:1.55; color:#6B6C72;">Canal directo con asesores, tanto en horario de oficina como durante el servicio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OTROS PILARES ============ -->
+  <section style="background:#FAF7F4; border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:24px;">
+      <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(24px,2.6vw,32px); line-height:1.15; letter-spacing:-0.01em; font-weight:600; color:#212227;">Conocé el resto del sistema</h2>
+      <div class="cruzados-grilla" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+        <a href="operacion.html" style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:9px;">
+          <span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Pilar</span>
+          <span style="font-family:'Mona Sans',sans-serif; font-size:22px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Operación</span>
+          <span style="font-size:15px; line-height:1.5; color:#6B6C72;">Reservas automáticas, políticas de no-show y todo el salón en una pantalla.</span>
+          <span style="margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#0066CC;">Ver el pilar &rarr;</span>
+        </a>
+        <a href="marketing.html" style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:9px;">
+          <span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Pilar</span>
+          <span style="font-family:'Mona Sans',sans-serif; font-size:22px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Marketing</span>
+          <span style="font-size:15px; line-height:1.5; color:#6B6C72;">Campañas y automatizaciones que le hablan a tu base y traen reservas medibles.</span>
+          <span style="margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#0066CC;">Ver el pilar &rarr;</span>
+        </a>
+        <a href="datos.html" style="background:#FFFFFF; border:1px solid #E8E3DD; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:9px;">
+          <span style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Pilar</span>
+          <span style="font-family:'Mona Sans',sans-serif; font-size:22px; font-weight:600; letter-spacing:-0.01em; color:#212227;">Datos</span>
+          <span style="font-size:15px; line-height:1.5; color:#6B6C72;">Ocupación, reseñas y campañas en un mismo lugar, con un diagnóstico mensual.</span>
+          <span style="margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#0066CC;">Ver el pilar &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIERRE (idéntico en las cuatro páginas) ============ -->
+  <section id="cierre" style="background:#FFFFFF; padding:clamp(36px,5vw,72px) clamp(20px,4vw,40px);">
+    <div style="max-width:1340px; margin:0 auto; background:linear-gradient(60deg, #202B3F 0%, #0066CC 100%); border-radius:32px; padding:clamp(40px,6vw,80px) clamp(24px,5vw,72px); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
+      <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,4vw,46px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; color:#FFFFFF; max-width:20ch; text-wrap:balance;">Convertí cada reserva en un cliente que vuelve</h2>
+      <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.5; color:#FFFFFF; max-width:56ch; text-wrap:pretty;">Descubrí en una demo de 30 minutos cómo podés mejorar la atención, automatizar las campañas de marketing y medir los resultados en tu restaurante.</p>
+      <div class="cta-fila" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:8px; width:100%; max-width:440px;">
+        <a href="index.html#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#132F60; background:#FFFFFF; padding:15px 30px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#FFFFFF; border-top:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(48px,6vw,72px) clamp(20px,4vw,40px) 28px;">
+
+      <div class="footer-grilla" style="display:grid; grid-template-columns:1.4fr repeat(4,minmax(0,1fr)); gap:clamp(24px,4vw,48px);">
+
+        <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start; min-width:0;">
+          <img src="img/woki-b2b.svg" alt="Woki" style="height:24px; width:auto; display:block; align-self:flex-start;">
+          <p style="font-size:14px; line-height:1.55; color:#6B6C72; max-width:34ch;">El sistema de hospitalidad que usan +1.500 restaurantes de Argentina y Chile.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Producto</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="operacion.html">Operación</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="hospitalidad.html" aria-current="page">Hospitalidad</a></li>
+            <li><a href="datos.html">Datos</a></li>
+            <li><a href="#">Planes y precios</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Empresa</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="#">Sobre Woki</a></li>
+            <li><a href="#">Casos de éxito</a></li>
+            <li><a href="#">Prensa</a></li>
+            <li><a href="#">Alianzas</a></li>
+            <li><a href="https://wokiapp.com">Woki para comensales</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Contacto</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="mailto:hola@wokiapp.com">hola@wokiapp.com</a></li>
+            <li><a href="index.html#cierre">Agendá tu demo</a></li>
+            <li><a href="#">Ingresar</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Seguinos</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top:clamp(32px,4vw,48px); padding-top:20px; border-top:1px solid #E8E3DD; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px;">
+        <span style="font-size:13px; color:#9A9AA1;">© 2026 Woki. Todos los derechos reservados.</span>
+        <div style="display:flex; flex-wrap:wrap; gap:20px; font-size:13px; color:#6B6C72;">
+          <a href="#">Política de privacidad</a>
+          <a href="#">Términos y condiciones</a>
+          <a href="#">Hola IA, conocé Woki</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
+
+<button id="toggle-pendientes" type="button">Ocultar pendientes</button>
+
+<script>
+/* El header cambia de alto entre mobile y escritorio: el subnav se pega a la medida real. */
+(function () {
+  var header = document.querySelector('header');
+  var subnav = document.getElementById('subnav');
+  if (!header || !subnav) return;
+  function medir() {
+    var raiz = document.documentElement.style;
+    raiz.setProperty('--alto-header', Math.round(header.getBoundingClientRect().height) + 'px');
+    raiz.setProperty('--alto-subnav', Math.round(subnav.getBoundingClientRect().height) + 'px');
+  }
+  medir();
+  window.addEventListener('resize', medir);
+})();
+
+/* Subnav: pinta la sección visible y arrastra el chip activo al centro de la fila. */
+(function () {
+  var subnav = document.getElementById('subnav');
+  if (!subnav) return;
+  var pista = subnav.querySelector('.subnav__pista');
+  var links = Array.prototype.slice.call(subnav.querySelectorAll('[data-spy]'));
+  if (!links.length) return;
+  var activo = null;
+
+  function pintar(id) {
+    if (id === activo) return;
+    activo = id;
+    links.forEach(function (a) {
+      var on = a.getAttribute('data-spy') === id;
+      a.style.color = on ? '#132F60' : '#3E3F45';
+      a.style.borderBottomColor = on ? '#0066CC' : 'transparent';
+      if (on && pista && pista.scrollWidth > pista.clientWidth + 4) {
+        pista.scrollTo({ left: Math.max(0, a.offsetLeft - (pista.clientWidth - a.offsetWidth) / 2), behavior: 'smooth' });
+      }
+    });
+  }
+
+  var secciones = links.map(function (a) { return document.getElementById(a.getAttribute('data-spy')); }).filter(Boolean);
+  if (!secciones.length) return;
+  var io = new IntersectionObserver(function (entradas) {
+    var visibles = entradas.filter(function (e) { return e.isIntersecting; })
+      .sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
+    if (visibles[0]) pintar(visibles[0].target.id);
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.2, 0.6, 1] });
+  secciones.forEach(function (s) { io.observe(s); });
+  pintar(links[0].getAttribute('data-spy'));
+})();
+
+/* Botón para revisar la página sin los marcadores de pendiente. */
+(function () {
+  var boton = document.getElementById('toggle-pendientes');
+  if (!boton) return;
+  boton.addEventListener('click', function () {
+    var apagado = document.documentElement.getAttribute('data-pendientes') === 'off';
+    document.documentElement.setAttribute('data-pendientes', apagado ? 'on' : 'off');
+    boton.textContent = apagado ? 'Ocultar pendientes' : 'Mostrar pendientes';
+  });
+})();
+</script>
+
+</body>
+</html>
