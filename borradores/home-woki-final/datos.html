@@ -26,7 +26,9 @@ img { max-width:100%; }
 .nav-link:hover { color:#132F60; }
 .tiene-menu { position:relative; }
 .submenu { position:absolute; top:100%; left:-16px; min-width:250px; padding:10px; margin-top:10px; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:16px; box-shadow:0 18px 40px rgba(14,15,18,0.12); opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .16s ease, transform .16s ease, visibility .16s; }
-.tiene-menu:hover .submenu, .tiene-menu:focus-within .submenu { opacity:1; visibility:visible; transform:translateY(0); }
+.tiene-menu:hover .submenu, .tiene-menu:focus-within .submenu, .tiene-menu.abierto .submenu { opacity:1; visibility:visible; transform:translateY(0); }
+/* "Producto" es un botón, no un link: no lleva a ningún lado, solo despliega el submenú. */
+.tiene-menu__boton { font-family:inherit; background:none; border:0; padding:0; cursor:pointer; }
 .submenu li a { display:block; padding:9px 12px; border-radius:10px; font-size:15px; color:#3E3F45; }
 .submenu li a:hover { background:#F4F7FC; color:#132F60; }
 .submenu li a[aria-current="page"] { background:#F4F7FC; color:#132F60; font-weight:600; }
@@ -114,12 +116,27 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
 .caso__persona { font-size:14px; color:#6B6C72; }
 
 /* ---- Mobile ---- */
-.hamburguesa { display:flex; flex-direction:column; gap:5px; padding:4px; background:none; border:0; cursor:pointer; }
-.hamburguesa span { display:block; width:22px; height:1.5px; background:#0E0F12; }
+.hamburguesa { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:38px; height:38px; padding:0; background:none; border:0; cursor:pointer; }
+.hamburguesa span { display:block; width:22px; height:1.5px; background:#0E0F12; transition:transform .18s ease; }
+.hamburguesa[aria-expanded="true"] span:first-child { transform:translateY(3.25px) rotate(45deg); }
+.hamburguesa[aria-expanded="true"] span:last-child { transform:translateY(-3.25px) rotate(-45deg); }
+/* Atajo a admin.wokiapp.com. En el menú de escritorio esto es el link "Ingresar";
+   en celular no entra una palabra más en la barra, así que va como ícono. */
+.icono-login { display:none; align-items:center; justify-content:center; width:38px; height:38px; color:#212227; }
+.icono-login:hover { color:#132F60; }
+/* Panel del menú de celular. Cuelga del header, que es sticky, así que baja con él. */
+.menu-mobile { display:none; border-top:1px solid #E8E3DD; background:#FFFFFF; }
+.menu-mobile__caja { max-width:1340px; margin:0 auto; padding:4px clamp(20px,4vw,40px) 18px; display:flex; flex-direction:column; }
+.menu-mobile__rotulo { padding:16px 0 2px; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1; }
+.menu-mobile a { display:flex; align-items:center; min-height:48px; font-size:17px; font-weight:500; color:#212227; border-bottom:1px solid #F1EDE8; }
+.menu-mobile a:last-child { border-bottom:0; }
 
 @media (max-width:900px) {
   .nav-desktop { display:none !important; }
   .barra-mobile { display:flex !important; }
+  .icono-login { display:inline-flex; }
+  .menu-mobile { display:block; }
+  .menu-mobile[hidden] { display:none; }
   .cta-fila { flex-direction:column !important; align-items:stretch !important; }
   .cta-fila .btn { text-align:center; width:100%; }
   .hero-grilla { grid-template-columns:minmax(0,1fr) !important; }
@@ -161,7 +178,7 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
 
       <nav class="nav-desktop" style="display:flex; align-items:center; gap:28px;" aria-label="Principal">
         <div class="tiene-menu">
-          <a href="/borradores/home-woki-final#pilar-1" class="nav-link" style="display:flex; align-items:center; gap:5px;">Producto<span style="display:inline-block; width:7px; height:7px; border-right:1.6px solid #9A9AA1; border-bottom:1.6px solid #9A9AA1; transform:translateY(-2px) rotate(45deg);"></span></a>
+          <button type="button" class="nav-link tiene-menu__boton" aria-expanded="false" style="display:flex; align-items:center; gap:5px;">Producto<span style="display:inline-block; width:7px; height:7px; border-right:1.6px solid #9A9AA1; border-bottom:1.6px solid #9A9AA1; transform:translateY(-2px) rotate(45deg);"></span></button>
           <ul class="submenu">
             <li><a href="/borradores/home-woki-final/operacion">Operación</a></li>
             <li><a href="/borradores/home-woki-final/marketing">Marketing</a></li>
@@ -169,17 +186,32 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
             <li><a href="/borradores/home-woki-final/datos" aria-current="page">Datos</a></li>
           </ul>
         </div>
-        <a href="https://restaurantes.wokiapp.com/precios" class="nav-link" target="_blank" rel="noopener">Pricing</a>
         <a href="https://restaurantes.wokiapp.com/nosotros/prensa" class="nav-link" target="_blank" rel="noopener">Sobre nosotros</a>
         <a href="https://admin.wokiapp.com" class="nav-link" target="_blank" rel="noopener">Ingresar</a>
         <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 18px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
       </nav>
 
-      <div class="barra-mobile" style="display:none; align-items:center; gap:14px;">
+      <div class="barra-mobile" style="display:none; align-items:center; gap:8px;">
         <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:14px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 16px; border-radius:12px; white-space:nowrap;">Agendá tu demo</a>
-        <button class="hamburguesa" type="button" aria-label="Abrir menú"><span></span><span></span></button>
+        <a href="https://admin.wokiapp.com" class="icono-login" target="_blank" rel="noopener" aria-label="Ingresar a Woki" title="Ingresar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-1.8a4.2 4.2 0 0 0-4.2-4.2H8.2A4.2 4.2 0 0 0 4 19.2V21"></path><circle cx="12" cy="7.2" r="4.2"></circle></svg>
+        </a>
+        <button class="hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-mobile"><span></span><span></span></button>
       </div>
     </div>
+
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menú" hidden>
+      <div class="menu-mobile__caja">
+        <span class="menu-mobile__rotulo">Producto</span>
+        <a href="/borradores/home-woki-final/operacion">Operación</a>
+        <a href="/borradores/home-woki-final/marketing">Marketing</a>
+        <a href="/borradores/home-woki-final/hospitalidad">Hospitalidad</a>
+        <a href="/borradores/home-woki-final/datos" aria-current="page">Datos</a>
+        <span class="menu-mobile__rotulo">Woki</span>
+        <a href="https://restaurantes.wokiapp.com/nosotros/prensa" target="_blank" rel="noopener">Sobre nosotros</a>
+        <a href="https://admin.wokiapp.com" target="_blank" rel="noopener">Ingresar</a>
+      </div>
+    </nav>
   </header>
 
   <!-- ============ HERO ============ -->
@@ -199,7 +231,6 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
 
         <div class="cta-fila" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:4px;">
           <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 28px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
-          <a href="#func-01" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#132F60; background:#FFFFFF; border:1px solid #132F60; padding:14px 26px; border-radius:14px; white-space:nowrap;">Ver las funcionalidades</a>
         </div>
       </div>
 
@@ -500,7 +531,6 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
             <li><a href="/borradores/home-woki-final/marketing">Marketing</a></li>
             <li><a href="/borradores/home-woki-final/hospitalidad">Hospitalidad</a></li>
             <li><a href="/borradores/home-woki-final/datos" aria-current="page">Datos</a></li>
-            <li><a href="https://restaurantes.wokiapp.com/precios" target="_blank" rel="noopener">Planes y precios</a></li>
           </ul>
         </div>
 
@@ -552,6 +582,50 @@ html[data-pendientes="off"] .falta { background:none; border-color:transparent; 
 <script src="https://js.hsforms.net/forms/embed/48425921.js" defer></script>
 
 <script>
+/* "Producto" del menú de escritorio: despliega el submenú en vez de navegar. */
+(function () {
+  var caja = document.querySelector('.tiene-menu');
+  if (!caja) return;
+  var boton = caja.querySelector('.tiene-menu__boton');
+  function abrir(si) {
+    caja.classList.toggle('abierto', si);
+    boton.setAttribute('aria-expanded', si ? 'true' : 'false');
+  }
+  boton.addEventListener('click', function (e) {
+    e.stopPropagation();
+    abrir(!caja.classList.contains('abierto'));
+  });
+  document.addEventListener('click', function (e) {
+    if (!caja.contains(e.target)) abrir(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') abrir(false);
+  });
+})();
+
+/* Menú de celular: abre y cierra el panel que cuelga del header. */
+(function () {
+  var boton = document.querySelector('.hamburguesa');
+  var panel = document.getElementById('menu-mobile');
+  if (!boton || !panel) return;
+  function abrir(si) {
+    panel.hidden = !si;
+    boton.setAttribute('aria-expanded', si ? 'true' : 'false');
+    boton.setAttribute('aria-label', si ? 'Cerrar menú' : 'Abrir menú');
+  }
+  abrir(false);
+  boton.addEventListener('click', function () { abrir(panel.hidden); });
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a')) abrir(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') abrir(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) abrir(false);
+  });
+})();
+
 /* El header cambia de alto entre mobile y escritorio: el subnav se pega a la medida real. */
 (function () {
   var header = document.querySelector('header');
