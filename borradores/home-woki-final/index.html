@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Woki | El sistema de hospitalidad para restaurantes</title>
-<meta name="description" content="Woki conecta reservas, base de clientes, herramientas de marketing y operación para que puedas brindar una mejor atención, hacer que más clientes vuelvan y entender qué pasa en tu restaurante.">
+<meta name="description" content="Woki es el sistema de hospitalidad que usan los mejores restaurantes para llenar más mesas, hacer que más clientes vuelvan y entender qué pasa en su salón.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preload" href="/borradores/home-woki-final/fonts/Figtree-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/borradores/home-woki-final/fonts/MonaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -17,6 +17,10 @@ html,body { margin:0; padding:0; background:#FAF7F4; color:#212227; font-family:
 h1,h2,h3,h4,p,ul { margin:0; }
 ul { padding:0; list-style:none; }
 a { color:inherit; text-decoration:none; }
+/* La barra de arriba es fija (69px). Sin esto, al saltar a un ancla desde el
+   menú "Producto" o desde "Recorré el producto" la barra tapa el arranque de
+   la sección. Se descuenta un poco más para que no quede pegado. */
+#inicio, #pilar-1, #pilar-2, #pilar-3, #pilar-4, #casos, #cierre { scroll-margin-top:69px; }
 
 /* ---- Nav ---- */
 .nav-link { font-size:15px; font-weight:500; color:#3E3F45; }
@@ -56,19 +60,25 @@ a { color:inherit; text-decoration:none; }
    siempre la proporción original de la foto. Si se fija el alto a mano, Chrome
    recorta el ancho pero NO devuelve el alto, y la imagen sale estirada. */
 @media (min-width:901px) {
-  .caja-img img { width:auto; height:auto; max-width:100%;
-    max-height:min(calc(100vh - 184px), 760px); }
-  /* El hero tiene más texto que los pilares (título, bajada y dos botones),
-     así que su imagen necesita ceder un poco de alto para entrar en la pantalla. */
-  #inicio .caja-img img { max-height:min(calc(100vh - 220px), 760px); }
-
-  /* ---- Una sección = una pantalla, también en computadora e iPad ----
-     min-height (y no height) para que si el texto creciera nunca se corte.
-     El contenido queda centrado verticalmente. */
-  #inicio, #pilar-1, #pilar-2, #pilar-3, #pilar-4 { display:flex; align-items:center; }
-  #inicio { min-height:calc(100vh - 69px); }
-  #pilar-1, #pilar-2, #pilar-3, #pilar-4 { min-height:100vh; }
-  .hero-grilla, .pilar-grilla { width:100%; }
+  /* ---- Por qué en computadora NO se fuerza "una sección = una pantalla" ----
+     Se intentó y no se puede sin que quede feo. Las fotos de escritorio son
+     4:3 (1600x1200). En una grilla de dos columnas la foto la limita el ancho
+     de SU columna (~720px), y a 720 de ancho el alto máximo posible es 540.
+     Como la pantalla útil ronda los 830, forzar min-height:100vh dejaba ~175px
+     de aire muerto repartido arriba y abajo: se leía como error de maquetación.
+     Las tres salidas eran: angostar tanto el texto que no entra, recortar la
+     foto con object-fit:cover (se pierde producto), o dejar que la sección mida
+     lo que mide su contenido. Se eligió la tercera y se compensa con padding
+     vertical generoso: cada sección ocupa ~80% de la pantalla y se asoma la
+     siguiente, que además invita a seguir scrolleando.
+     En celular esto NO aplica: ahí el arte es vertical (1200x1400) y ocupa todo
+     el ancho, así que sí llena la pantalla. Ese bloque sigue intacto más abajo. */
+  .hero-grilla { padding-top:clamp(44px,5vw,72px) !important;
+                 padding-bottom:clamp(44px,5vw,72px) !important; }
+  .pilar-grilla { padding-top:clamp(56px,6vw,88px) !important;
+                  padding-bottom:clamp(56px,6vw,88px) !important; }
+  /* Techo de alto para que en pantallas muy anchas la captura no se agigante. */
+  .caja-img img { width:auto; height:auto; max-width:100%; max-height:620px; }
 }
 
 /* ---- Testimonios ----
@@ -211,7 +221,7 @@ a { color:inherit; text-decoration:none; }
       <div style="display:flex; flex-direction:column; gap:20px; min-width:0;">
         <h1 style="font-family:'Mona Sans',sans-serif; font-size:clamp(40px,5.2vw,64px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; color:#212227; text-wrap:balance;">La reserva es solo el comienzo</h1>
 
-        <h2 style="font-family:'Figtree',sans-serif; font-size:clamp(17px,1.5vw,20px); line-height:1.5; font-weight:400; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Woki conecta reservas, base de clientes, herramientas de marketing y operación para que puedas brindar una mejor atención, hacer que más clientes vuelvan y entender qué pasa en tu restaurante</h2>
+        <h2 style="font-family:'Figtree',sans-serif; font-size:clamp(17px,1.5vw,20px); line-height:1.5; font-weight:400; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Woki es el sistema de hospitalidad que usan los mejores restaurantes para llenar más mesas, hacer que más clientes vuelvan y entender qué pasa en su salón.</h2>
 
         <div class="cta-fila" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:8px;">
           <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:17px; font-weight:600; color:#FFFFFF; background:#132F60; padding:15px 26px; border-radius:14px; white-space:nowrap;">Agendá una demo de 30 minutos</a>
@@ -232,7 +242,7 @@ a { color:inherit; text-decoration:none; }
   <!-- ============ BANNER DE LOGOS ============ -->
   <section style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
     <div style="padding:clamp(32px,4vw,48px) 0; display:flex; flex-direction:column; gap:22px; align-items:center;">
-      <p style="max-width:1340px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">El sistema de hospitalidad de los mejores restaurantes</p>
+      <p style="max-width:1340px; padding:0 clamp(20px,4vw,40px); font-size:14px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#6B6C72; text-align:center; text-wrap:balance;">+1.500 restaurantes de Argentina y Chile ya trabajan con Woki</p>
 
       <div class="marquesina" aria-label="Algunos restaurantes que usan Woki">
         <div class="marquesina__pista">
@@ -280,7 +290,7 @@ a { color:inherit; text-decoration:none; }
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Operación</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Maximizá la ocupación y simplificá cada servicio</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Aprovechá al máximo la capacidad de tu salón con IA y gestioná tus reservas con una interfaz eficiente para controlar, hacer cambios y recibir comensales durante el servicio.</p>
-        <a href="/borradores/home-woki-final/operacion" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Reservas y operación <span aria-hidden="true">&rarr;</span></a>
+        <a href="/borradores/home-woki-final/operacion" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver cómo se organiza cada servicio <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="caja-img"><picture>
         <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp1-guest-center-mobile.webp" width="1200" height="1400">
@@ -294,9 +304,9 @@ a { color:inherit; text-decoration:none; }
     <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Marketing</span>
-        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Hacé que tus clientes vuelvan más y tus canales conviertan mejor</h2>
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Hacé que tus clientes vuelvan y reserven directo</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Automatizá campañas personalizadas para hablarle al cliente indicado en el momento justo, comunicá en segundos tus eventos, experiencias y promociones, y descubrí las mejores audiencias con la ayuda de la IA.</p>
-        <a href="/borradores/home-woki-final/marketing" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Marketing y campañas <span aria-hidden="true">&rarr;</span></a>
+        <a href="/borradores/home-woki-final/marketing" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver cómo se automatizan las campañas <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="caja-img" style="order:1;"><picture>
         <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp2-automatizacion-mobile.webp" width="1200" height="1400">
@@ -312,7 +322,7 @@ a { color:inherit; text-decoration:none; }
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Hospitalidad</span>
         <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Brindá una atención personalizada y fidelizá a tus clientes</h2>
         <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Reconocé a tus clientes antes de que lleguen, con su información más importante en las etiquetas generadas con IA, y brindá una atención personalizada y de calidad para fidelizarlos, sin importar quién esté trabajando.</p>
-        <a href="/borradores/home-woki-final/hospitalidad" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Base de clientes <span aria-hidden="true">&rarr;</span></a>
+        <a href="/borradores/home-woki-final/hospitalidad" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver cómo se reconoce a cada cliente <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="caja-img"><picture>
         <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp3-tarjeta-cliente-mobile.webp" width="1200" height="1400">
@@ -326,9 +336,9 @@ a { color:inherit; text-decoration:none; }
     <div class="pilar-grilla" style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px); display:grid; grid-template-columns:minmax(0,1.6fr) minmax(340px,1fr); gap:clamp(28px,3vw,44px); align-items:center;">
       <div style="order:2; display:flex; flex-direction:column; gap:16px; min-width:0;">
         <span style="align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#0066CC;">Datos</span>
-        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Entendé qué pasa en tu restaurante y tomá mejores decisiones</h2>
-        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Usá el chatbot de Woki Copilot para analizar tu rendimiento operativo, de marketing, tus reseñas online y la fidelización de tus clientes, detectar oportunidades de mejora y tomar decisiones basadas en datos.</p>
-        <a href="/borradores/home-woki-final/datos" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver Métricas y reseñas <span aria-hidden="true">&rarr;</span></a>
+        <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,3.4vw,40px); line-height:1.1; letter-spacing:-0.02em; font-weight:600; color:#212227; max-width:22ch;">Entendé qué pasa y tomá mejores decisiones</h2>
+        <p style="font-size:17px; line-height:1.55; color:#3E3F45; max-width:48ch; text-wrap:pretty;">Preguntale a Woki Copilot por tu rendimiento operativo, de marketing, tus reseñas online y la fidelización de tus clientes, para detectar oportunidades de mejora y tomar decisiones basadas en datos.</p>
+        <a href="/borradores/home-woki-final/datos" class="link-sec" style="align-self:flex-start; margin-top:4px; font-family:'Mona Sans',sans-serif; font-size:16px; font-weight:600; color:#0066CC; display:inline-flex; align-items:center; gap:7px;">Ver qué vas a poder medir <span aria-hidden="true">&rarr;</span></a>
       </div>
       <div class="caja-img" style="order:1;"><picture>
         <source media="(max-width:900px)" srcset="/borradores/home-woki-final/img/vp4-diagnostico-mobile.webp" width="1200" height="1400">
