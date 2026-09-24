@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre nosotros | Woki</title>
+<meta name="description" content="Últimas apariciones de Woki en medios de comunicación: Ámbito, Forbes, La Nación, Infobae, iProfesional y más.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="/borradores/home-woki-final/fonts/Figtree-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/borradores/home-woki-final/fonts/MonaSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family:'Figtree'; src:url('/borradores/home-woki-final/fonts/Figtree-Variable.woff2') format('woff2-variations'); font-weight:300 900; font-display:swap; }
+@font-face { font-family:'Mona Sans'; src:url('/borradores/home-woki-final/fonts/MonaSans-Variable.woff2') format('woff2-variations'); font-weight:200 900; font-stretch:75% 125%; font-display:swap; }
+
+:root { --alto-header:69px; }
+*,*::before,*::after { box-sizing:border-box; }
+html,body { margin:0; padding:0; background:#FAF7F4; color:#212227; font-family:'Figtree',-apple-system,sans-serif; -webkit-font-smoothing:antialiased; scroll-behavior:smooth; }
+html { overflow-x:hidden; }
+h1,h2,h3,h4,p,ul { margin:0; }
+ul { padding:0; list-style:none; }
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; }
+
+/* ---- Nav ---- */
+.nav-link { font-size:15px; font-weight:500; color:#3E3F45; }
+.nav-link:hover { color:#132F60; }
+.nav-link[aria-current="page"] { color:#132F60; font-weight:600; }
+.tiene-menu { position:relative; }
+.submenu { position:absolute; top:100%; left:-16px; min-width:250px; padding:10px; margin-top:10px; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:16px; box-shadow:0 18px 40px rgba(14,15,18,0.12); opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .16s ease, transform .16s ease, visibility .16s; }
+.tiene-menu:hover .submenu, .tiene-menu:focus-within .submenu, .tiene-menu.abierto .submenu { opacity:1; visibility:visible; transform:translateY(0); }
+/* "Producto" es un botón, no un link: no lleva a ningún lado, solo despliega el submenú. */
+.tiene-menu__boton { font-family:inherit; background:none; border:0; padding:0; cursor:pointer; }
+.submenu li a { display:block; padding:9px 12px; border-radius:10px; font-size:15px; color:#3E3F45; }
+.submenu li a:hover { background:#F4F7FC; color:#132F60; }
+
+.btn:hover { filter:brightness(1.08); }
+
+/* ---- Grilla de notas de prensa ----
+   Cada tarjeta es un único link: el nombre accesible sale del contenido
+   (medio + fecha + título), así que no hace falta un aria-label aparte.
+   La caja del logo tiene alto fijo porque los medios tienen proporciones muy
+   distintas; sin eso las tarjetas de una misma fila arrancan desparejas. */
+.notas { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.nota { display:flex; flex-direction:column; gap:14px; background:#FFFFFF; border:1px solid #E8E3DD; border-radius:20px; padding:26px 24px 24px; box-shadow:0 12px 32px rgba(14,15,18,0.05); transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.nota:hover { transform:translateY(-3px); border-color:#D8D2CA; box-shadow:0 20px 44px rgba(14,15,18,0.10); }
+.nota:focus-visible { outline:2px solid #0066CC; outline-offset:3px; }
+.nota__medio { height:46px; display:flex; align-items:center; }
+
+/* ---- Tamaño óptico de los logos ----
+   Los logos de los medios tienen proporciones muy distintas: el de Noticias MDQ
+   es cuadrado y el de Circuito Gastronómico es once veces más ancho que alto.
+   Si a todos les damos el mismo alto, los cuadrados quedan enanos y los
+   alargados ocupan media tarjeta; si les damos el mismo ancho, pasa al revés.
+   La solución es darle a cada uno el alto que le corresponde según lo alargado
+   que sea, para que todos ocupen más o menos la misma superficie y se vean del
+   mismo tamaño. Cinco escalones, de más cuadrado a más ancho.
+
+   ⚠️ Esto solo funciona si el archivo viene recortado al ras. Varios logos
+   traían margen transparente adentro (el de La Nación era un cuadrado de
+   240×240 con el logo real de 180×86 en el medio, y por eso se veía chiquito).
+   Ya se recortaron; las copias originales quedaron en
+   4-recursos/archivo/logos-prensa-sin-recortar/.
+
+   El selector va por el nombre del archivo, así sigue funcionando cuando
+   publicar.py convierte las rutas en absolutas. Si se suma un logo nuevo:
+   recortalo al ras, dividí su ancho por su alto y metelo en el escalón que le
+   toque. */
+.nota__medio img { width:auto; height:32px; max-width:220px; object-fit:contain; object-position:left center; }
+
+/* 1) Cuadrados (ancho ÷ alto menor a 1,5) */
+.nota__medio img[src$="noticias-mdq.webp"] { height:44px; }
+
+/* 2) Poco alargados (1,5 a 2,5) */
+.nota__medio img[src$="sebarios.webp"],
+.nota__medio img[src$="la-nacion.webp"],
+.nota__medio img[src$="negocios-y-pymes.png"] { height:38px; }
+
+/* 3) Alargados (2,5 a 4,2) — es el alto por defecto de arriba:
+      fondo-de-olla, el-trece-cucinare, prensario-tila, bank-magazine,
+      ambito, forbes-argentina */
+
+/* 4) Muy alargados (4,2 a 6) */
+.nota__medio img[src$="infobae.svg"],
+.nota__medio img[src$="mass-negocios.webp"] { height:26px; }
+
+/* 5) Tiras finitas (más de 6) */
+.nota__medio img[src$="iprofesional.png"],
+.nota__medio img[src$="global-buenos-aires.png"],
+.nota__medio img[src$="circuito-gastronomico.webp"] { height:18px; }
+.nota__fecha { font-size:12px; font-weight:600; letter-spacing:0.06em; color:#9A9AA1; }
+.nota__titulo { font-family:'Mona Sans',sans-serif; font-size:19px; line-height:1.28; letter-spacing:-0.01em; font-weight:600; color:#212227; text-wrap:pretty; }
+.nota__cta { margin-top:auto; padding-top:18px; display:inline-flex; align-items:center; gap:7px; font-family:'Mona Sans',sans-serif; font-size:14px; font-weight:600; color:#0066CC; }
+.nota__cta svg { width:14px; height:14px; flex:none; transition:transform .18s ease; }
+.nota:hover .nota__cta svg { transform:translateX(3px); }
+
+/* ---- Formulario de HubSpot del cierre ----
+   Es el MISMO formulario que la home y que las páginas de pilar (portal 48425921,
+   form db50a227…). ⚠️ Es el embed ESTÁNDAR, no el "de desarrollador". El de
+   desarrollador manda el reCAPTCHA vacío, HubSpot descarta el lead en silencio y
+   el usuario igual ve el cartel de "¡Solicitud enviada!". Ya nos pasó una vez.
+   No cambiarlo. */
+.form-card { width:100%; max-width:560px; margin:10px auto 0; text-align:left; background:#FFFFFF; border-radius:22px; box-shadow:0 24px 60px rgba(14,15,18,0.22); padding:clamp(20px,3vw,32px); }
+.form-card .hs-form-frame { min-height:380px; }
+.form-card .hs-form-html { max-width:720px; margin-inline:auto; min-height:300px; }
+.form-card .hs-form-frame iframe { visibility:visible !important; min-height:inherit; display:block; }
+/* La barra de arriba es fija: sin esto, al saltar a #cierre desde cualquier
+   botón, el título del formulario queda tapado. */
+#cierre { scroll-margin-top:calc(var(--alto-header) + 8px); }
+
+/* ---- Mobile ---- */
+.hamburguesa { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:38px; height:38px; padding:0; background:none; border:0; cursor:pointer; }
+.hamburguesa span { display:block; width:22px; height:1.5px; background:#0E0F12; transition:transform .18s ease; }
+.hamburguesa[aria-expanded="true"] span:first-child { transform:translateY(3.25px) rotate(45deg); }
+.hamburguesa[aria-expanded="true"] span:last-child { transform:translateY(-3.25px) rotate(-45deg); }
+/* Atajo a admin.wokiapp.com. En el menú de escritorio esto es el link "Ingresar";
+   en celular no entra una palabra más en la barra, así que va como ícono. */
+.icono-login { display:none; align-items:center; justify-content:center; width:38px; height:38px; color:#212227; }
+.icono-login:hover { color:#132F60; }
+/* Panel del menú de celular. Cuelga del header, que es sticky, así que baja con él. */
+.menu-mobile { display:none; border-top:1px solid #E8E3DD; background:#FFFFFF; }
+.menu-mobile__caja { max-width:1340px; margin:0 auto; padding:4px clamp(20px,4vw,40px) 18px; display:flex; flex-direction:column; }
+.menu-mobile__rotulo { padding:16px 0 2px; font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1; }
+.menu-mobile a { display:flex; align-items:center; min-height:48px; font-size:17px; font-weight:500; color:#212227; border-bottom:1px solid #F1EDE8; }
+.menu-mobile a:last-child { border-bottom:0; }
+
+@media (max-width:900px) {
+  .nav-desktop { display:none !important; }
+  .barra-mobile { display:flex !important; }
+  .icono-login { display:inline-flex; }
+  .menu-mobile { display:block; }
+  .menu-mobile[hidden] { display:none; }
+  .notas { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .footer-grilla { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .footer-grilla a { display:inline-flex; align-items:center; min-height:44px; }
+}
+@media (max-width:560px) {
+  .footer-grilla { grid-template-columns:minmax(0,1fr) !important; }
+  .notas { grid-template-columns:minmax(0,1fr); }
+  .nota { padding:22px 20px 20px; }
+  .nota__titulo { font-size:18px; }
+}
+</style>
+</head>
+<body>
+
+<div style="width:100%; background:#FAF7F4; font-family:'Figtree',sans-serif; color:#212227;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky; top:0; z-index:40; background:rgba(255,255,255,0.82); backdrop-filter:blur(14px); border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:14px clamp(20px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="/borradores/home-woki-final" aria-label="Woki — inicio" style="display:block; flex:none;"><img src="/borradores/home-woki-final/img/woki-b2b.svg" alt="Woki" style="height:26px; width:auto; display:block;"></a>
+
+      <nav class="nav-desktop" style="display:flex; align-items:center; gap:28px;" aria-label="Principal">
+        <div class="tiene-menu">
+          <button type="button" class="nav-link tiene-menu__boton" aria-expanded="false" style="display:flex; align-items:center; gap:5px;">Producto<span style="display:inline-block; width:7px; height:7px; border-right:1.6px solid #9A9AA1; border-bottom:1.6px solid #9A9AA1; transform:translateY(-2px) rotate(45deg);"></span></button>
+          <ul class="submenu">
+            <li><a href="/borradores/home-woki-final/operacion">Operación</a></li>
+            <li><a href="/borradores/home-woki-final/marketing">Marketing</a></li>
+            <li><a href="/borradores/home-woki-final/hospitalidad">Hospitalidad</a></li>
+            <li><a href="/borradores/home-woki-final/datos">Datos</a></li>
+          </ul>
+        </div>
+        <a href="/borradores/home-woki-final/nosotros" class="nav-link" aria-current="page">Sobre nosotros</a>
+        <a href="https://admin.wokiapp.com" class="nav-link" target="_blank" rel="noopener">Ingresar</a>
+        <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:15px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 18px; border-radius:14px; white-space:nowrap;">Agendá tu demo</a>
+      </nav>
+
+      <div class="barra-mobile" style="display:none; align-items:center; gap:8px;">
+        <a href="#cierre" class="btn" style="font-family:'Mona Sans',sans-serif; font-size:14px; font-weight:600; color:#FFFFFF; background:#132F60; padding:10px 16px; border-radius:12px; white-space:nowrap;">Agendá tu demo</a>
+        <a href="https://admin.wokiapp.com" class="icono-login" target="_blank" rel="noopener" aria-label="Ingresar a Woki" title="Ingresar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-1.8a4.2 4.2 0 0 0-4.2-4.2H8.2A4.2 4.2 0 0 0 4 19.2V21"></path><circle cx="12" cy="7.2" r="4.2"></circle></svg>
+        </a>
+        <button class="hamburguesa" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-mobile"><span></span><span></span></button>
+      </div>
+    </div>
+
+    <nav id="menu-mobile" class="menu-mobile" aria-label="Menú" hidden>
+      <div class="menu-mobile__caja">
+        <span class="menu-mobile__rotulo">Producto</span>
+        <a href="/borradores/home-woki-final/operacion">Operación</a>
+        <a href="/borradores/home-woki-final/marketing">Marketing</a>
+        <a href="/borradores/home-woki-final/hospitalidad">Hospitalidad</a>
+        <a href="/borradores/home-woki-final/datos">Datos</a>
+        <span class="menu-mobile__rotulo">Woki</span>
+        <a href="/borradores/home-woki-final/nosotros" aria-current="page">Sobre nosotros</a>
+        <a href="https://admin.wokiapp.com" target="_blank" rel="noopener">Ingresar</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ ENCABEZADO ============ -->
+  <section id="inicio" style="background:#FFFFFF; border-bottom:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(36px,4.5vw,60px) clamp(20px,4vw,40px); display:flex; flex-direction:column; gap:18px;">
+
+      <div style="display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#6B6C72;">
+        <a href="/borradores/home-woki-final">Empresa</a>
+        <span style="color:#C9C4BC;">/</span>
+        <span style="color:#0066CC;">Prensa</span>
+      </div>
+
+      <h1 style="font-family:'Mona Sans',sans-serif; font-size:clamp(36px,4.6vw,58px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; color:#212227; text-wrap:balance;">Noticias sobre Woki</h1>
+
+      <p style="font-size:clamp(17px,1.5vw,20px); line-height:1.5; color:#3E3F45; max-width:52ch; text-wrap:pretty;">Últimas apariciones en medios de comunicación.</p>
+
+    </div>
+  </section>
+
+  <!-- ============ NOTAS ============ -->
+  <section id="notas" style="background:#FAF7F4;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(40px,5.5vw,72px) clamp(20px,4vw,40px);">
+      <h2 style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;">Notas publicadas</h2>
+
+      <div class="notas">
+
+        <a class="nota" href="https://www.ambito.com/negocios/noticias-empresas-n6050843#:~:text=Bigbox%20y%20Woki%20integran%20sus%20plataformas%20para%20conectar%20reservas%20y%20restaurantes" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/ambito.svg" alt="Ámbito" width="164" height="44" loading="eager"></span>
+          <span class="nota__fecha">16.09.2026</span>
+          <span class="nota__titulo">Bigbox y Woki integran sus plataformas para conectar reservas y restaurantes</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.iprofesional.com/negocios/463525-dos-ingenieros-nucleares-argentinos-crearon-startup-para-gastronomia" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/iprofesional.png" alt="iProfesional" width="480" height="49" loading="eager"></span>
+          <span class="nota__fecha">06.09.2026</span>
+          <span class="nota__titulo">Dos ingenieros nucleares argentinos crearon una startup para mejorar el negocio gastronómico</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.forbesargentina.com/negocios/del-balseiro-guia-michelin-startup-argentina-aplica-ia-mejores-restaurantes-potenciar-sus-ventas-n97040" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/forbes-argentina.svg" alt="Forbes Argentina" width="319" height="80" loading="eager"></span>
+          <span class="nota__fecha">03.09.2026</span>
+          <span class="nota__titulo">Del Balseiro a la Guía Michelin: la startup argentina que aplica IA en los mejores restaurantes para potenciar sus ventas</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.lanacion.com.ar/economia/la-startup-argentina-que-surgio-en-plena-pandemia-y-hoy-trabaja-con-mas-de-50-restaurantes-nid26082026/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/la-nacion.webp" alt="La Nación" width="180" height="86" loading="eager"></span>
+          <span class="nota__fecha">26.08.2026</span>
+          <span class="nota__titulo">La startup argentina que surgió en plena pandemia y hoy trabaja con más de 50 restaurantes distinguidos por la Guía Michelin y The World’s 50 Best</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://globalbuenosaires.com.ar/revolucion-en-la-gastronomia-bigbox-y-woki-integran-sus-plataformas-para-automatizar-la-gestion-de-reservas-en-restaurantes/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/global-buenos-aires.png" alt="Global Buenos Aires" width="727" height="70" loading="eager"></span>
+          <span class="nota__fecha">21.08.2026</span>
+          <span class="nota__titulo">Bigbox y Woki integran sus plataformas para automatizar la gestión de reservas en restaurantes</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.infobae.com/tendencias/2026/08/10/innovacion-en-gastronomia-como-es-el-sistema-de-hospitalidad-que-gana-espacio-en-los-restaurantes-de-la-region/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/infobae.svg" alt="Infobae" width="240" height="57" loading="eager"></span>
+          <span class="nota__fecha">10.08.2026</span>
+          <span class="nota__titulo">Innovación en gastronomía: cómo es el sistema de hospitalidad que gana espacio en los restaurantes de la región</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://prensariotila.com/woki-busca-transformar-la-gestion-gastronomica-con-ia/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/prensario-tila.png" alt="Prensario TI Latin America" width="475" height="158" loading="lazy"></span>
+          <span class="nota__fecha">07.08.2026</span>
+          <span class="nota__titulo">Woki busca transformar la gestión gastronómica con IA</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.negociosypymes.com/primer-sistema-de-hospitalidad-para-restaurantes/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/negocios-y-pymes.png" alt="Negocios y Pymes" width="155" height="67" loading="lazy"></span>
+          <span class="nota__fecha">06.08.2026</span>
+          <span class="nota__titulo">Primer sistema de hospitalidad para restaurantes</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://massnegocios.com/el-proximo-salto-del-enoturismo-no-esta-en-sumar-experiencias-sino-en-gestionar-la-hospitalidad-de-principio-a-fin/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/mass-negocios.webp" alt="Mass Negocios" width="240" height="46" loading="lazy"></span>
+          <span class="nota__fecha">04.08.2026</span>
+          <span class="nota__titulo">El próximo salto del enoturismo no está en sumar experiencias, sino en gestionar la hospitalidad de principio a fin</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://bankmagazine.com.ar/woki/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/bank-magazine.webp" alt="Bank Magazine" width="240" height="74" loading="lazy"></span>
+          <span class="nota__fecha">03.08.2026</span>
+          <span class="nota__titulo">Woki, el primer sistema de hospitalidad para restaurantes</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.fondodeolla.com/nota/20170-woki-volvio-a-gestionar-las-reservas-en-anchoita/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/fondo-de-olla.webp" alt="Fondo de Olla" width="234" height="83" loading="lazy"></span>
+          <span class="nota__fecha">31.12.2025</span>
+          <span class="nota__titulo">WOKI volvió a gestionar las reservas en Anchoíta</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://circuitogastronomico.com/premios-los-mejores-restaurantes-de-cordoba-woki-se-une-como-sponsor-principal/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/circuito-gastronomico.webp" alt="Circuito Gastronómico" width="222" height="19" loading="lazy"></span>
+          <span class="nota__fecha">09.04.2025</span>
+          <span class="nota__titulo">Premios Los Mejores Restaurantes de Córdoba: Woki se une como sponsor principal</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://circuitogastronomico.com/la-plataforma-de-reservas-mas-top-de-buenos-aires-llego-a-cordoba/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/circuito-gastronomico.webp" alt="Circuito Gastronómico" width="222" height="19" loading="lazy"></span>
+          <span class="nota__fecha">07.02.2025</span>
+          <span class="nota__titulo">La plataforma de reservas más top de Buenos Aires llegó a Córdoba</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://sebarios.com.ar/anchoita-2025-como-se-transformo-el-caos-en-exito/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/sebarios.webp" alt="Seba Ríos" width="240" height="129" loading="lazy"></span>
+          <span class="nota__fecha">10.01.2025</span>
+          <span class="nota__titulo">Anchoita 2025: cómo se transformó el caos en éxito</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.fondodeolla.com/nota/19410-el-desafio-de-reservar-en-anchoita/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/fondo-de-olla.webp" alt="Fondo de Olla" width="234" height="83" loading="lazy"></span>
+          <span class="nota__fecha">02.01.2025</span>
+          <span class="nota__titulo">El desafío de reservar en Anchoíta</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.eltrecetv.com.ar/cucinare/2024/12/30/el-furor-por-conseguir-una-mesa-en-anchoita-reservas-agotadas-para-todo-el-ano-en-apenas-unas-horas/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/el-trece-cucinare.webp" alt="El Trece — Cucinare" width="233" height="82" loading="lazy"></span>
+          <span class="nota__fecha">30.12.2024</span>
+          <span class="nota__titulo">El furor por conseguir una mesa en Anchoíta: reservas agotadas para todo el año en apenas unas horas</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://www.lanacion.com.ar/sabado/ocho-horas-de-cola-virtual-un-restaurante-porteno-con-la-convocatoria-de-taylor-swift-o-lali-nid27122024/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/la-nacion.webp" alt="La Nación" width="180" height="86" loading="lazy"></span>
+          <span class="nota__fecha">29.12.2024</span>
+          <span class="nota__titulo">Ocho horas de cola virtual. Un restaurante porteño con la convocatoria de Taylor Swift o Lali Esposito</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://noticiasmdq.com/la-batalla-epica-por-anchoita-como-woki-logro-dominar-el-caos-y-transformarlo-en-exito/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/noticias-mdq.webp" alt="Noticias MDQ" width="125" height="126" loading="lazy"></span>
+          <span class="nota__fecha">29.12.2024</span>
+          <span class="nota__titulo">¡La Batalla épica por Anchoíta! Cómo Woki logró dominar el caos y transformarlo en éxito</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://circuitogastronomico.com/woki-el-nuevo-airbnb-de-los-restaurantes/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/circuito-gastronomico.webp" alt="Circuito Gastronómico" width="222" height="19" loading="lazy"></span>
+          <span class="nota__fecha">27.12.2024</span>
+          <span class="nota__titulo">Woki: el nuevo «Airbnb» de los restaurantes</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <a class="nota" href="https://sebarios.com.ar/woki/" target="_blank" rel="noopener">
+          <span class="nota__medio"><img src="/borradores/home-woki-final/img/prensa/sebarios.webp" alt="Seba Ríos" width="240" height="129" loading="lazy"></span>
+          <span class="nota__fecha">06.12.2024</span>
+          <span class="nota__titulo">Woki es un sistema de reservas que reúne toda la oferta gastronómica en un solo lugar</span>
+          <span class="nota__cta">Leer nota
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIERRE (idéntico en las páginas de pilar) ============ -->
+  <section id="cierre" style="background:#FFFFFF; padding:clamp(36px,5vw,72px) clamp(20px,4vw,40px);">
+    <div style="max-width:1340px; margin:0 auto; background:linear-gradient(60deg, #202B3F 0%, #0066CC 100%); border-radius:32px; padding:clamp(40px,6vw,80px) clamp(24px,5vw,72px); display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center;">
+      <h2 style="font-family:'Mona Sans',sans-serif; font-size:clamp(28px,4vw,46px); line-height:1.08; letter-spacing:-0.02em; font-weight:600; color:#FFFFFF; max-width:20ch; text-wrap:balance;">Convertí cada reserva en un cliente que vuelve</h2>
+      <p style="font-size:clamp(16px,1.4vw,19px); line-height:1.5; color:#FFFFFF; max-width:56ch; text-wrap:pretty;">Descubrí en una demo de 30 minutos cómo podés mejorar la atención, automatizar las campañas de marketing y medir los resultados en tu restaurante.</p>
+      <div class="form-card">
+        <div class="hs-form-frame"
+             data-region="na1"
+             data-form-id="db50a227-13fe-4066-a6de-c2c76f5a93dc"
+             data-portal-id="48425921"></div>
+      </div>
+      <noscript>
+        <p style="font-size:15px; color:#FFFFFF;">Para completar el formulario necesitás tener JavaScript activado. También podés escribirnos a <a href="mailto:hola@wokiapp.com" style="text-decoration:underline;">hola@wokiapp.com</a>.</p>
+      </noscript>
+
+      <p style="font-size:14px; color:#FFFFFF; opacity:0.85; margin-top:4px;">Te escribimos dentro de las 24 horas hábiles.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#FFFFFF; border-top:1px solid #E8E3DD;">
+    <div style="max-width:1340px; margin:0 auto; padding:clamp(48px,6vw,72px) clamp(20px,4vw,40px) 28px;">
+
+      <div class="footer-grilla" style="display:grid; grid-template-columns:1.4fr repeat(4,minmax(0,1fr)); gap:clamp(24px,4vw,48px);">
+
+        <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start; min-width:0;">
+          <img src="/borradores/home-woki-final/img/woki-b2b.svg" alt="Woki" style="height:24px; width:auto; display:block; align-self:flex-start;">
+          <p style="font-size:14px; line-height:1.55; color:#6B6C72; max-width:34ch;">El sistema de hospitalidad que usan +1.500 restaurantes de Argentina y Chile.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Producto</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="/borradores/home-woki-final/operacion">Operación</a></li>
+            <li><a href="/borradores/home-woki-final/marketing">Marketing</a></li>
+            <li><a href="/borradores/home-woki-final/hospitalidad">Hospitalidad</a></li>
+            <li><a href="/borradores/home-woki-final/datos">Datos</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Empresa</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="/borradores/home-woki-final/nosotros" aria-current="page">Sobre Woki</a></li>
+            <li><a href="/borradores/home-woki-final#casos">Casos de éxito</a></li>
+            <li><a href="/borradores/home-woki-final/nosotros">Prensa</a></li>
+            <li><a href="https://restaurantes.wokiapp.com/bigbox" target="_blank" rel="noopener">Alianzas</a></li>
+            <li><a href="https://wokiapp.com" target="_blank" rel="noopener">Woki para comensales</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Contacto</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="mailto:hola@wokiapp.com">hola@wokiapp.com</a></li>
+            <li><a href="#cierre">Agendá tu demo</a></li>
+            <li><a href="https://admin.wokiapp.com" target="_blank" rel="noopener">Ingresar</a></li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+          <span style="font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#9A9AA1;">Seguinos</span>
+          <ul style="display:flex; flex-direction:column; gap:9px; font-size:14px; color:#3E3F45;">
+            <li><a href="https://www.instagram.com/wokiapp" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/company/wokiapp" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top:clamp(32px,4vw,48px); padding-top:20px; border-top:1px solid #E8E3DD; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 24px;">
+        <span style="font-size:13px; color:#9A9AA1;">© 2026 Woki. Todos los derechos reservados.</span>
+        <div style="display:flex; flex-wrap:wrap; gap:20px; font-size:13px; color:#6B6C72;">
+          <a href="https://pyp.woki.ar/" target="_blank" rel="noopener">Política de privacidad</a>
+          <a href="https://tyc.woki.ar/" target="_blank" rel="noopener">Términos y condiciones</a>
+          <a href="https://restaurantes.wokiapp.com/llms.txt">Hola IA, conocé Woki</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</div>
+
+
+<script src="https://js.hsforms.net/forms/embed/48425921.js" defer></script>
+
+<!-- Código de seguimiento de HubSpot (el mismo que usa restaurantes.wokiapp.com).
+     Sin esto el formulario se manda sin la cookie de HubSpot: el envío llega
+     "anónimo", sin origen ni URL de procedencia, y no se puede saber que salió
+     de esta página.
+
+     El mismo script es el que enciende la burbuja de chat. Acá no la queremos,
+     así que antes de cargarlo le avisamos que no levante el chat solo. El
+     seguimiento sigue funcionando igual; lo único que queda apagado es el chat.
+     Se hace desde esta página para no tocar la configuración de HubSpot, que es
+     compartida con restaurantes.wokiapp.com. -->
+<script>window.hsConversationsSettings = { loadImmediately: false };</script>
+<script id="hs-script-loader" async defer src="https://js.hs-scripts.com/48425921.js"></script>
+
+<script>
+/* "Producto" del menú de escritorio: despliega el submenú en vez de navegar. */
+(function () {
+  var caja = document.querySelector('.tiene-menu');
+  if (!caja) return;
+  var boton = caja.querySelector('.tiene-menu__boton');
+  function abrir(si) {
+    caja.classList.toggle('abierto', si);
+    boton.setAttribute('aria-expanded', si ? 'true' : 'false');
+  }
+  boton.addEventListener('click', function (e) {
+    e.stopPropagation();
+    abrir(!caja.classList.contains('abierto'));
+  });
+  document.addEventListener('click', function (e) {
+    if (!caja.contains(e.target)) abrir(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') abrir(false);
+  });
+})();
+
+/* Menú de celular: abre y cierra el panel que cuelga del header. */
+(function () {
+  var boton = document.querySelector('.hamburguesa');
+  var panel = document.getElementById('menu-mobile');
+  if (!boton || !panel) return;
+  function abrir(si) {
+    panel.hidden = !si;
+    boton.setAttribute('aria-expanded', si ? 'true' : 'false');
+    boton.setAttribute('aria-label', si ? 'Cerrar menú' : 'Abrir menú');
+  }
+  abrir(false);
+  boton.addEventListener('click', function () { abrir(panel.hidden); });
+  panel.addEventListener('click', function (e) {
+    if (e.target.closest('a')) abrir(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') abrir(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) abrir(false);
+  });
+})();
+
+/* El formulario de HubSpot vive en un iframe que se va achicando y agrandando
+   solo mientras carga. Sin esto la tarjeta blanca pega saltos feos. Copiamos el
+   alto que HubSpot escribe y lo fijamos como mínimo, así nunca encoge. Es el
+   mismo bloque que está en la home y en las páginas de pilar. */
+(function () {
+  var cajaForm = document.querySelector('.form-card .hs-form-frame');
+  if (!cajaForm || !window.MutationObserver) return;
+  var ultimoAlto = null;
+  new MutationObserver(function () {
+    var alto = parseFloat(cajaForm.style.height);
+    if (!(alto > 60)) return;
+    var px = Math.ceil(alto) + 'px';
+    if (px === ultimoAlto) return;
+    ultimoAlto = px;
+    cajaForm.style.minHeight = px;
+  }).observe(cajaForm, { attributes: true, attributeFilter: ['style'] });
+})();
+</script>
+
+</body>
+</html>
